@@ -1,0 +1,24 @@
+
+State Machine - |testtop|mpu6050_controller:my_accel|saved_state
+Name saved_state.STOP saved_state.READ_DATA saved_state.RESTART saved_state.WR_REG_DATA saved_state.IDLE saved_state.WR_REG_ADDR 
+saved_state.IDLE 0 0 0 0 0 0 
+saved_state.WR_REG_ADDR 0 0 0 0 1 1 
+saved_state.WR_REG_DATA 0 0 0 1 1 0 
+saved_state.RESTART 0 0 1 0 1 0 
+saved_state.READ_DATA 0 1 0 0 1 0 
+saved_state.STOP 1 0 0 0 1 0 
+
+State Machine - |testtop|mpu6050_controller:my_accel|state
+Name state.WAIT_CONFIG state.STOP state.ACK_SEND state.READ_DATA state.RD_DEV_ADDR state.RESTART state.ACK_CHECK state.WR_REG_DATA state.WR_REG_ADDR state.WR_DEV_ADDR state.START state.IDLE 
+state.IDLE 0 0 0 0 0 0 0 0 0 0 0 0 
+state.START 0 0 0 0 0 0 0 0 0 0 1 1 
+state.WR_DEV_ADDR 0 0 0 0 0 0 0 0 0 1 0 1 
+state.WR_REG_ADDR 0 0 0 0 0 0 0 0 1 0 0 1 
+state.WR_REG_DATA 0 0 0 0 0 0 0 1 0 0 0 1 
+state.ACK_CHECK 0 0 0 0 0 0 1 0 0 0 0 1 
+state.RESTART 0 0 0 0 0 1 0 0 0 0 0 1 
+state.RD_DEV_ADDR 0 0 0 0 1 0 0 0 0 0 0 1 
+state.READ_DATA 0 0 0 1 0 0 0 0 0 0 0 1 
+state.ACK_SEND 0 0 1 0 0 0 0 0 0 0 0 1 
+state.STOP 0 1 0 0 0 0 0 0 0 0 0 1 
+state.WAIT_CONFIG 1 0 0 0 0 0 0 0 0 0 0 1 
