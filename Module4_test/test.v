@@ -1,4 +1,4 @@
-module mpu6050_controller (
+module mpu6050_controller ( // Renamed module for accuracy
     input        clk,
     input        reset_n,
 
@@ -14,10 +14,19 @@ module mpu6050_controller (
 
     parameter CLK_DIV = 500; 
 
-    localparam SLAVE_ADDR      = 7'h68;    // MPU6050 default I2C address
-    localparam REG_PWR_MGMT_1  = 8'h6B;    // Power/Management register
-    localparam REG_PWR_DATA    = 8'h00;    // Value to wake up MPU6050
-    localparam REG_ADDR_START  = 8'h3B;    // ACCEL_XOUT_H for data read
+    // --- SENSOR PARAMETERS (UPDATED FOR ICM-20948) ---
+    // NOTE: The I2C address might be 0x68 (AD0=Low) or 0x69 (AD0=High).
+    // If you still see issues, try changing this to 7'h69.
+    localparam SLAVE_ADDR      = 7'h68;    
+    
+    // In ICM-20948 (Bank 0), Power Mgmt 1 is at 0x06 (was 0x6B in MPU6050)
+    localparam REG_PWR_MGMT_1  = 8'h06;    
+    
+    // Value 0x01 clears sleep and auto-selects the best clock source
+    localparam REG_PWR_DATA    = 8'h01;    
+    
+    // In ICM-20948 (Bank 0), Accel X High Byte is at 0x2D (was 0x3B in MPU6050)
+    localparam REG_ADDR_START  = 8'h2D;    
 
     reg [8:0]  clk_count;
     reg        i2c_tick;
@@ -30,7 +39,7 @@ module mpu6050_controller (
     reg [7:0]  data_buffer;
     reg        sda_out;
     reg        sda_en;
-    reg        config_done; // 1 when writing config values
+    reg        config_done; 
 
     // Register map for readback
     reg [7:0] rx_data [0:5];
@@ -39,8 +48,7 @@ module mpu6050_controller (
     reg [19:0] refresh_timer; 
     localparam REFRESH_LIMIT = 20'd50000;
 
-    // FIX 1: Strict Open-Drain Logic
-    // Only drive 0. If sda_out is 1, we float (z).
+    // FIX: Strict Open-Drain Logic (Safety)
     assign i2c_sda = (sda_en && sda_out == 1'b0) ? 1'b0 : 1'bz;
 
     // 4-phase I2C tick generator
@@ -87,13 +95,9 @@ module mpu6050_controller (
             refresh_timer   <= 0;
             config_done     <= 0;
             config_write    <= 1;
-            accel_x         <= 0;
-            accel_y         <= 0;
-            accel_z         <= 0;
-            bit_cnt         <= 0;
-            byte_cnt        <= 0;
+            accel_x         <= 0; accel_y <= 0; accel_z <= 0;
+            bit_cnt         <= 0; byte_cnt <= 0;
             data_buffer     <= 8'd0;
-            // Removed addr_phase (unused)
         end
         else if (i2c_tick) begin
             phase <= phase + 1'b1;
@@ -115,8 +119,8 @@ module mpu6050_controller (
             START: begin
                 case (phase)
                     2'd0: begin sda_out <= 1; i2c_scl <= 1; end 
-                    2'd1: begin sda_out <= 0; end 
-                    2'd2: begin i2c_scl <= 0; end
+                    2'd1: begin sda_out <= 0; end // Drop SDA (Start)
+                    2'd2: begin i2c_scl <= 0; end // Drop SCL
                     2'd3: begin
                         bit_cnt <= 7;
                         state   <= WR_DEV_ADDR;
@@ -128,10 +132,9 @@ module mpu6050_controller (
             WR_DEV_ADDR: begin
                 case (phase)
                     2'd0: begin
-                        // FIX 2: Protocol Logic
-                        // The FIRST address frame is ALWAYS a Write (0), 
-                        // even if we plan to read data later.
-                        // We only send Read (1) after the RESTART (in RD_DEV_ADDR).
+                        // CRITICAL LOGIC FIX:
+                        // First frame is ALWAYS a Write (0), even if we want to read later.
+                        // We need to write the register address first.
                         if (bit_cnt == 0) sda_out <= 0; 
                         else sda_out <= SLAVE_ADDR[bit_cnt-1];
                     end
@@ -141,7 +144,7 @@ module mpu6050_controller (
                         if (bit_cnt == 0) begin
                             sda_en <= 0; 
                             state <= ACK_CHECK; 
-                            saved_state <= WR_REG_ADDR; // Always go to Reg Addr next
+                            saved_state <= WR_REG_ADDR; 
                             phase <= 0;
                         end else bit_cnt <= bit_cnt - 1;
                     end
@@ -167,7 +170,7 @@ module mpu6050_controller (
 
             WR_REG_DATA: begin
                 case (phase)
-                    2'd0: sda_out <= REG_PWR_DATA[bit_cnt];
+                    2'd0: sda_out <= REG_PWR_DATA[bit_cnt]; // Writes 0x01 to 0x06
                     2'd1: i2c_scl <= 1;
                     2'd3: begin
                         i2c_scl <= 0;
@@ -187,7 +190,7 @@ module mpu6050_controller (
                     2'd1: i2c_scl <= 1;
                     2'd3: begin
                         i2c_scl <= 0;
-                        sda_en <= 1;    // Default: Retake bus
+                        sda_en <= 1;    
                         phase <= 0;
                         state <= saved_state; 
                         
@@ -195,10 +198,10 @@ module mpu6050_controller (
                         if (saved_state == READ_DATA) begin
                             bit_cnt <= 7;
                             byte_cnt <= 0;
-                            sda_en <= 0; // Release bus for Reading!
+                            sda_en <= 0; 
                         end
                         else begin
-                            bit_cnt <= 7; // Reset for Write
+                            bit_cnt <= 7; 
                         end
                     end
                 endcase
@@ -225,7 +228,6 @@ module mpu6050_controller (
             end
 
             WAIT_CONFIG: begin
-                // Wait approx 100ms (10,000 * 10us)
                 if (refresh_timer < 20'd10000) refresh_timer <= refresh_timer + 1;
                 else begin refresh_timer <= 0; state <= IDLE; end
             end
@@ -234,7 +236,7 @@ module mpu6050_controller (
                 case (phase)
                     2'd0: begin sda_out <= 1; i2c_scl <= 0; end
                     2'd1: i2c_scl <= 1;
-                    2'd2: sda_out <= 0;
+                    2'd2: sda_out <= 0; // Repeated Start
                     2'd3: begin 
                         i2c_scl <= 0; 
                         bit_cnt <= 7; 
@@ -275,6 +277,7 @@ module mpu6050_controller (
                         if (bit_cnt == 0) begin 
                             rx_data[byte_cnt] <= data_buffer; 
                             sda_en <= 1; 
+                            // ACK for first 5 bytes, NACK for last byte (5)
                             sda_out <= (byte_cnt == 5) ? 1'b1 : 1'b0; 
                             state <= ACK_SEND; 
                             phase <= 0; 

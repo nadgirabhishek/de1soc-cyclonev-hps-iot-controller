@@ -1,5 +1,5 @@
 Fitter report for test
-Tue Nov 25 20:03:31 2025
+Thu Nov 27 15:25:10 2025
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -64,7 +64,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Fitter Summary                                                                ;
 +---------------------------------+---------------------------------------------+
-; Fitter Status                   ; Successful - Tue Nov 25 20:03:31 2025       ;
+; Fitter Status                   ; Successful - Thu Nov 27 15:25:10 2025       ;
 ; Quartus Prime Version           ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                   ; test                                        ;
 ; Top-level Entity Name           ; testtop                                     ;
@@ -72,7 +72,7 @@ refer to the applicable agreement for further details.
 ; Device                          ; 5CSEMA5F31C6                                ;
 ; Timing Models                   ; Final                                       ;
 ; Logic utilization (in ALMs)     ; 104 / 32,070 ( < 1 % )                      ;
-; Total registers                 ; 178                                         ;
+; Total registers                 ; 181                                         ;
 ; Total pins                      ; 59 / 457 ( 13 % )                           ;
 ; Total virtual pins              ; 0                                           ;
 ; Total block memory bits         ; 0 / 4,065,280 ( 0 % )                       ;
@@ -154,17 +154,17 @@ refer to the applicable agreement for further details.
 ; Number detected on machine ; 12          ;
 ; Maximum allowed            ; 10          ;
 ;                            ;             ;
-; Average used               ; 1.04        ;
+; Average used               ; 1.03        ;
 ; Maximum used               ; 10          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
 ;     Processor 2            ;   0.5%      ;
-;     Processor 3            ;   0.5%      ;
+;     Processor 3            ;   0.4%      ;
 ;     Processor 4            ;   0.4%      ;
 ;     Processor 5            ;   0.4%      ;
 ;     Processor 6            ;   0.4%      ;
-;     Processor 7            ;   0.4%      ;
+;     Processor 7            ;   0.3%      ;
 ;     Processor 8            ;   0.3%      ;
 ;     Processor 9            ;   0.3%      ;
 ;     Processor 10           ;   0.3%      ;
@@ -177,26 +177,22 @@ refer to the applicable agreement for further details.
 ; Node                                          ; Action     ; Operation                                         ; Reason                     ; Node Port ; Node Port Name ; Destination Node                                        ; Destination Port ; Destination Port Name ;
 +-----------------------------------------------+------------+---------------------------------------------------+----------------------------+-----------+----------------+---------------------------------------------------------+------------------+-----------------------+
 ; CLOCK_50~inputCLKENA0                         ; Created    ; Placement                                         ; Fitter Periphery Placement ;           ;                ;                                                         ;                  ;                       ;
-; KEY[0]~inputCLKENA0                           ; Created    ; Placement                                         ; Fitter Periphery Placement ;           ;                ;                                                         ;                  ;                       ;
-; mpu6050_controller:my_accel|bit_cnt[0]        ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; mpu6050_controller:my_accel|bit_cnt[0]~DUPLICATE        ;                  ;                       ;
-; mpu6050_controller:my_accel|bit_cnt[1]        ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; mpu6050_controller:my_accel|bit_cnt[1]~DUPLICATE        ;                  ;                       ;
-; mpu6050_controller:my_accel|bit_cnt[2]        ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; mpu6050_controller:my_accel|bit_cnt[2]~DUPLICATE        ;                  ;                       ;
-; mpu6050_controller:my_accel|byte_cnt[0]       ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; mpu6050_controller:my_accel|byte_cnt[0]~DUPLICATE       ;                  ;                       ;
-; mpu6050_controller:my_accel|byte_cnt[2]       ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; mpu6050_controller:my_accel|byte_cnt[2]~DUPLICATE       ;                  ;                       ;
-; mpu6050_controller:my_accel|phase[0]          ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; mpu6050_controller:my_accel|phase[0]~DUPLICATE          ;                  ;                       ;
-; mpu6050_controller:my_accel|phase[1]          ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; mpu6050_controller:my_accel|phase[1]~DUPLICATE          ;                  ;                       ;
+; mpu6050_controller:my_accel|byte_cnt[1]       ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; mpu6050_controller:my_accel|byte_cnt[1]~DUPLICATE       ;                  ;                       ;
+; mpu6050_controller:my_accel|config_done       ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; mpu6050_controller:my_accel|config_done~DUPLICATE       ;                  ;                       ;
+; mpu6050_controller:my_accel|config_write      ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; mpu6050_controller:my_accel|config_write~DUPLICATE      ;                  ;                       ;
 ; mpu6050_controller:my_accel|refresh_timer[4]  ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; mpu6050_controller:my_accel|refresh_timer[4]~DUPLICATE  ;                  ;                       ;
 ; mpu6050_controller:my_accel|refresh_timer[7]  ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; mpu6050_controller:my_accel|refresh_timer[7]~DUPLICATE  ;                  ;                       ;
 ; mpu6050_controller:my_accel|refresh_timer[11] ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; mpu6050_controller:my_accel|refresh_timer[11]~DUPLICATE ;                  ;                       ;
 ; mpu6050_controller:my_accel|refresh_timer[13] ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; mpu6050_controller:my_accel|refresh_timer[13]~DUPLICATE ;                  ;                       ;
 ; mpu6050_controller:my_accel|refresh_timer[15] ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; mpu6050_controller:my_accel|refresh_timer[15]~DUPLICATE ;                  ;                       ;
 ; mpu6050_controller:my_accel|refresh_timer[16] ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; mpu6050_controller:my_accel|refresh_timer[16]~DUPLICATE ;                  ;                       ;
-; mpu6050_controller:my_accel|state.RD_DEV_ADDR ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; mpu6050_controller:my_accel|state.RD_DEV_ADDR~DUPLICATE ;                  ;                       ;
-; mpu6050_controller:my_accel|state.READ_DATA   ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; mpu6050_controller:my_accel|state.READ_DATA~DUPLICATE   ;                  ;                       ;
+; mpu6050_controller:my_accel|sda_en            ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; mpu6050_controller:my_accel|sda_en~DUPLICATE            ;                  ;                       ;
 ; mpu6050_controller:my_accel|state.RESTART     ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; mpu6050_controller:my_accel|state.RESTART~DUPLICATE     ;                  ;                       ;
-; mpu6050_controller:my_accel|state.STOP        ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; mpu6050_controller:my_accel|state.STOP~DUPLICATE        ;                  ;                       ;
+; mpu6050_controller:my_accel|state.START       ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; mpu6050_controller:my_accel|state.START~DUPLICATE       ;                  ;                       ;
 ; mpu6050_controller:my_accel|state.WAIT_CONFIG ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; mpu6050_controller:my_accel|state.WAIT_CONFIG~DUPLICATE ;                  ;                       ;
+; mpu6050_controller:my_accel|state.WR_DEV_ADDR ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; mpu6050_controller:my_accel|state.WR_DEV_ADDR~DUPLICATE ;                  ;                       ;
 ; mpu6050_controller:my_accel|state.WR_REG_ADDR ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; mpu6050_controller:my_accel|state.WR_REG_ADDR~DUPLICATE ;                  ;                       ;
+; mpu6050_controller:my_accel|state.WR_REG_DATA ; Duplicated ; Router Logic Cell Insertion and Logic Duplication ; Routability optimization   ;           ;                ; mpu6050_controller:my_accel|state.WR_REG_DATA~DUPLICATE ;                  ;                       ;
 +-----------------------------------------------+------------+---------------------------------------------------+----------------------------+-----------+----------------+---------------------------------------------------------+------------------+-----------------------+
 
 
@@ -454,12 +450,12 @@ The pin-out file can be found in C:/AlteraPrj/Project3/Module4_test/output_files
 +-------------------------------------------------------------+--------------------+-------+
 ; Logic utilization (ALMs needed / total ALMs on device)      ; 104 / 32,070       ; < 1 % ;
 ; ALMs needed [=A-B+C]                                        ; 104                ;       ;
-;     [A] ALMs used in final placement [=a+b+c+d]             ; 141 / 32,070       ; < 1 % ;
-;         [a] ALMs used for LUT logic and registers           ; 43                 ;       ;
-;         [b] ALMs used for LUT logic                         ; 61                 ;       ;
-;         [c] ALMs used for registers                         ; 37                 ;       ;
+;     [A] ALMs used in final placement [=a+b+c+d]             ; 149 / 32,070       ; < 1 % ;
+;         [a] ALMs used for LUT logic and registers           ; 42                 ;       ;
+;         [b] ALMs used for LUT logic                         ; 67                 ;       ;
+;         [c] ALMs used for registers                         ; 40                 ;       ;
 ;         [d] ALMs used for memory (up to half of total ALMs) ; 0                  ;       ;
-;     [B] Estimate of ALMs recoverable by dense packing       ; 37 / 32,070        ; < 1 % ;
+;     [B] Estimate of ALMs recoverable by dense packing       ; 45 / 32,070        ; < 1 % ;
 ;     [C] Estimate of ALMs unavailable [=a+b+c+d]             ; 0 / 32,070         ; 0 %   ;
 ;         [a] Due to location constrained logic               ; 0                  ;       ;
 ;         [b] Due to LAB-wide signal conflicts                ; 0                  ;       ;
@@ -468,25 +464,25 @@ The pin-out file can be found in C:/AlteraPrj/Project3/Module4_test/output_files
 ;                                                             ;                    ;       ;
 ; Difficulty packing design                                   ; Low                ;       ;
 ;                                                             ;                    ;       ;
-; Total LABs:  partially or completely used                   ; 23 / 3,207         ; < 1 % ;
-;     -- Logic LABs                                           ; 23                 ;       ;
+; Total LABs:  partially or completely used                   ; 35 / 3,207         ; 1 %   ;
+;     -- Logic LABs                                           ; 35                 ;       ;
 ;     -- Memory LABs (up to half of total LABs)               ; 0                  ;       ;
 ;                                                             ;                    ;       ;
-; Combinational ALUT usage for logic                          ; 182                ;       ;
-;     -- 7 input functions                                    ; 0                  ;       ;
-;     -- 6 input functions                                    ; 31                 ;       ;
-;     -- 5 input functions                                    ; 40                 ;       ;
-;     -- 4 input functions                                    ; 56                 ;       ;
-;     -- <=3 input functions                                  ; 55                 ;       ;
-; Combinational ALUT usage for route-throughs                 ; 29                 ;       ;
+; Combinational ALUT usage for logic                          ; 177                ;       ;
+;     -- 7 input functions                                    ; 2                  ;       ;
+;     -- 6 input functions                                    ; 34                 ;       ;
+;     -- 5 input functions                                    ; 46                 ;       ;
+;     -- 4 input functions                                    ; 46                 ;       ;
+;     -- <=3 input functions                                  ; 49                 ;       ;
+; Combinational ALUT usage for route-throughs                 ; 36                 ;       ;
 ;                                                             ;                    ;       ;
-; Dedicated logic registers                                   ; 178                ;       ;
+; Dedicated logic registers                                   ; 181                ;       ;
 ;     -- By type:                                             ;                    ;       ;
-;         -- Primary logic registers                          ; 158 / 64,140       ; < 1 % ;
-;         -- Secondary logic registers                        ; 20 / 64,140        ; < 1 % ;
+;         -- Primary logic registers                          ; 164 / 64,140       ; < 1 % ;
+;         -- Secondary logic registers                        ; 17 / 64,140        ; < 1 % ;
 ;     -- By function:                                         ;                    ;       ;
-;         -- Design implementation registers                  ; 159                ;       ;
-;         -- Routing optimization registers                   ; 19                 ;       ;
+;         -- Design implementation registers                  ; 165                ;       ;
+;         -- Routing optimization registers                   ; 16                 ;       ;
 ;                                                             ;                    ;       ;
 ; Virtual pins                                                ; 0                  ;       ;
 ; I/O pins                                                    ; 59 / 457           ; 13 %  ;
@@ -528,8 +524,8 @@ The pin-out file can be found in C:/AlteraPrj/Project3/Module4_test/output_files
 ; Total DSP Blocks                                            ; 0 / 87             ; 0 %   ;
 ;                                                             ;                    ;       ;
 ; Fractional PLLs                                             ; 0 / 6              ; 0 %   ;
-; Global signals                                              ; 2                  ;       ;
-;     -- Global clocks                                        ; 2 / 16             ; 13 %  ;
+; Global signals                                              ; 1                  ;       ;
+;     -- Global clocks                                        ; 1 / 16             ; 6 %   ;
 ;     -- Quadrant clocks                                      ; 0 / 66             ; 0 %   ;
 ;     -- Horizontal periphery clocks                          ; 0 / 18             ; 0 %   ;
 ; SERDES Transmitters                                         ; 0 / 100            ; 0 %   ;
@@ -542,11 +538,11 @@ The pin-out file can be found in C:/AlteraPrj/Project3/Module4_test/output_files
 ; Impedance control blocks                                    ; 0 / 4              ; 0 %   ;
 ; Hard Memory Controllers                                     ; 0 / 2              ; 0 %   ;
 ; Average interconnect usage (total/H/V)                      ; 0.1% / 0.1% / 0.1% ;       ;
-; Peak interconnect usage (total/H/V)                         ; 2.2% / 2.3% / 2.0% ;       ;
-; Maximum fan-out                                             ; 178                ;       ;
-; Highest non-global fan-out                                  ; 48                 ;       ;
-; Total fan-out                                               ; 1571               ;       ;
-; Average fan-out                                             ; 3.08               ;       ;
+; Peak interconnect usage (total/H/V)                         ; 1.9% / 1.9% / 1.8% ;       ;
+; Maximum fan-out                                             ; 181                ;       ;
+; Highest non-global fan-out                                  ; 139                ;       ;
+; Total fan-out                                               ; 1540               ;       ;
+; Average fan-out                                             ; 3.00               ;       ;
 +-------------------------------------------------------------+--------------------+-------+
 
 
@@ -557,12 +553,12 @@ The pin-out file can be found in C:/AlteraPrj/Project3/Module4_test/output_files
 +-------------------------------------------------------------+-----------------------+--------------------------------+
 ; Logic utilization (ALMs needed / total ALMs on device)      ; 104 / 32070 ( < 1 % ) ; 0 / 32070 ( 0 % )              ;
 ; ALMs needed [=A-B+C]                                        ; 104                   ; 0                              ;
-;     [A] ALMs used in final placement [=a+b+c+d]             ; 141 / 32070 ( < 1 % ) ; 0 / 32070 ( 0 % )              ;
-;         [a] ALMs used for LUT logic and registers           ; 43                    ; 0                              ;
-;         [b] ALMs used for LUT logic                         ; 61                    ; 0                              ;
-;         [c] ALMs used for registers                         ; 37                    ; 0                              ;
+;     [A] ALMs used in final placement [=a+b+c+d]             ; 149 / 32070 ( < 1 % ) ; 0 / 32070 ( 0 % )              ;
+;         [a] ALMs used for LUT logic and registers           ; 42                    ; 0                              ;
+;         [b] ALMs used for LUT logic                         ; 67                    ; 0                              ;
+;         [c] ALMs used for registers                         ; 40                    ; 0                              ;
 ;         [d] ALMs used for memory (up to half of total ALMs) ; 0                     ; 0                              ;
-;     [B] Estimate of ALMs recoverable by dense packing       ; 37 / 32070 ( < 1 % )  ; 0 / 32070 ( 0 % )              ;
+;     [B] Estimate of ALMs recoverable by dense packing       ; 45 / 32070 ( < 1 % )  ; 0 / 32070 ( 0 % )              ;
 ;     [C] Estimate of ALMs unavailable [=a+b+c+d]             ; 0 / 32070 ( 0 % )     ; 0 / 32070 ( 0 % )              ;
 ;         [a] Due to location constrained logic               ; 0                     ; 0                              ;
 ;         [b] Due to LAB-wide signal conflicts                ; 0                     ; 0                              ;
@@ -571,28 +567,28 @@ The pin-out file can be found in C:/AlteraPrj/Project3/Module4_test/output_files
 ;                                                             ;                       ;                                ;
 ; Difficulty packing design                                   ; Low                   ; Low                            ;
 ;                                                             ;                       ;                                ;
-; Total LABs:  partially or completely used                   ; 23 / 3207 ( < 1 % )   ; 0 / 3207 ( 0 % )               ;
-;     -- Logic LABs                                           ; 23                    ; 0                              ;
+; Total LABs:  partially or completely used                   ; 35 / 3207 ( 1 % )     ; 0 / 3207 ( 0 % )               ;
+;     -- Logic LABs                                           ; 35                    ; 0                              ;
 ;     -- Memory LABs (up to half of total LABs)               ; 0                     ; 0                              ;
 ;                                                             ;                       ;                                ;
-; Combinational ALUT usage for logic                          ; 182                   ; 0                              ;
-;     -- 7 input functions                                    ; 0                     ; 0                              ;
-;     -- 6 input functions                                    ; 31                    ; 0                              ;
-;     -- 5 input functions                                    ; 40                    ; 0                              ;
-;     -- 4 input functions                                    ; 56                    ; 0                              ;
-;     -- <=3 input functions                                  ; 55                    ; 0                              ;
-; Combinational ALUT usage for route-throughs                 ; 29                    ; 0                              ;
+; Combinational ALUT usage for logic                          ; 177                   ; 0                              ;
+;     -- 7 input functions                                    ; 2                     ; 0                              ;
+;     -- 6 input functions                                    ; 34                    ; 0                              ;
+;     -- 5 input functions                                    ; 46                    ; 0                              ;
+;     -- 4 input functions                                    ; 46                    ; 0                              ;
+;     -- <=3 input functions                                  ; 49                    ; 0                              ;
+; Combinational ALUT usage for route-throughs                 ; 36                    ; 0                              ;
 ; Memory ALUT usage                                           ; 0                     ; 0                              ;
 ;     -- 64-address deep                                      ; 0                     ; 0                              ;
 ;     -- 32-address deep                                      ; 0                     ; 0                              ;
 ;                                                             ;                       ;                                ;
 ; Dedicated logic registers                                   ; 0                     ; 0                              ;
 ;     -- By type:                                             ;                       ;                                ;
-;         -- Primary logic registers                          ; 158 / 64140 ( < 1 % ) ; 0 / 64140 ( 0 % )              ;
-;         -- Secondary logic registers                        ; 20 / 64140 ( < 1 % )  ; 0 / 64140 ( 0 % )              ;
+;         -- Primary logic registers                          ; 164 / 64140 ( < 1 % ) ; 0 / 64140 ( 0 % )              ;
+;         -- Secondary logic registers                        ; 17 / 64140 ( < 1 % )  ; 0 / 64140 ( 0 % )              ;
 ;     -- By function:                                         ;                       ;                                ;
-;         -- Design implementation registers                  ; 159                   ; 0                              ;
-;         -- Routing optimization registers                   ; 19                    ; 0                              ;
+;         -- Design implementation registers                  ; 165                   ; 0                              ;
+;         -- Routing optimization registers                   ; 16                    ; 0                              ;
 ;                                                             ;                       ;                                ;
 ;                                                             ;                       ;                                ;
 ; Virtual pins                                                ; 0                     ; 0                              ;
@@ -600,7 +596,7 @@ The pin-out file can be found in C:/AlteraPrj/Project3/Module4_test/output_files
 ; I/O registers                                               ; 0                     ; 0                              ;
 ; Total block memory bits                                     ; 0                     ; 0                              ;
 ; Total block memory implementation bits                      ; 0                     ; 0                              ;
-; Clock enable block                                          ; 2 / 116 ( 1 % )       ; 0 / 116 ( 0 % )                ;
+; Clock enable block                                          ; 1 / 116 ( < 1 % )     ; 0 / 116 ( 0 % )                ;
 ;                                                             ;                       ;                                ;
 ; Connections                                                 ;                       ;                                ;
 ;     -- Input Connections                                    ; 1                     ; 0                              ;
@@ -609,8 +605,8 @@ The pin-out file can be found in C:/AlteraPrj/Project3/Module4_test/output_files
 ;     -- Registered Output Connections                        ; 0                     ; 0                              ;
 ;                                                             ;                       ;                                ;
 ; Internal Connections                                        ;                       ;                                ;
-;     -- Total Connections                                    ; 1571                  ; 0                              ;
-;     -- Registered Connections                               ; 530                   ; 0                              ;
+;     -- Total Connections                                    ; 1540                  ; 0                              ;
+;     -- Registered Connections                               ; 536                   ; 0                              ;
 ;                                                             ;                       ;                                ;
 ; External Connections                                        ;                       ;                                ;
 ;     -- Top                                                  ; 2                     ; 0                              ;
@@ -642,8 +638,8 @@ The pin-out file can be found in C:/AlteraPrj/Project3/Module4_test/output_files
 +----------+-------+----------+--------------+--------------+--------------+-----------------------+--------------------+--------+----------------+-----------------+----------+--------------+--------------+-------------+---------------------------+----------------------+-----------+
 ; Name     ; Pin # ; I/O Bank ; X coordinate ; Y coordinate ; Z coordinate ; Combinational Fan-Out ; Registered Fan-Out ; Global ; Input Register ; PCI I/O Enabled ; Bus Hold ; Weak Pull Up ; I/O Standard ; Termination ; Termination Control Block ; Location assigned by ; Slew Rate ;
 +----------+-------+----------+--------------+--------------+--------------+-----------------------+--------------------+--------+----------------+-----------------+----------+--------------+--------------+-------------+---------------------------+----------------------+-----------+
-; CLOCK_50 ; AF14  ; 3B       ; 32           ; 0            ; 0            ; 178                   ; 0                  ; yes    ; no             ; no              ; no       ; Off          ; 2.5 V        ; Off         ; --                        ; User                 ; no        ;
-; KEY[0]   ; AA14  ; 3B       ; 36           ; 0            ; 0            ; 178                   ; 0                  ; yes    ; no             ; no              ; no       ; Off          ; 2.5 V        ; Off         ; --                        ; User                 ; no        ;
+; CLOCK_50 ; AF14  ; 3B       ; 32           ; 0            ; 0            ; 181                   ; 0                  ; yes    ; no             ; no              ; no       ; Off          ; 2.5 V        ; Off         ; --                        ; User                 ; no        ;
+; KEY[0]   ; AA14  ; 3B       ; 36           ; 0            ; 0            ; 139                   ; 0                  ; no     ; no             ; no              ; no       ; Off          ; 2.5 V        ; Off         ; --                        ; User                 ; no        ;
 ; KEY[1]   ; AA15  ; 3B       ; 36           ; 0            ; 17           ; 0                     ; 0                  ; no     ; no             ; no              ; no       ; Off          ; 2.5 V        ; Off         ; --                        ; User                 ; no        ;
 ; KEY[2]   ; W15   ; 3B       ; 40           ; 0            ; 0            ; 0                     ; 0                  ; no     ; no             ; no              ; no       ; Off          ; 2.5 V        ; Off         ; --                        ; User                 ; no        ;
 ; KEY[3]   ; Y16   ; 3B       ; 40           ; 0            ; 17           ; 0                     ; 0                  ; no     ; no             ; no              ; no       ; Off          ; 2.5 V        ; Off         ; --                        ; User                 ; no        ;
@@ -711,13 +707,13 @@ The pin-out file can be found in C:/AlteraPrj/Project3/Module4_test/output_files
 +--------------+-------+----------+--------------+--------------+--------------+-----------------+------------------------+-----------+-----------------+------------+---------------+----------+--------------+--------------+------------------+-----------------------------------+---------------------------+----------------------------+-----------------------------+---------------------+-----------------------------+----------------------+----------------------+---------------------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Bidir Pins                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ;
-+---------------+-------+----------+--------------+--------------+--------------+-----------------------+--------------------+--------+----------------+-----------------+------------------------+-----------+-----------------+------------+----------+--------------+--------------+------------------+-------------------+-----------------------------------+---------------------------+----------------------------+---------------------+-----------------------------+----------------------+----------------------+------------------------------------+
-; Name          ; Pin # ; I/O Bank ; X coordinate ; Y coordinate ; Z coordinate ; Combinational Fan-Out ; Registered Fan-Out ; Global ; Input Register ; Output Register ; Output Enable Register ; Slew Rate ; PCI I/O Enabled ; Open Drain ; Bus Hold ; Weak Pull Up ; I/O Standard ; Current Strength ; Input Termination ; Output Termination                ; Termination Control Block ; Output Buffer Pre-emphasis ; Output Buffer Delay ; Output Buffer Delay Control ; Location assigned by ; Output Enable Source ; Output Enable Group                ;
-+---------------+-------+----------+--------------+--------------+--------------+-----------------------+--------------------+--------+----------------+-----------------+------------------------+-----------+-----------------+------------+----------+--------------+--------------+------------------+-------------------+-----------------------------------+---------------------------+----------------------------+---------------------+-----------------------------+----------------------+----------------------+------------------------------------+
-; FPGA_I2C_SDAT ; Y17   ; 4A       ; 68           ; 0            ; 0            ; 8                     ; 0                  ; no     ; no             ; no              ; no                     ; 1         ; no              ; no         ; no       ; Off          ; 2.5 V        ; Default          ; Off               ; Series 50 Ohm without Calibration ; --                        ; no                         ; 0                   ; Off                         ; User                 ; 0 pF                 ; mpu6050_controller:my_accel|sda_en ;
-+---------------+-------+----------+--------------+--------------+--------------+-----------------------+--------------------+--------+----------------+-----------------+------------------------+-----------+-----------------+------------+----------+--------------+--------------+------------------+-------------------+-----------------------------------+---------------------------+----------------------------+---------------------+-----------------------------+----------------------+----------------------+------------------------------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Bidir Pins                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ;
++---------------+-------+----------+--------------+--------------+--------------+-----------------------+--------------------+--------+----------------+-----------------+------------------------+-----------+-----------------+------------+----------+--------------+--------------+------------------+-------------------+-----------------------------------+---------------------------+----------------------------+---------------------+-----------------------------+----------------------+----------------------+--------------------------------------------------+
+; Name          ; Pin # ; I/O Bank ; X coordinate ; Y coordinate ; Z coordinate ; Combinational Fan-Out ; Registered Fan-Out ; Global ; Input Register ; Output Register ; Output Enable Register ; Slew Rate ; PCI I/O Enabled ; Open Drain ; Bus Hold ; Weak Pull Up ; I/O Standard ; Current Strength ; Input Termination ; Output Termination                ; Termination Control Block ; Output Buffer Pre-emphasis ; Output Buffer Delay ; Output Buffer Delay Control ; Location assigned by ; Output Enable Source ; Output Enable Group                              ;
++---------------+-------+----------+--------------+--------------+--------------+-----------------------+--------------------+--------+----------------+-----------------+------------------------+-----------+-----------------+------------+----------+--------------+--------------+------------------+-------------------+-----------------------------------+---------------------------+----------------------------+---------------------+-----------------------------+----------------------+----------------------+--------------------------------------------------+
+; FPGA_I2C_SDAT ; Y17   ; 4A       ; 68           ; 0            ; 0            ; 8                     ; 0                  ; no     ; no             ; no              ; no                     ; 1         ; no              ; yes        ; no       ; Off          ; 2.5 V        ; Default          ; Off               ; Series 50 Ohm without Calibration ; --                        ; no                         ; 0                   ; Off                         ; User                 ; 0 pF                 ; mpu6050_controller:my_accel|i2c_sda~1 (inverted) ;
++---------------+-------+----------+--------------+--------------+--------------+-----------------------+--------------------+--------+----------------+-----------------+------------------------+-----------+-----------------+------------+----------+--------------+--------------+------------------+-------------------+-----------------------------------+---------------------------+----------------------------+---------------------+-----------------------------+----------------------+----------------------+--------------------------------------------------+
 
 
 +----------------------------------------------------------------------------+
@@ -1719,12 +1715,12 @@ Note: Pin directions (input, output or bidir) are based on device operating in u
 +----------------------------------+----------------------+----------------------------------+---------------------------------------------------+----------------------------------+----------------------+---------------------+---------------------------+---------------+-------------------+-------+------------+------+--------------+--------------------------------------+--------------------+--------------+
 ; Compilation Hierarchy Node       ; ALMs needed [=A-B+C] ; [A] ALMs used in final placement ; [B] Estimate of ALMs recoverable by dense packing ; [C] Estimate of ALMs unavailable ; ALMs used for memory ; Combinational ALUTs ; Dedicated Logic Registers ; I/O Registers ; Block Memory Bits ; M10Ks ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                  ; Entity Name        ; Library Name ;
 +----------------------------------+----------------------+----------------------------------+---------------------------------------------------+----------------------------------+----------------------+---------------------+---------------------------+---------------+-------------------+-------+------------+------+--------------+--------------------------------------+--------------------+--------------+
-; |testtop                         ; 103.5 (6.2)          ; 140.0 (7.7)                      ; 36.5 (1.5)                                        ; 0.0 (0.0)                        ; 0.0 (0.0)            ; 182 (17)            ; 178 (0)                   ; 0 (0)         ; 0                 ; 0     ; 0          ; 59   ; 0            ; |testtop                             ; testtop            ; work         ;
-;    |mpu6050_controller:my_accel| ; 83.5 (83.5)          ; 119.8 (119.8)                    ; 36.4 (36.4)                                       ; 0.0 (0.0)                        ; 0.0 (0.0)            ; 137 (137)           ; 178 (178)                 ; 0 (0)         ; 0                 ; 0     ; 0          ; 0    ; 0            ; |testtop|mpu6050_controller:my_accel ; mpu6050_controller ; work         ;
+; |testtop                         ; 104.0 (6.0)          ; 148.5 (9.5)                      ; 44.5 (3.5)                                        ; 0.0 (0.0)                        ; 0.0 (0.0)            ; 177 (17)            ; 181 (0)                   ; 0 (0)         ; 0                 ; 0     ; 0          ; 59   ; 0            ; |testtop                             ; testtop            ; work         ;
+;    |mpu6050_controller:my_accel| ; 84.0 (84.0)          ; 125.4 (125.4)                    ; 41.4 (41.4)                                       ; 0.0 (0.0)                        ; 0.0 (0.0)            ; 132 (132)           ; 181 (181)                 ; 0 (0)         ; 0                 ; 0     ; 0          ; 0    ; 0            ; |testtop|mpu6050_controller:my_accel ; mpu6050_controller ; work         ;
 ;    |seven_seg_decoder:u0|        ; 3.5 (3.5)            ; 3.5 (3.5)                        ; 0.0 (0.0)                                         ; 0.0 (0.0)                        ; 0.0 (0.0)            ; 7 (7)               ; 0 (0)                     ; 0 (0)         ; 0                 ; 0     ; 0          ; 0    ; 0            ; |testtop|seven_seg_decoder:u0        ; seven_seg_decoder  ; work         ;
-;    |seven_seg_decoder:u1|        ; 2.6 (2.6)            ; 2.6 (2.6)                        ; 0.0 (0.0)                                         ; 0.0 (0.0)                        ; 0.0 (0.0)            ; 7 (7)               ; 0 (0)                     ; 0 (0)         ; 0                 ; 0     ; 0          ; 0    ; 0            ; |testtop|seven_seg_decoder:u1        ; seven_seg_decoder  ; work         ;
-;    |seven_seg_decoder:u2|        ; 2.9 (2.9)            ; 2.9 (2.9)                        ; 0.0 (0.0)                                         ; 0.0 (0.0)                        ; 0.0 (0.0)            ; 7 (7)               ; 0 (0)                     ; 0 (0)         ; 0                 ; 0     ; 0          ; 0    ; 0            ; |testtop|seven_seg_decoder:u2        ; seven_seg_decoder  ; work         ;
-;    |seven_seg_decoder:u3|        ; 3.5 (3.5)            ; 3.5 (3.5)                        ; 0.0 (0.0)                                         ; 0.0 (0.0)                        ; 0.0 (0.0)            ; 7 (7)               ; 0 (0)                     ; 0 (0)         ; 0                 ; 0     ; 0          ; 0    ; 0            ; |testtop|seven_seg_decoder:u3        ; seven_seg_decoder  ; work         ;
+;    |seven_seg_decoder:u1|        ; 3.3 (3.3)            ; 3.3 (3.3)                        ; 0.0 (0.0)                                         ; 0.0 (0.0)                        ; 0.0 (0.0)            ; 7 (7)               ; 0 (0)                     ; 0 (0)         ; 0                 ; 0     ; 0          ; 0    ; 0            ; |testtop|seven_seg_decoder:u1        ; seven_seg_decoder  ; work         ;
+;    |seven_seg_decoder:u2|        ; 3.5 (3.5)            ; 3.5 (3.5)                        ; 0.0 (0.0)                                         ; 0.0 (0.0)                        ; 0.0 (0.0)            ; 7 (7)               ; 0 (0)                     ; 0 (0)         ; 0                 ; 0     ; 0          ; 0    ; 0            ; |testtop|seven_seg_decoder:u2        ; seven_seg_decoder  ; work         ;
+;    |seven_seg_decoder:u3|        ; 3.3 (3.3)            ; 3.3 (3.3)                        ; 0.0 (0.0)                                         ; 0.0 (0.0)                        ; 0.0 (0.0)            ; 7 (7)               ; 0 (0)                     ; 0 (0)         ; 0                 ; 0     ; 0          ; 0    ; 0            ; |testtop|seven_seg_decoder:u3        ; seven_seg_decoder  ; work         ;
 +----------------------------------+----------------------+----------------------------------+---------------------------------------------------+----------------------------------+----------------------+---------------------+---------------------------+---------------+-------------------+-------+------------+------+--------------+--------------------------------------+--------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -1789,101 +1785,238 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; HEX5[6]       ; Output   ; -- ; --   ; --   ; -- ; (0)  ; (31)  ; --     ; --                     ; --                       ;
 ; FPGA_I2C_SCL  ; Output   ; -- ; --   ; --   ; -- ; (0)  ; (31)  ; --     ; --                     ; --                       ;
 ; FPGA_I2C_SDAT ; Bidir    ; -- ; (7)  ; --   ; -- ; (0)  ; (31)  ; --     ; --                     ; --                       ;
-; SW[1]         ; Input    ; -- ; (0)  ; --   ; -- ; --   ; --    ; --     ; --                     ; --                       ;
+; SW[1]         ; Input    ; -- ; --   ; (0)  ; -- ; --   ; --    ; --     ; --                     ; --                       ;
 ; SW[0]         ; Input    ; -- ; (0)  ; --   ; -- ; --   ; --    ; --     ; --                     ; --                       ;
 ; CLOCK_50      ; Input    ; -- ; (0)  ; --   ; -- ; --   ; --    ; --     ; --                     ; --                       ;
 ; KEY[0]        ; Input    ; -- ; (7)  ; --   ; -- ; --   ; --    ; --     ; --                     ; --                       ;
 +---------------+----------+----+------+------+----+------+-------+--------+------------------------+--------------------------+
 
 
-+-----------------------------------------------------------------------------------+
-; Pad To Core Delay Chain Fanout                                                    ;
-+-----------------------------------------------------+-------------------+---------+
-; Source Pin / Fanout                                 ; Pad To Core Index ; Setting ;
-+-----------------------------------------------------+-------------------+---------+
-; KEY[1]                                              ;                   ;         ;
-; KEY[2]                                              ;                   ;         ;
-; KEY[3]                                              ;                   ;         ;
-; SW[2]                                               ;                   ;         ;
-; SW[3]                                               ;                   ;         ;
-; SW[4]                                               ;                   ;         ;
-; SW[5]                                               ;                   ;         ;
-; SW[6]                                               ;                   ;         ;
-; SW[7]                                               ;                   ;         ;
-; SW[8]                                               ;                   ;         ;
-; SW[9]                                               ;                   ;         ;
-; FPGA_I2C_SDAT                                       ;                   ;         ;
-;      - mpu6050_controller:my_accel|data_buffer[0]~1 ; 0                 ; 7       ;
-;      - mpu6050_controller:my_accel|data_buffer[1]~2 ; 0                 ; 7       ;
-;      - mpu6050_controller:my_accel|data_buffer[2]~3 ; 0                 ; 7       ;
-;      - mpu6050_controller:my_accel|data_buffer[3]~4 ; 0                 ; 7       ;
-;      - mpu6050_controller:my_accel|data_buffer[4]~5 ; 0                 ; 7       ;
-;      - mpu6050_controller:my_accel|data_buffer[5]~6 ; 0                 ; 7       ;
-;      - mpu6050_controller:my_accel|data_buffer[6]~8 ; 0                 ; 7       ;
-;      - mpu6050_controller:my_accel|data_buffer[7]~9 ; 0                 ; 7       ;
-; SW[1]                                               ;                   ;         ;
-;      - Mux15~0                                      ; 0                 ; 0       ;
-;      - Mux14~0                                      ; 0                 ; 0       ;
-;      - Mux13~0                                      ; 0                 ; 0       ;
-;      - Mux12~0                                      ; 0                 ; 0       ;
-;      - Mux11~0                                      ; 0                 ; 0       ;
-;      - Mux10~0                                      ; 0                 ; 0       ;
-;      - Mux9~0                                       ; 0                 ; 0       ;
-;      - Mux8~0                                       ; 0                 ; 0       ;
-;      - Mux7~0                                       ; 0                 ; 0       ;
-;      - Mux6~0                                       ; 0                 ; 0       ;
-;      - Mux5~0                                       ; 0                 ; 0       ;
-;      - Mux4~0                                       ; 0                 ; 0       ;
-;      - Mux3~0                                       ; 0                 ; 0       ;
-;      - Mux2~0                                       ; 0                 ; 0       ;
-;      - Mux1~0                                       ; 0                 ; 0       ;
-;      - Mux0~0                                       ; 0                 ; 0       ;
-; SW[0]                                               ;                   ;         ;
-;      - Mux15~0                                      ; 0                 ; 0       ;
-;      - Mux14~0                                      ; 0                 ; 0       ;
-;      - Mux13~0                                      ; 0                 ; 0       ;
-;      - Mux12~0                                      ; 0                 ; 0       ;
-;      - Mux11~0                                      ; 0                 ; 0       ;
-;      - Mux10~0                                      ; 0                 ; 0       ;
-;      - Mux9~0                                       ; 0                 ; 0       ;
-;      - Mux8~0                                       ; 0                 ; 0       ;
-;      - Mux7~0                                       ; 0                 ; 0       ;
-;      - Mux6~0                                       ; 0                 ; 0       ;
-;      - Mux5~0                                       ; 0                 ; 0       ;
-;      - Mux4~0                                       ; 0                 ; 0       ;
-;      - Mux3~0                                       ; 0                 ; 0       ;
-;      - Mux2~0                                       ; 0                 ; 0       ;
-;      - Mux1~0                                       ; 0                 ; 0       ;
-;      - Mux0~0                                       ; 0                 ; 0       ;
-; CLOCK_50                                            ;                   ;         ;
-; KEY[0]                                              ;                   ;         ;
-;      - KEY[0]~inputCLKENA0                          ; 0                 ; 7       ;
-+-----------------------------------------------------+-------------------+---------+
++----------------------------------------------------------------------------------------------+
+; Pad To Core Delay Chain Fanout                                                               ;
++----------------------------------------------------------------+-------------------+---------+
+; Source Pin / Fanout                                            ; Pad To Core Index ; Setting ;
++----------------------------------------------------------------+-------------------+---------+
+; KEY[1]                                                         ;                   ;         ;
+; KEY[2]                                                         ;                   ;         ;
+; KEY[3]                                                         ;                   ;         ;
+; SW[2]                                                          ;                   ;         ;
+; SW[3]                                                          ;                   ;         ;
+; SW[4]                                                          ;                   ;         ;
+; SW[5]                                                          ;                   ;         ;
+; SW[6]                                                          ;                   ;         ;
+; SW[7]                                                          ;                   ;         ;
+; SW[8]                                                          ;                   ;         ;
+; SW[9]                                                          ;                   ;         ;
+; FPGA_I2C_SDAT                                                  ;                   ;         ;
+;      - mpu6050_controller:my_accel|data_buffer[0]~1            ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|data_buffer[1]~3            ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|data_buffer[2]~4            ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|data_buffer[3]~5            ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|data_buffer[4]~6            ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|data_buffer[5]~7            ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|data_buffer[6]~8            ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|data_buffer[7]~9            ; 0                 ; 7       ;
+; SW[1]                                                          ;                   ;         ;
+;      - Mux15~0                                                 ; 1                 ; 0       ;
+;      - Mux14~0                                                 ; 1                 ; 0       ;
+;      - Mux13~0                                                 ; 1                 ; 0       ;
+;      - Mux12~0                                                 ; 1                 ; 0       ;
+;      - Mux11~0                                                 ; 1                 ; 0       ;
+;      - Mux10~0                                                 ; 1                 ; 0       ;
+;      - Mux9~0                                                  ; 1                 ; 0       ;
+;      - Mux8~0                                                  ; 1                 ; 0       ;
+;      - Mux7~0                                                  ; 1                 ; 0       ;
+;      - Mux6~0                                                  ; 1                 ; 0       ;
+;      - Mux5~0                                                  ; 1                 ; 0       ;
+;      - Mux4~0                                                  ; 1                 ; 0       ;
+;      - Mux3~0                                                  ; 1                 ; 0       ;
+;      - Mux2~0                                                  ; 1                 ; 0       ;
+;      - Mux1~0                                                  ; 1                 ; 0       ;
+;      - Mux0~0                                                  ; 1                 ; 0       ;
+; SW[0]                                                          ;                   ;         ;
+;      - Mux15~0                                                 ; 0                 ; 0       ;
+;      - Mux14~0                                                 ; 0                 ; 0       ;
+;      - Mux13~0                                                 ; 0                 ; 0       ;
+;      - Mux12~0                                                 ; 0                 ; 0       ;
+;      - Mux11~0                                                 ; 0                 ; 0       ;
+;      - Mux10~0                                                 ; 0                 ; 0       ;
+;      - Mux9~0                                                  ; 0                 ; 0       ;
+;      - Mux8~0                                                  ; 0                 ; 0       ;
+;      - Mux7~0                                                  ; 0                 ; 0       ;
+;      - Mux6~0                                                  ; 0                 ; 0       ;
+;      - Mux5~0                                                  ; 0                 ; 0       ;
+;      - Mux4~0                                                  ; 0                 ; 0       ;
+;      - Mux3~0                                                  ; 0                 ; 0       ;
+;      - Mux2~0                                                  ; 0                 ; 0       ;
+;      - Mux1~0                                                  ; 0                 ; 0       ;
+;      - Mux0~0                                                  ; 0                 ; 0       ;
+; CLOCK_50                                                       ;                   ;         ;
+; KEY[0]                                                         ;                   ;         ;
+;      - mpu6050_controller:my_accel|accel_z[0]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_z[1]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_z[2]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_z[3]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_z[4]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_z[5]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_z[6]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_z[7]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_z[8]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_z[9]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_z[10]                 ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_z[11]                 ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_z[12]                 ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_z[13]                 ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_z[14]                 ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_z[15]                 ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_y[0]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_y[1]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_y[2]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_y[3]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_y[4]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_y[5]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_y[6]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_y[7]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_y[8]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_y[9]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_y[10]                 ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_y[11]                 ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_y[12]                 ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_y[13]                 ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_y[14]                 ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_y[15]                 ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_x[0]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_x[1]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_x[2]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_x[3]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_x[4]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_x[5]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_x[6]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_x[7]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_x[8]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_x[9]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_x[10]                 ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_x[11]                 ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_x[12]                 ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_x[13]                 ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_x[14]                 ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|accel_x[15]                 ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|clk_count[0]                ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|clk_count[1]                ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|clk_count[2]                ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|clk_count[4]                ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|clk_count[5]                ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|clk_count[6]                ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|clk_count[7]                ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|clk_count[8]                ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|clk_count[3]                ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|refresh_timer[15]           ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|refresh_timer[16]           ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|refresh_timer[17]           ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|refresh_timer[18]           ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|refresh_timer[19]           ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|refresh_timer[0]            ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|refresh_timer[1]            ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|refresh_timer[2]            ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|refresh_timer[3]            ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|refresh_timer[4]            ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|refresh_timer[5]            ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|refresh_timer[6]            ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|refresh_timer[7]            ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|refresh_timer[8]            ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|refresh_timer[9]            ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|refresh_timer[10]           ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|refresh_timer[14]           ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|refresh_timer[11]           ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|refresh_timer[12]           ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|refresh_timer[13]           ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|i2c_scl                     ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|config_write                ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|i2c_tick                    ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|state.STOP                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|phase[1]                    ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|phase[0]                    ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|state.START                 ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|state.WAIT_CONFIG           ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|state.WR_REG_DATA           ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|state.WR_DEV_ADDR           ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|state.WR_REG_ADDR           ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|state.RD_DEV_ADDR           ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|state.RESTART               ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|state.READ_DATA             ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|state.ACK_CHECK             ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|state.ACK_SEND              ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|data_buffer[0]              ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|byte_cnt[1]                 ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|bit_cnt[2]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|bit_cnt[1]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|bit_cnt[0]                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|byte_cnt[2]                 ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|byte_cnt[0]                 ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|Decoder3~1                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|config_done                 ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|state.IDLE                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|saved_state.STOP            ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|Decoder3~2                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|Decoder3~3                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|data_buffer[1]              ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|data_buffer[2]              ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|data_buffer[3]              ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|data_buffer[4]              ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|data_buffer[5]              ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|data_buffer[6]              ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|data_buffer[7]              ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|Decoder3~4                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|Decoder3~5                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|Decoder3~6                  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|saved_state.WR_REG_DATA     ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|saved_state.WR_REG_ADDR     ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|saved_state.RESTART         ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|saved_state.READ_DATA       ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|sda_out                     ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|sda_en                      ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|saved_state.IDLE            ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|refresh_timer[15]~DUPLICATE ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|refresh_timer[7]~DUPLICATE  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|refresh_timer[4]~DUPLICATE  ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|refresh_timer[13]~DUPLICATE ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|refresh_timer[11]~DUPLICATE ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|refresh_timer[16]~DUPLICATE ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|config_write~DUPLICATE      ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|state.START~DUPLICATE       ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|state.WAIT_CONFIG~DUPLICATE ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|state.WR_REG_DATA~DUPLICATE ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|state.WR_DEV_ADDR~DUPLICATE ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|state.WR_REG_ADDR~DUPLICATE ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|state.RESTART~DUPLICATE     ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|byte_cnt[1]~DUPLICATE       ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|config_done~DUPLICATE       ; 0                 ; 7       ;
+;      - mpu6050_controller:my_accel|sda_en~DUPLICATE            ; 0                 ; 7       ;
++----------------------------------------------------------------+-------------------+---------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Control Signals                                                                                                                                                               ;
-+------------------------------------------------+---------------------+---------+---------------+--------+----------------------+------------------+---------------------------+
-; Name                                           ; Location            ; Fan-Out ; Usage         ; Global ; Global Resource Used ; Global Line Name ; Enable Signal Source Name ;
-+------------------------------------------------+---------------------+---------+---------------+--------+----------------------+------------------+---------------------------+
-; CLOCK_50                                       ; PIN_AF14            ; 178     ; Clock         ; yes    ; Global Clock         ; GCLK6            ; --                        ;
-; KEY[0]                                         ; PIN_AA14            ; 178     ; Async. clear  ; yes    ; Global Clock         ; GCLK7            ; --                        ;
-; mpu6050_controller:my_accel|Decoder3~0         ; MLABCELL_X82_Y7_N12 ; 8       ; Clock enable  ; no     ; --                   ; --               ; --                        ;
-; mpu6050_controller:my_accel|Decoder3~1         ; MLABCELL_X82_Y7_N18 ; 8       ; Clock enable  ; no     ; --                   ; --               ; --                        ;
-; mpu6050_controller:my_accel|Decoder3~2         ; MLABCELL_X82_Y7_N15 ; 8       ; Clock enable  ; no     ; --                   ; --               ; --                        ;
-; mpu6050_controller:my_accel|Decoder3~3         ; MLABCELL_X82_Y7_N21 ; 8       ; Clock enable  ; no     ; --                   ; --               ; --                        ;
-; mpu6050_controller:my_accel|Decoder3~4         ; MLABCELL_X82_Y7_N36 ; 8       ; Clock enable  ; no     ; --                   ; --               ; --                        ;
-; mpu6050_controller:my_accel|Decoder3~5         ; MLABCELL_X82_Y7_N30 ; 8       ; Clock enable  ; no     ; --                   ; --               ; --                        ;
-; mpu6050_controller:my_accel|Equal0~1           ; LABCELL_X79_Y5_N48  ; 10      ; Sync. clear   ; no     ; --                   ; --               ; --                        ;
-; mpu6050_controller:my_accel|accel_x[0]~0       ; LABCELL_X81_Y6_N15  ; 48      ; Clock enable  ; no     ; --                   ; --               ; --                        ;
-; mpu6050_controller:my_accel|bit_cnt[2]~3       ; LABCELL_X81_Y6_N54  ; 6       ; Clock enable  ; no     ; --                   ; --               ; --                        ;
-; mpu6050_controller:my_accel|byte_cnt[2]~0      ; LABCELL_X81_Y6_N48  ; 5       ; Clock enable  ; no     ; --                   ; --               ; --                        ;
-; mpu6050_controller:my_accel|i2c_tick           ; FF_X79_Y5_N29       ; 34      ; Clock enable  ; no     ; --                   ; --               ; --                        ;
-; mpu6050_controller:my_accel|refresh_timer[5]~0 ; LABCELL_X81_Y6_N39  ; 26      ; Clock enable  ; no     ; --                   ; --               ; --                        ;
-; mpu6050_controller:my_accel|sda_en             ; FF_X79_Y5_N55       ; 2       ; Output enable ; no     ; --                   ; --               ; --                        ;
-; mpu6050_controller:my_accel|state~43           ; LABCELL_X80_Y6_N42  ; 2       ; Clock enable  ; no     ; --                   ; --               ; --                        ;
-; mpu6050_controller:my_accel|state~57           ; LABCELL_X80_Y6_N24  ; 26      ; Sync. clear   ; no     ; --                   ; --               ; --                        ;
-+------------------------------------------------+---------------------+---------+---------------+--------+----------------------+------------------+---------------------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Control Signals                                                                                                                                                              ;
++------------------------------------------------+---------------------+---------+--------------+--------+----------------------+------------------+---------------------------+
+; Name                                           ; Location            ; Fan-Out ; Usage        ; Global ; Global Resource Used ; Global Line Name ; Enable Signal Source Name ;
++------------------------------------------------+---------------------+---------+--------------+--------+----------------------+------------------+---------------------------+
+; CLOCK_50                                       ; PIN_AF14            ; 181     ; Clock        ; yes    ; Global Clock         ; GCLK6            ; --                        ;
+; KEY[0]                                         ; PIN_AA14            ; 139     ; Async. clear ; no     ; --                   ; --               ; --                        ;
+; mpu6050_controller:my_accel|Decoder3~1         ; MLABCELL_X78_Y5_N3  ; 8       ; Clock enable ; no     ; --                   ; --               ; --                        ;
+; mpu6050_controller:my_accel|Decoder3~2         ; MLABCELL_X78_Y5_N36 ; 8       ; Clock enable ; no     ; --                   ; --               ; --                        ;
+; mpu6050_controller:my_accel|Decoder3~3         ; MLABCELL_X78_Y5_N0  ; 8       ; Clock enable ; no     ; --                   ; --               ; --                        ;
+; mpu6050_controller:my_accel|Decoder3~4         ; MLABCELL_X78_Y5_N39 ; 8       ; Clock enable ; no     ; --                   ; --               ; --                        ;
+; mpu6050_controller:my_accel|Decoder3~5         ; MLABCELL_X78_Y5_N12 ; 8       ; Clock enable ; no     ; --                   ; --               ; --                        ;
+; mpu6050_controller:my_accel|Decoder3~6         ; MLABCELL_X78_Y5_N48 ; 8       ; Clock enable ; no     ; --                   ; --               ; --                        ;
+; mpu6050_controller:my_accel|Equal0~1           ; LABCELL_X71_Y3_N24  ; 10      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
+; mpu6050_controller:my_accel|accel_x[0]~0       ; LABCELL_X75_Y4_N33  ; 48      ; Clock enable ; no     ; --                   ; --               ; --                        ;
+; mpu6050_controller:my_accel|bit_cnt[2]~2       ; MLABCELL_X78_Y6_N48 ; 3       ; Clock enable ; no     ; --                   ; --               ; --                        ;
+; mpu6050_controller:my_accel|byte_cnt[2]~1      ; MLABCELL_X78_Y5_N21 ; 4       ; Clock enable ; no     ; --                   ; --               ; --                        ;
+; mpu6050_controller:my_accel|i2c_tick           ; FF_X71_Y3_N11       ; 31      ; Clock enable ; no     ; --                   ; --               ; --                        ;
+; mpu6050_controller:my_accel|refresh_timer[4]~0 ; LABCELL_X73_Y4_N48  ; 26      ; Clock enable ; no     ; --                   ; --               ; --                        ;
+; mpu6050_controller:my_accel|state~50           ; LABCELL_X71_Y3_N21  ; 26      ; Sync. clear  ; no     ; --                   ; --               ; --                        ;
+; mpu6050_controller:my_accel|state~51           ; LABCELL_X71_Y3_N0   ; 2       ; Clock enable ; no     ; --                   ; --               ; --                        ;
++------------------------------------------------+---------------------+---------+--------------+--------+----------------------+------------------+---------------------------+
 
 
 +-----------------------------------------------------------------------------------------------------+
@@ -1891,8 +2024,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------+----------+---------+----------------------+------------------+---------------------------+
 ; Name     ; Location ; Fan-Out ; Global Resource Used ; Global Line Name ; Enable Signal Source Name ;
 +----------+----------+---------+----------------------+------------------+---------------------------+
-; CLOCK_50 ; PIN_AF14 ; 178     ; Global Clock         ; GCLK6            ; --                        ;
-; KEY[0]   ; PIN_AA14 ; 178     ; Global Clock         ; GCLK7            ; --                        ;
+; CLOCK_50 ; PIN_AF14 ; 181     ; Global Clock         ; GCLK6            ; --                        ;
 +----------+----------+---------+----------------------+------------------+---------------------------+
 
 
@@ -1901,15 +2033,15 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +---------------------------------------------+-------------------------+
 ; Routing Resource Type                       ; Usage                   ;
 +---------------------------------------------+-------------------------+
-; Block interconnects                         ; 344 / 289,320 ( < 1 % ) ;
-; C12 interconnects                           ; 9 / 13,420 ( < 1 % )    ;
-; C2 interconnects                            ; 86 / 119,108 ( < 1 % )  ;
-; C4 interconnects                            ; 49 / 56,300 ( < 1 % )   ;
+; Block interconnects                         ; 385 / 289,320 ( < 1 % ) ;
+; C12 interconnects                           ; 12 / 13,420 ( < 1 % )   ;
+; C2 interconnects                            ; 98 / 119,108 ( < 1 % )  ;
+; C4 interconnects                            ; 70 / 56,300 ( < 1 % )   ;
 ; DQS bus muxes                               ; 0 / 25 ( 0 % )          ;
 ; DQS-18 I/O buses                            ; 0 / 25 ( 0 % )          ;
 ; DQS-9 I/O buses                             ; 0 / 25 ( 0 % )          ;
-; Direct links                                ; 72 / 289,320 ( < 1 % )  ;
-; Global clocks                               ; 2 / 16 ( 13 % )         ;
+; Direct links                                ; 62 / 289,320 ( < 1 % )  ;
+; Global clocks                               ; 1 / 16 ( 6 % )          ;
 ; HPS SDRAM PLL inputs                        ; 0 / 1 ( 0 % )           ;
 ; HPS SDRAM PLL outputs                       ; 0 / 1 ( 0 % )           ;
 ; HPS_INTERFACE_BOOT_FROM_FPGA_INPUTs         ; 0 / 9 ( 0 % )           ;
@@ -1964,13 +2096,13 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; HPS_INTERFACE_TPIU_TRACE_INPUTs             ; 0 / 2 ( 0 % )           ;
 ; HPS_INTERFACE_TPIU_TRACE_OUTPUTs            ; 0 / 33 ( 0 % )          ;
 ; Horizontal periphery clocks                 ; 0 / 72 ( 0 % )          ;
-; Local interconnects                         ; 98 / 84,580 ( < 1 % )   ;
+; Local interconnects                         ; 83 / 84,580 ( < 1 % )   ;
 ; Quadrant clocks                             ; 0 / 66 ( 0 % )          ;
-; R14 interconnects                           ; 15 / 12,676 ( < 1 % )   ;
-; R14/C12 interconnect drivers                ; 21 / 20,720 ( < 1 % )   ;
-; R3 interconnects                            ; 121 / 130,992 ( < 1 % ) ;
-; R6 interconnects                            ; 129 / 266,960 ( < 1 % ) ;
-; Spine clocks                                ; 2 / 360 ( < 1 % )       ;
+; R14 interconnects                           ; 16 / 12,676 ( < 1 % )   ;
+; R14/C12 interconnect drivers                ; 24 / 20,720 ( < 1 % )   ;
+; R3 interconnects                            ; 143 / 130,992 ( < 1 % ) ;
+; R6 interconnects                            ; 173 / 266,960 ( < 1 % ) ;
+; Spine clocks                                ; 1 / 360 ( < 1 % )       ;
 ; Wire stub REs                               ; 0 / 15,858 ( 0 % )      ;
 +---------------------------------------------+-------------------------+
 
@@ -1981,10 +2113,10 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; I/O Rules Statistic              ; Total ;
 +----------------------------------+-------+
 ; Total I/O Rules                  ; 28    ;
-; Number of I/O Rules Passed       ; 9     ;
+; Number of I/O Rules Passed       ; 10    ;
 ; Number of I/O Rules Failed       ; 0     ;
 ; Number of I/O Rules Unchecked    ; 0     ;
-; Number of I/O Rules Inapplicable ; 19    ;
+; Number of I/O Rules Inapplicable ; 18    ;
 +----------------------------------+-------+
 
 
@@ -2013,7 +2145,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Inapplicable ; IO_000020 ; I/O Properties Checks for One I/O ; The I/O standard should support the requested PCI Clamp Diode.                     ; Critical ; No Clamping Diode assignments found.                                     ; I/O                 ;                   ;
 ; Inapplicable ; IO_000021 ; I/O Properties Checks for One I/O ; The I/O standard should support the requested Weak Pull Up value.                  ; Critical ; No Weak Pull-Up Resistor assignments found.                              ; I/O                 ;                   ;
 ; Inapplicable ; IO_000022 ; I/O Properties Checks for One I/O ; The I/O standard should support the requested Bus Hold value.                      ; Critical ; No Enable Bus-Hold Circuitry assignments found.                          ; I/O                 ;                   ;
-; Inapplicable ; IO_000023 ; I/O Properties Checks for One I/O ; The I/O standard should support the Open Drain value.                              ; Critical ; No open drain assignments found.                                         ; I/O                 ;                   ;
+; Pass         ; IO_000023 ; I/O Properties Checks for One I/O ; The I/O standard should support the Open Drain value.                              ; Critical ; 0 such failures found.                                                   ; I/O                 ;                   ;
 ; Pass         ; IO_000024 ; I/O Properties Checks for One I/O ; The I/O direction should support the On Chip Termination value.                    ; Critical ; 0 such failures found.                                                   ; I/O                 ;                   ;
 ; Inapplicable ; IO_000026 ; I/O Properties Checks for One I/O ; On Chip Termination and Current Strength should not be used at the same time.      ; Critical ; No Current Strength assignments found.                                   ; I/O                 ;                   ;
 ; Inapplicable ; IO_000027 ; I/O Properties Checks for One I/O ; Weak Pull Up and Bus Hold should not be used at the same time.                     ; Critical ; No Enable Bus-Hold Circuitry or Weak Pull-Up Resistor assignments found. ; I/O                 ;                   ;
@@ -2030,9 +2162,9 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------------------+-----------+--------------+-----------+--------------+--------------+-----------+-----------+--------------+-----------+-----------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+
 ; Pin/Rules          ; IO_000001 ; IO_000002    ; IO_000003 ; IO_000004    ; IO_000005    ; IO_000006 ; IO_000007 ; IO_000008    ; IO_000009 ; IO_000010 ; IO_000011    ; IO_000012    ; IO_000013    ; IO_000014    ; IO_000015    ; IO_000018    ; IO_000019    ; IO_000020    ; IO_000021    ; IO_000022    ; IO_000023    ; IO_000024    ; IO_000026    ; IO_000027    ; IO_000045    ; IO_000046    ; IO_000047    ; IO_000034    ;
 +--------------------+-----------+--------------+-----------+--------------+--------------+-----------+-----------+--------------+-----------+-----------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+
-; Total Pass         ; 59        ; 0            ; 59        ; 0            ; 0            ; 59        ; 59        ; 0            ; 59        ; 59        ; 0            ; 44           ; 0            ; 0            ; 0            ; 0            ; 44           ; 0            ; 0            ; 0            ; 0            ; 44           ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ;
+; Total Pass         ; 59        ; 0            ; 59        ; 0            ; 0            ; 59        ; 59        ; 0            ; 59        ; 59        ; 0            ; 44           ; 0            ; 0            ; 0            ; 0            ; 44           ; 0            ; 0            ; 0            ; 1            ; 44           ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ;
 ; Total Unchecked    ; 0         ; 0            ; 0         ; 0            ; 0            ; 0         ; 0         ; 0            ; 0         ; 0         ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ;
-; Total Inapplicable ; 0         ; 59           ; 0         ; 59           ; 59           ; 0         ; 0         ; 59           ; 0         ; 0         ; 59           ; 15           ; 59           ; 59           ; 59           ; 59           ; 15           ; 59           ; 59           ; 59           ; 59           ; 15           ; 59           ; 59           ; 59           ; 59           ; 59           ; 59           ;
+; Total Inapplicable ; 0         ; 59           ; 0         ; 59           ; 59           ; 0         ; 0         ; 59           ; 0         ; 0         ; 59           ; 15           ; 59           ; 59           ; 59           ; 59           ; 15           ; 59           ; 59           ; 59           ; 58           ; 15           ; 59           ; 59           ; 59           ; 59           ; 59           ; 59           ;
 ; Total Fail         ; 0         ; 0            ; 0         ; 0            ; 0            ; 0         ; 0         ; 0            ; 0         ; 0         ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ;
 ; KEY[1]             ; Pass      ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ;
 ; KEY[2]             ; Pass      ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ;
@@ -2088,7 +2220,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; HEX5[5]            ; Pass      ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ;
 ; HEX5[6]            ; Pass      ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ;
 ; FPGA_I2C_SCL       ; Pass      ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ;
-; FPGA_I2C_SDAT      ; Pass      ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ;
+; FPGA_I2C_SDAT      ; Pass      ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Pass         ; Pass         ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ;
 ; SW[1]              ; Pass      ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ;
 ; SW[0]              ; Pass      ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ;
 ; CLOCK_50           ; Pass      ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ;
@@ -2144,43 +2276,49 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-----------------+----------------------+-------------------+
 ; Source Clock(s) ; Destination Clock(s) ; Delay Added in ns ;
 +-----------------+----------------------+-------------------+
-; clk1            ; clk1                 ; 8.3               ;
+; clk1            ; clk1                 ; 8.5               ;
 +-----------------+----------------------+-------------------+
 Note: For more information on problematic transfers, consider running the Fitter again with the Optimize hold timing option (Settings Menu) turned off.
 This will disable optimization of problematic paths and expose them for further analysis using the Timing Analyzer.
 
 
-+-----------------------------------------------------------------------------------------------------------------+
-; Estimated Delay Added for Hold Timing Details                                                                   ;
-+-----------------------------------------------+---------------------------------------------+-------------------+
-; Source Register                               ; Destination Register                        ; Delay Added in ns ;
-+-----------------------------------------------+---------------------------------------------+-------------------+
-; mpu6050_controller:my_accel|sda_out           ; mpu6050_controller:my_accel|sda_out         ; 0.337             ;
-; mpu6050_controller:my_accel|bit_cnt[0]        ; mpu6050_controller:my_accel|data_buffer[5]  ; 0.264             ;
-; mpu6050_controller:my_accel|bit_cnt[1]        ; mpu6050_controller:my_accel|data_buffer[5]  ; 0.256             ;
-; mpu6050_controller:my_accel|state.ACK_SEND    ; mpu6050_controller:my_accel|sda_out         ; 0.226             ;
-; mpu6050_controller:my_accel|state.READ_DATA   ; mpu6050_controller:my_accel|sda_en          ; 0.223             ;
-; mpu6050_controller:my_accel|config_write      ; mpu6050_controller:my_accel|addr_phase      ; 0.215             ;
-; mpu6050_controller:my_accel|bit_cnt[2]        ; mpu6050_controller:my_accel|data_buffer[5]  ; 0.212             ;
-; mpu6050_controller:my_accel|byte_cnt[0]       ; mpu6050_controller:my_accel|byte_cnt[1]     ; 0.209             ;
-; mpu6050_controller:my_accel|state.WR_DEV_ADDR ; mpu6050_controller:my_accel|sda_out         ; 0.202             ;
-; mpu6050_controller:my_accel|phase[1]          ; mpu6050_controller:my_accel|sda_out         ; 0.202             ;
-; mpu6050_controller:my_accel|phase[0]          ; mpu6050_controller:my_accel|sda_out         ; 0.202             ;
-; mpu6050_controller:my_accel|state.RD_DEV_ADDR ; mpu6050_controller:my_accel|state.READ_DATA ; 0.189             ;
-; mpu6050_controller:my_accel|byte_cnt[1]       ; mpu6050_controller:my_accel|byte_cnt[2]     ; 0.188             ;
-; mpu6050_controller:my_accel|state.ACK_CHECK   ; mpu6050_controller:my_accel|sda_out         ; 0.184             ;
-; mpu6050_controller:my_accel|state.WAIT_CONFIG ; mpu6050_controller:my_accel|sda_out         ; 0.184             ;
-; mpu6050_controller:my_accel|state.WR_REG_ADDR ; mpu6050_controller:my_accel|i2c_scl         ; 0.161             ;
-; mpu6050_controller:my_accel|i2c_tick          ; mpu6050_controller:my_accel|data_buffer[6]  ; 0.160             ;
-; mpu6050_controller:my_accel|i2c_scl           ; mpu6050_controller:my_accel|i2c_scl         ; 0.152             ;
-; mpu6050_controller:my_accel|state.START       ; mpu6050_controller:my_accel|i2c_scl         ; 0.152             ;
-; mpu6050_controller:my_accel|state.STOP        ; mpu6050_controller:my_accel|i2c_scl         ; 0.152             ;
-; mpu6050_controller:my_accel|state.IDLE        ; mpu6050_controller:my_accel|state.START     ; 0.149             ;
-; mpu6050_controller:my_accel|addr_phase        ; mpu6050_controller:my_accel|state.RESTART   ; 0.099             ;
-; mpu6050_controller:my_accel|state.RESTART     ; mpu6050_controller:my_accel|sda_out         ; 0.011             ;
-; mpu6050_controller:my_accel|byte_cnt[2]       ; mpu6050_controller:my_accel|sda_out         ; 0.011             ;
-+-----------------------------------------------+---------------------------------------------+-------------------+
-Note: This table only shows the top 24 path(s) that have the largest delay added for hold.
++-------------------------------------------------------------------------------------------------------------------------------+
+; Estimated Delay Added for Hold Timing Details                                                                                 ;
++-----------------------------------------------------+-----------------------------------------------------+-------------------+
+; Source Register                                     ; Destination Register                                ; Delay Added in ns ;
++-----------------------------------------------------+-----------------------------------------------------+-------------------+
+; mpu6050_controller:my_accel|byte_cnt[1]             ; mpu6050_controller:my_accel|sda_en                  ; 0.693             ;
+; mpu6050_controller:my_accel|phase[1]                ; mpu6050_controller:my_accel|sda_en                  ; 0.670             ;
+; mpu6050_controller:my_accel|byte_cnt[0]             ; mpu6050_controller:my_accel|sda_en                  ; 0.645             ;
+; mpu6050_controller:my_accel|byte_cnt[2]             ; mpu6050_controller:my_accel|sda_en                  ; 0.494             ;
+; mpu6050_controller:my_accel|sda_en                  ; mpu6050_controller:my_accel|sda_en                  ; 0.362             ;
+; mpu6050_controller:my_accel|state.ACK_SEND          ; mpu6050_controller:my_accel|sda_en                  ; 0.362             ;
+; mpu6050_controller:my_accel|phase[0]                ; mpu6050_controller:my_accel|sda_en                  ; 0.362             ;
+; mpu6050_controller:my_accel|state.RD_DEV_ADDR       ; mpu6050_controller:my_accel|saved_state.READ_DATA   ; 0.264             ;
+; mpu6050_controller:my_accel|bit_cnt[1]              ; mpu6050_controller:my_accel|bit_cnt[2]              ; 0.260             ;
+; mpu6050_controller:my_accel|state.WR_REG_ADDR       ; mpu6050_controller:my_accel|saved_state.RESTART     ; 0.257             ;
+; mpu6050_controller:my_accel|bit_cnt[0]              ; mpu6050_controller:my_accel|bit_cnt[1]              ; 0.251             ;
+; mpu6050_controller:my_accel|state.WR_REG_DATA       ; mpu6050_controller:my_accel|saved_state.WR_REG_ADDR ; 0.241             ;
+; mpu6050_controller:my_accel|config_write            ; mpu6050_controller:my_accel|state.WAIT_CONFIG       ; 0.231             ;
+; mpu6050_controller:my_accel|state.WAIT_CONFIG       ; mpu6050_controller:my_accel|phase[1]                ; 0.223             ;
+; mpu6050_controller:my_accel|state.WR_DEV_ADDR       ; mpu6050_controller:my_accel|saved_state.STOP        ; 0.211             ;
+; mpu6050_controller:my_accel|state.RESTART           ; mpu6050_controller:my_accel|state.RD_DEV_ADDR       ; 0.193             ;
+; mpu6050_controller:my_accel|config_done             ; mpu6050_controller:my_accel|state.START             ; 0.182             ;
+; mpu6050_controller:my_accel|saved_state.RESTART     ; mpu6050_controller:my_accel|state.RESTART           ; 0.156             ;
+; mpu6050_controller:my_accel|i2c_scl                 ; mpu6050_controller:my_accel|i2c_scl                 ; 0.153             ;
+; mpu6050_controller:my_accel|state.STOP              ; mpu6050_controller:my_accel|i2c_scl                 ; 0.153             ;
+; mpu6050_controller:my_accel|state.START             ; mpu6050_controller:my_accel|i2c_scl                 ; 0.153             ;
+; mpu6050_controller:my_accel|bit_cnt[2]              ; mpu6050_controller:my_accel|sda_en                  ; 0.133             ;
+; mpu6050_controller:my_accel|sda_out                 ; mpu6050_controller:my_accel|sda_out                 ; 0.120             ;
+; mpu6050_controller:my_accel|state.ACK_CHECK         ; mpu6050_controller:my_accel|sda_out                 ; 0.120             ;
+; mpu6050_controller:my_accel|data_buffer[5]          ; mpu6050_controller:my_accel|rx_data[2][5]           ; 0.070             ;
+; mpu6050_controller:my_accel|data_buffer[1]          ; mpu6050_controller:my_accel|rx_data[2][1]           ; 0.070             ;
+; mpu6050_controller:my_accel|saved_state.WR_REG_DATA ; mpu6050_controller:my_accel|state.WR_REG_DATA       ; 0.069             ;
+; mpu6050_controller:my_accel|saved_state.WR_REG_ADDR ; mpu6050_controller:my_accel|state.WR_REG_ADDR       ; 0.063             ;
+; mpu6050_controller:my_accel|state.READ_DATA         ; mpu6050_controller:my_accel|phase[1]                ; 0.052             ;
+; mpu6050_controller:my_accel|state.IDLE              ; mpu6050_controller:my_accel|phase[1]                ; 0.033             ;
++-----------------------------------------------------+-----------------------------------------------------+-------------------+
+Note: This table only shows the top 30 path(s) that have the largest delay added for hold.
 
 
 +-----------------+
@@ -2195,13 +2333,8 @@ Info (171003): Fitter is performing an Auto Fit compilation, which may decrease 
 Warning (292013): Feature LogicLock is only available with a valid subscription license. You can purchase a software subscription to gain full access to this feature.
 Warning (15714): Some pins have incomplete I/O assignments. Refer to the I/O Assignment Warnings report for details
 Info (184020): Starting Fitter periphery placement operations
-Info (11191): Automatically promoted 2 clocks (2 global)
-    Info (11162): CLOCK_50~inputCLKENA0 with 159 fanout uses global clock CLKCTRL_G6
-    Info (11162): KEY[0]~inputCLKENA0 with 159 fanout uses global clock CLKCTRL_G7
-        Info (12525): This signal is driven by core routing -- it may be moved during placement to reduce routing delays
-Warning (16406): 1 global input pin(s) will use non-dedicated clock routing
-    Warning (16407): Source REFCLK I/O is not placed onto a dedicated REFCLK input pin for global clock driver KEY[0]~inputCLKENA0, placed at CLKCTRL_G7
-        Info (179012): Refclk input I/O pad KEY[0] is placed onto PIN_AA14
+Info (11191): Automatically promoted 1 clock (1 global)
+    Info (11162): CLOCK_50~inputCLKENA0 with 165 fanout uses global clock CLKCTRL_G6
 Info (184021): Fitter periphery placement operations ending: elapsed time is 00:00:00
 Info (176233): Starting register packing
 Info (332104): Reading SDC File: 'test.sdc'
@@ -2415,30 +2548,30 @@ Warning (15705): Ignored locations or region assignments to the following nodes
 Info (11798): Fitter preparation operations ending: elapsed time is 00:00:08
 Info (170189): Fitter placement preparation operations beginning
 Info (14951): The Fitter is using Advanced Physical Optimization.
-Info (170190): Fitter placement preparation operations ending: elapsed time is 00:00:11
+Info (170190): Fitter placement preparation operations ending: elapsed time is 00:00:07
 Info (170191): Fitter placement operations beginning
 Info (170137): Fitter placement was successful
 Info (170192): Fitter placement operations ending: elapsed time is 00:00:01
 Info (170193): Fitter routing operations beginning
 Info (170195): Router estimated average interconnect usage is 0% of the available device resources
-    Info (170196): Router estimated peak interconnect usage is 2% of the available device resources in the region that extends from location X78_Y0 to location X89_Y10
+    Info (170196): Router estimated peak interconnect usage is 1% of the available device resources in the region that extends from location X78_Y0 to location X89_Y10
 Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were skipped to reduce compilation time.
     Info (170201): Optimizations that may affect the design's routability were skipped
     Info (170200): Optimizations that may affect the design's timing were skipped
 Info (170194): Fitter routing operations ending: elapsed time is 00:00:01
-Info (11888): Total time spent on timing analysis during the Fitter is 0.98 seconds.
+Info (11888): Total time spent on timing analysis during the Fitter is 0.72 seconds.
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
-Info (11801): Fitter post-fit operations ending: elapsed time is 00:00:04
+Info (11801): Fitter post-fit operations ending: elapsed time is 00:00:03
 Warning (171167): Found invalid Fitter assignments. See the Ignored Assignments panel in the Fitter Compilation Report for more information.
 Info (144001): Generated suppressed messages file C:/AlteraPrj/Project3/Module4_test/output_files/test.fit.smsg
-Info: Quartus Prime Fitter was successful. 0 errors, 205 warnings
-    Info: Peak virtual memory: 7173 megabytes
-    Info: Processing ended: Tue Nov 25 20:03:32 2025
-    Info: Elapsed time: 00:00:58
-    Info: Total CPU time (on all processors): 00:04:11
+Info: Quartus Prime Fitter was successful. 0 errors, 203 warnings
+    Info: Peak virtual memory: 7169 megabytes
+    Info: Processing ended: Thu Nov 27 15:25:10 2025
+    Info: Elapsed time: 00:00:51
+    Info: Total CPU time (on all processors): 00:03:28
 
 
 +----------------------------+
