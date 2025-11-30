@@ -7,7 +7,7 @@ CFLAGS = -static -g -Wall -Dsoc_cv_av \
          -I${SOCEDS_DEST_ROOT}/ip/altera/hps/altera_hps/hwlib/include \
          -I${SOCEDS_DEST_ROOT}/ip/altera/hps/altera_hps/hwlib/include/soc_cv_av
 
-LDFLAGS =  -g -Wall  
+LDFLAGS =  -g -Wall -lpthread
 CC = $(CROSS_COMPILE)gcc
 ARCH= arm
 
