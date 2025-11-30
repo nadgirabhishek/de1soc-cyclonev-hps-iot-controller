@@ -243,7 +243,10 @@ module ghrd_top(
   );
 
   // All 10 LEDs in sync: on/off controlled by PWM
-  assign LEDR[0] = pwm_out; 
+//  assign LEDR[0] = pwm_out; 
+
+assign LEDR[9:0] = {10{pwm_out}};
+
 
   // --------------------------------------------------------------------------
   // Select which axis to show on 7-segment using SW[1:0]

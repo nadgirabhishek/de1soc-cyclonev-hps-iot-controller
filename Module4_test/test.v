@@ -14,19 +14,28 @@ module mpu6050_controller ( // Renamed module for accuracy
 
     parameter CLK_DIV = 500; 
 
-    // --- SENSOR PARAMETERS (UPDATED FOR ICM-20948) ---
-    // NOTE: The I2C address might be 0x68 (AD0=Low) or 0x69 (AD0=High).
-    // If you still see issues, try changing this to 7'h69.
-    localparam SLAVE_ADDR      = 7'h68;    
-    
-    // In ICM-20948 (Bank 0), Power Mgmt 1 is at 0x06 (was 0x6B in MPU6050)
-    localparam REG_PWR_MGMT_1  = 8'h06;    
-    
-    // Value 0x01 clears sleep and auto-selects the best clock source
-    localparam REG_PWR_DATA    = 8'h01;    
-    
-    // In ICM-20948 (Bank 0), Accel X High Byte is at 0x2D (was 0x3B in MPU6050)
-    localparam REG_ADDR_START  = 8'h2D;    
+//    // --- SENSOR PARAMETERS (UPDATED FOR ICM-20948) ---
+//    // NOTE: The I2C address might be 0x68 (AD0=Low) or 0x69 (AD0=High).
+//    // If you still see issues, try changing this to 7'h69.
+//    localparam SLAVE_ADDR      = 7'h68;    
+//    
+//    // In ICM-20948 (Bank 0), Power Mgmt 1 is at 0x06 (was 0x6B in MPU6050)
+//    localparam REG_PWR_MGMT_1  = 8'h06;    
+//    
+//    // Value 0x01 clears sleep and auto-selects the best clock source
+//    localparam REG_PWR_DATA    = 8'h01;    
+//    
+//    // In ICM-20948 (Bank 0), Accel X High Byte is at 0x2D (was 0x3B in MPU6050)
+//    localparam REG_ADDR_START  = 8'h2D;
+
+// Same I2C address if AD0 is tied low:
+	localparam SLAVE_ADDR      = 7'h68;
+
+	// Correct MPU-6050 registers
+	localparam REG_PWR_MGMT_1  = 8'h6B; // power management 1
+	localparam REG_PWR_DATA    = 8'h00; // clear sleep bit
+//	localparam REG_ADDR_START  = 8'h3B; // ACCEL_XOUT_H
+	localparam REG_ADDR_START  = 8'h75; // Test    
 
     reg [8:0]  clk_count;
     reg        i2c_tick;
