@@ -84,7 +84,7 @@ module soc_system (
 		input  wire [15:0] pio_accel_x_external_connection_export, // pio_accel_x_external_connection.export
 		input  wire [15:0] pio_accel_y_external_connection_export, // pio_accel_y_external_connection.export
 		input  wire [15:0] pio_accel_z_external_connection_export, // pio_accel_z_external_connection.export
-		output wire [9:0]  pio_led_external_connection_export,     //     pio_led_external_connection.export
+		output wire [7:0]  pio_pwm_external_connection_export,     //     pio_pwm_external_connection.export
 		input  wire        reset_reset_n                           //                           reset.reset_n
 	);
 
@@ -187,17 +187,17 @@ module soc_system (
 	wire         mm_interconnect_0_intr_capturer_0_avalon_slave_0_read;     // mm_interconnect_0:intr_capturer_0_avalon_slave_0_read -> intr_capturer_0:read
 	wire  [31:0] mm_interconnect_0_sysid_qsys_control_slave_readdata;       // sysid_qsys:readdata -> mm_interconnect_0:sysid_qsys_control_slave_readdata
 	wire   [0:0] mm_interconnect_0_sysid_qsys_control_slave_address;        // mm_interconnect_0:sysid_qsys_control_slave_address -> sysid_qsys:address
-	wire         mm_interconnect_0_pio_led_s1_chipselect;                   // mm_interconnect_0:pio_led_s1_chipselect -> pio_led:chipselect
-	wire  [31:0] mm_interconnect_0_pio_led_s1_readdata;                     // pio_led:readdata -> mm_interconnect_0:pio_led_s1_readdata
-	wire   [1:0] mm_interconnect_0_pio_led_s1_address;                      // mm_interconnect_0:pio_led_s1_address -> pio_led:address
-	wire         mm_interconnect_0_pio_led_s1_write;                        // mm_interconnect_0:pio_led_s1_write -> pio_led:write_n
-	wire  [31:0] mm_interconnect_0_pio_led_s1_writedata;                    // mm_interconnect_0:pio_led_s1_writedata -> pio_led:writedata
 	wire  [31:0] mm_interconnect_0_pio_accel_x_s1_readdata;                 // pio_accel_x:readdata -> mm_interconnect_0:pio_accel_x_s1_readdata
 	wire   [1:0] mm_interconnect_0_pio_accel_x_s1_address;                  // mm_interconnect_0:pio_accel_x_s1_address -> pio_accel_x:address
 	wire  [31:0] mm_interconnect_0_pio_accel_y_s1_readdata;                 // pio_accel_y:readdata -> mm_interconnect_0:pio_accel_y_s1_readdata
 	wire   [1:0] mm_interconnect_0_pio_accel_y_s1_address;                  // mm_interconnect_0:pio_accel_y_s1_address -> pio_accel_y:address
 	wire  [31:0] mm_interconnect_0_pio_accel_z_s1_readdata;                 // pio_accel_z:readdata -> mm_interconnect_0:pio_accel_z_s1_readdata
 	wire   [1:0] mm_interconnect_0_pio_accel_z_s1_address;                  // mm_interconnect_0:pio_accel_z_s1_address -> pio_accel_z:address
+	wire         mm_interconnect_0_pio_pwm_s1_chipselect;                   // mm_interconnect_0:pio_pwm_s1_chipselect -> pio_pwm:chipselect
+	wire  [31:0] mm_interconnect_0_pio_pwm_s1_readdata;                     // pio_pwm:readdata -> mm_interconnect_0:pio_pwm_s1_readdata
+	wire   [1:0] mm_interconnect_0_pio_pwm_s1_address;                      // mm_interconnect_0:pio_pwm_s1_address -> pio_pwm:address
+	wire         mm_interconnect_0_pio_pwm_s1_write;                        // mm_interconnect_0:pio_pwm_s1_write -> pio_pwm:write_n
+	wire  [31:0] mm_interconnect_0_pio_pwm_s1_writedata;                    // mm_interconnect_0:pio_pwm_s1_writedata -> pio_pwm:writedata
 	wire  [31:0] hps_only_master_master_readdata;                           // mm_interconnect_1:hps_only_master_master_readdata -> hps_only_master:master_readdata
 	wire         hps_only_master_master_waitrequest;                        // mm_interconnect_1:hps_only_master_master_waitrequest -> hps_only_master:master_waitrequest
 	wire  [31:0] hps_only_master_master_address;                            // hps_only_master:master_address -> mm_interconnect_1:hps_only_master_master_address
@@ -248,7 +248,7 @@ module soc_system (
 	wire  [31:0] hps_0_f2h_irq1_irq;                                        // irq_mapper_001:sender_irq -> hps_0:f2h_irq_p1
 	wire  [31:0] intr_capturer_0_interrupt_receiver_irq;                    // irq_mapper_002:sender_irq -> intr_capturer_0:interrupt_in
 	wire         irq_mapper_receiver0_irq;                                  // jtag_uart:av_irq -> [irq_mapper:receiver0_irq, irq_mapper_002:receiver0_irq]
-	wire         rst_controller_reset_out_reset;                            // rst_controller:reset_out -> [intr_capturer_0:rst_n, irq_mapper_002:reset, jtag_uart:rst_n, mm_interconnect_0:fpga_only_master_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_0:onchip_memory2_0_reset1_reset_bridge_in_reset_reset, mm_interconnect_1:hps_only_master_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_1:hps_only_master_master_translator_reset_reset_bridge_in_reset_reset, onchip_memory2_0:reset, pio_accel_x:reset_n, pio_accel_y:reset_n, pio_accel_z:reset_n, pio_led:reset_n, rst_translator:in_reset, sysid_qsys:reset_n]
+	wire         rst_controller_reset_out_reset;                            // rst_controller:reset_out -> [intr_capturer_0:rst_n, irq_mapper_002:reset, jtag_uart:rst_n, mm_interconnect_0:fpga_only_master_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_0:onchip_memory2_0_reset1_reset_bridge_in_reset_reset, mm_interconnect_1:hps_only_master_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_1:hps_only_master_master_translator_reset_reset_bridge_in_reset_reset, onchip_memory2_0:reset, pio_accel_x:reset_n, pio_accel_y:reset_n, pio_accel_z:reset_n, pio_pwm:reset_n, rst_translator:in_reset, sysid_qsys:reset_n]
 	wire         rst_controller_reset_out_reset_req;                        // rst_controller:reset_req -> [onchip_memory2_0:reset_req, rst_translator:reset_req_in]
 	wire         rst_controller_001_reset_out_reset;                        // rst_controller_001:reset_out -> [mm_interconnect_0:hps_0_h2f_axi_master_agent_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_1:hps_0_f2h_axi_slave_agent_reset_sink_reset_bridge_in_reset_reset]
 
@@ -547,15 +547,15 @@ module soc_system (
 		.in_port  (pio_accel_z_external_connection_export)     // external_connection.export
 	);
 
-	soc_system_pio_led pio_led (
+	soc_system_pio_pwm pio_pwm (
 		.clk        (clk_clk),                                 //                 clk.clk
 		.reset_n    (~rst_controller_reset_out_reset),         //               reset.reset_n
-		.address    (mm_interconnect_0_pio_led_s1_address),    //                  s1.address
-		.write_n    (~mm_interconnect_0_pio_led_s1_write),     //                    .write_n
-		.writedata  (mm_interconnect_0_pio_led_s1_writedata),  //                    .writedata
-		.chipselect (mm_interconnect_0_pio_led_s1_chipselect), //                    .chipselect
-		.readdata   (mm_interconnect_0_pio_led_s1_readdata),   //                    .readdata
-		.out_port   (pio_led_external_connection_export)       // external_connection.export
+		.address    (mm_interconnect_0_pio_pwm_s1_address),    //                  s1.address
+		.write_n    (~mm_interconnect_0_pio_pwm_s1_write),     //                    .write_n
+		.writedata  (mm_interconnect_0_pio_pwm_s1_writedata),  //                    .writedata
+		.chipselect (mm_interconnect_0_pio_pwm_s1_chipselect), //                    .chipselect
+		.readdata   (mm_interconnect_0_pio_pwm_s1_readdata),   //                    .readdata
+		.out_port   (pio_pwm_external_connection_export)       // external_connection.export
 	);
 
 	soc_system_sysid_qsys sysid_qsys (
@@ -673,11 +673,11 @@ module soc_system (
 		.pio_accel_y_s1_readdata                                          (mm_interconnect_0_pio_accel_y_s1_readdata),                 //                                                           .readdata
 		.pio_accel_z_s1_address                                           (mm_interconnect_0_pio_accel_z_s1_address),                  //                                             pio_accel_z_s1.address
 		.pio_accel_z_s1_readdata                                          (mm_interconnect_0_pio_accel_z_s1_readdata),                 //                                                           .readdata
-		.pio_led_s1_address                                               (mm_interconnect_0_pio_led_s1_address),                      //                                                 pio_led_s1.address
-		.pio_led_s1_write                                                 (mm_interconnect_0_pio_led_s1_write),                        //                                                           .write
-		.pio_led_s1_readdata                                              (mm_interconnect_0_pio_led_s1_readdata),                     //                                                           .readdata
-		.pio_led_s1_writedata                                             (mm_interconnect_0_pio_led_s1_writedata),                    //                                                           .writedata
-		.pio_led_s1_chipselect                                            (mm_interconnect_0_pio_led_s1_chipselect),                   //                                                           .chipselect
+		.pio_pwm_s1_address                                               (mm_interconnect_0_pio_pwm_s1_address),                      //                                                 pio_pwm_s1.address
+		.pio_pwm_s1_write                                                 (mm_interconnect_0_pio_pwm_s1_write),                        //                                                           .write
+		.pio_pwm_s1_readdata                                              (mm_interconnect_0_pio_pwm_s1_readdata),                     //                                                           .readdata
+		.pio_pwm_s1_writedata                                             (mm_interconnect_0_pio_pwm_s1_writedata),                    //                                                           .writedata
+		.pio_pwm_s1_chipselect                                            (mm_interconnect_0_pio_pwm_s1_chipselect),                   //                                                           .chipselect
 		.sysid_qsys_control_slave_address                                 (mm_interconnect_0_sysid_qsys_control_slave_address),        //                                   sysid_qsys_control_slave.address
 		.sysid_qsys_control_slave_readdata                                (mm_interconnect_0_sysid_qsys_control_slave_readdata)        //                                                           .readdata
 	);

@@ -14,7 +14,7 @@ ARCH= arm
 
 build: $(TARGET)
 $(TARGET): main.o 
-	$(CC) $(LDFLAGS)   $^ -o $@  
+	$(CC) $(LDFLAGS) $^ -lm -o $@
 %.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 

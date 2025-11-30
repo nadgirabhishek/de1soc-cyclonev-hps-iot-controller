@@ -212,6 +212,10 @@ module ghrd_top(
   wire [15:0] accel_y;
   wire [15:0] accel_z;
 
+  // PWM control from HPS
+  wire [7:0]  pwm_duty;   // comes from pio_pwm
+  wire        pwm_out;    // goes to LEDs
+  
   // Data to show on 7-seg (selected axis)
   reg  [15:0] display_data;
 
@@ -231,6 +235,15 @@ module ghrd_top(
       .i2c_scl  (FPGA_I2C_SCLK),   // DE1-SoC FPGA I2C pins
       .i2c_sda  (FPGA_I2C_SDAT)
   );
+  pwm_generator u_pwm (
+      .clk        (CLOCK_50),
+      .reset_n    (KEY[0]),
+      .duty_cycle (pwm_duty),  // 0..100 from HPS
+      .pwm_out    (pwm_out)
+  );
+
+  // All 10 LEDs in sync: on/off controlled by PWM
+  assign LEDR[0] = pwm_out; 
 
   // --------------------------------------------------------------------------
   // Select which axis to show on 7-segment using SW[1:0]
@@ -240,6 +253,7 @@ module ghrd_top(
           2'b00: display_data = accel_x;   // show X
           2'b01: display_data = accel_y;   // show Y
           2'b10: display_data = accel_z;   // show Z
+			 2'b11: display_data = pwm_duty;
           default: display_data = 16'hFFFF;
       endcase
   end
@@ -277,8 +291,9 @@ module ghrd_top(
         .pio_accel_x_external_connection_export (accel_x), // pio_accel_x_external_connection.export
         .pio_accel_y_external_connection_export (accel_y), // pio_accel_y_external_connection.export
         .pio_accel_z_external_connection_export (accel_z), // pio_accel_z_external_connection.export
-
-        .pio_led_external_connection_export    (LEDR),     // pio_led_external_connection.export
+		  
+		   
+        .pio_pwm_external_connection_export      (pwm_duty),  // 8-bit duty from HPS
 	 	 
         .memory_mem_a                          ( HPS_DDR3_ADDR),                          //          memory.mem_a
         .memory_mem_ba                         ( HPS_DDR3_BA),                         //                .mem_ba

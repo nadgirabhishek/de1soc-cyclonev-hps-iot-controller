@@ -54,28 +54,28 @@
 #define ONCHIP_MEMORY2_0_MEMORY_INFO_MEM_INIT_FILENAME soc_system_onchip_memory2_0
 
 /*
- * Macros for device 'pio_led', class 'altera_avalon_pio'
- * The macros are prefixed with 'PIO_LED_'.
+ * Macros for device 'pio_pwm', class 'altera_avalon_pio'
+ * The macros are prefixed with 'PIO_PWM_'.
  * The prefix is the slave descriptor.
  */
-#define PIO_LED_COMPONENT_TYPE altera_avalon_pio
-#define PIO_LED_COMPONENT_NAME pio_led
-#define PIO_LED_BASE 0x0
-#define PIO_LED_SPAN 16
-#define PIO_LED_END 0xf
-#define PIO_LED_BIT_CLEARING_EDGE_REGISTER 0
-#define PIO_LED_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define PIO_LED_CAPTURE 0
-#define PIO_LED_DATA_WIDTH 10
-#define PIO_LED_DO_TEST_BENCH_WIRING 0
-#define PIO_LED_DRIVEN_SIM_VALUE 0
-#define PIO_LED_EDGE_TYPE NONE
-#define PIO_LED_FREQ 50000000
-#define PIO_LED_HAS_IN 0
-#define PIO_LED_HAS_OUT 1
-#define PIO_LED_HAS_TRI 0
-#define PIO_LED_IRQ_TYPE NONE
-#define PIO_LED_RESET_VALUE 1023
+#define PIO_PWM_COMPONENT_TYPE altera_avalon_pio
+#define PIO_PWM_COMPONENT_NAME pio_pwm
+#define PIO_PWM_BASE 0x0
+#define PIO_PWM_SPAN 16
+#define PIO_PWM_END 0xf
+#define PIO_PWM_BIT_CLEARING_EDGE_REGISTER 0
+#define PIO_PWM_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define PIO_PWM_CAPTURE 0
+#define PIO_PWM_DATA_WIDTH 8
+#define PIO_PWM_DO_TEST_BENCH_WIRING 0
+#define PIO_PWM_DRIVEN_SIM_VALUE 0
+#define PIO_PWM_EDGE_TYPE NONE
+#define PIO_PWM_FREQ 50000000
+#define PIO_PWM_HAS_IN 0
+#define PIO_PWM_HAS_OUT 1
+#define PIO_PWM_HAS_TRI 0
+#define PIO_PWM_IRQ_TYPE NONE
+#define PIO_PWM_RESET_VALUE 0
 
 /*
  * Macros for device 'pio_accel_z', class 'altera_avalon_pio'
@@ -160,7 +160,7 @@
 #define SYSID_QSYS_SPAN 8
 #define SYSID_QSYS_END 0x10007
 #define SYSID_QSYS_ID 2899645186
-#define SYSID_QSYS_TIMESTAMP 1764283010
+#define SYSID_QSYS_TIMESTAMP 1764473909
 
 /*
  * Macros for device 'jtag_uart', class 'altera_avalon_jtag_uart'

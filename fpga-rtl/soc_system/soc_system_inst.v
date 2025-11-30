@@ -76,10 +76,10 @@
 		.memory_mem_odt                         (<connected-to-memory_mem_odt>),                         //                                .mem_odt
 		.memory_mem_dm                          (<connected-to-memory_mem_dm>),                          //                                .mem_dm
 		.memory_oct_rzqin                       (<connected-to-memory_oct_rzqin>),                       //                                .oct_rzqin
-		.pio_led_external_connection_export     (<connected-to-pio_led_external_connection_export>),     //     pio_led_external_connection.export
-		.reset_reset_n                          (<connected-to-reset_reset_n>),                          //                           reset.reset_n
 		.pio_accel_x_external_connection_export (<connected-to-pio_accel_x_external_connection_export>), // pio_accel_x_external_connection.export
 		.pio_accel_y_external_connection_export (<connected-to-pio_accel_y_external_connection_export>), // pio_accel_y_external_connection.export
-		.pio_accel_z_external_connection_export (<connected-to-pio_accel_z_external_connection_export>)  // pio_accel_z_external_connection.export
+		.pio_accel_z_external_connection_export (<connected-to-pio_accel_z_external_connection_export>), // pio_accel_z_external_connection.export
+		.pio_pwm_external_connection_export     (<connected-to-pio_pwm_external_connection_export>),     //     pio_pwm_external_connection.export
+		.reset_reset_n                          (<connected-to-reset_reset_n>)                           //                           reset.reset_n
 	);
 

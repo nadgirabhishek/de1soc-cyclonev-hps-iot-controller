@@ -13,7 +13,7 @@
    {
       datum _sortIndex
       {
-         value = "8";
+         value = "7";
          type = "int";
       }
    }
@@ -21,7 +21,7 @@
    {
       datum _sortIndex
       {
-         value = "6";
+         value = "5";
          type = "int";
       }
    }
@@ -45,7 +45,7 @@
    {
       datum _sortIndex
       {
-         value = "2";
+         value = "1";
          type = "int";
       }
    }
@@ -53,7 +53,7 @@
    {
       datum _sortIndex
       {
-         value = "7";
+         value = "6";
          type = "int";
       }
    }
@@ -79,7 +79,7 @@
    {
       datum _sortIndex
       {
-         value = "5";
+         value = "4";
          type = "int";
       }
    }
@@ -100,7 +100,7 @@
    {
       datum _sortIndex
       {
-         value = "4";
+         value = "3";
          type = "int";
       }
    }
@@ -116,7 +116,7 @@
    {
       datum _sortIndex
       {
-         value = "9";
+         value = "8";
          type = "int";
       }
    }
@@ -132,7 +132,7 @@
    {
       datum _sortIndex
       {
-         value = "10";
+         value = "9";
          type = "int";
       }
    }
@@ -148,7 +148,7 @@
    {
       datum _sortIndex
       {
-         value = "11";
+         value = "10";
          type = "int";
       }
    }
@@ -160,27 +160,19 @@
          type = "String";
       }
    }
-   element pio_led
+   element pio_pwm
    {
       datum _sortIndex
       {
-         value = "1";
+         value = "11";
          type = "int";
-      }
-   }
-   element pio_led.s1
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
       }
    }
    element sysid_qsys
    {
       datum _sortIndex
       {
-         value = "3";
+         value = "2";
          type = "int";
       }
    }
@@ -263,8 +255,8 @@
    type="conduit"
    dir="end" />
  <interface
-   name="pio_led_external_connection"
-   internal="pio_led.external_connection"
+   name="pio_pwm_external_connection"
+   internal="pio_pwm.external_connection"
    type="conduit"
    dir="end" />
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
@@ -945,7 +937,7 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="16" />
  </module>
- <module name="pio_led" kind="altera_avalon_pio" version="18.1" enabled="1">
+ <module name="pio_pwm" kind="altera_avalon_pio" version="18.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -954,10 +946,10 @@
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
   <parameter name="irqType" value="LEVEL" />
-  <parameter name="resetValue" value="1023" />
+  <parameter name="resetValue" value="0" />
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
-  <parameter name="width" value="10" />
+  <parameter name="width" value="8" />
  </module>
  <module
    name="sysid_qsys"
@@ -997,15 +989,6 @@
    kind="avalon"
    version="18.1"
    start="hps_0.h2f_lw_axi_master"
-   end="pio_led.s1">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="hps_0.h2f_lw_axi_master"
    end="pio_accel_x.s1">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0030" />
@@ -1027,6 +1010,15 @@
    end="pio_accel_z.s1">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0010" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="hps_0.h2f_lw_axi_master"
+   end="pio_pwm.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1086,10 +1078,10 @@
    start="clk_0.clk"
    end="fpga_only_master.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="jtag_uart.clk" />
- <connection kind="clock" version="18.1" start="clk_0.clk" end="pio_led.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="pio_accel_x.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="pio_accel_y.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="pio_accel_z.clk" />
+ <connection kind="clock" version="18.1" start="clk_0.clk" end="pio_pwm.clk" />
  <connection
    kind="clock"
    version="18.1"
@@ -1153,11 +1145,6 @@
    kind="reset"
    version="18.1"
    start="clk_0.clk_reset"
-   end="pio_led.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_0.clk_reset"
    end="pio_accel_x.reset" />
  <connection
    kind="reset"
@@ -1169,6 +1156,11 @@
    version="18.1"
    start="clk_0.clk_reset"
    end="pio_accel_z.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_0.clk_reset"
+   end="pio_pwm.reset" />
  <connection
    kind="reset"
    version="18.1"
