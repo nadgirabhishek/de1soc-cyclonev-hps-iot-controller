@@ -1,0 +1,14 @@
+module i2c(
+ input clk,v
+ input rst,
+ input [6:0] addr,      //7-bit address of 12C address
+ input [7:0] wdata,   //8 bit data to be sent
+ input enable,          //enable signal
+ input rw,              //1 for read , 0 for write
+
+ output reg [7:0] data_out,   //8 bit data recieved
+ output wire ready,           //indicates if controller is ready for new transmission
+
+ inout i2c_sda,                
+ inout wire i2c_scl
+ );
