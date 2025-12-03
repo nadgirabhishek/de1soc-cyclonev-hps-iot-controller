@@ -31,6 +31,7 @@ void *http_server_thread(void *arg)
     int server_fd, client_fd;
     struct sockaddr_in addr;
     socklen_t addrlen = sizeof(addr);
+    char recv_buf[1024]; // Buffer to read the browser request
     (void)arg;
 
     server_fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -47,51 +48,86 @@ void *http_server_thread(void *arg)
     if (bind(server_fd, (struct sockaddr *)&addr, sizeof(addr)) < 0) return NULL;
     if (listen(server_fd, 5) < 0) return NULL;
 
-    printf("HTTP server listening on port 8080 (http://<board-ip>:8080)\n");
+    printf("HTTP server listening on port 8080\n");
 
     while (1) {
         client_fd = accept(server_fd, (struct sockaddr *)&addr, &addrlen);
         if (client_fd < 0) continue;
 
-        int16_t ax = g_ax;
-        int16_t ay = g_ay;
-        int16_t az = g_az;
-        int duty = g_duty;
+        // 1. READ THE REQUEST to see what the browser wants
+        int read_len = read(client_fd, recv_buf, sizeof(recv_buf) - 1);
+        if (read_len > 0) {
+            recv_buf[read_len] = '\0'; // Null terminate
 
-        char body[512];
-        int len_body = snprintf(
-            body, sizeof(body),
-            "<html><head>"
-            "<meta http-equiv=\"refresh\" content=\"1\">"
-            "<title>Accel PWM Status</title>"
-            "</head>"
-            "<body>"
-            "<h1>Accel PWM Status</h1>"
-            "<p>AX = %d</p>"
-            "<p>AY = %d</p>"
-            "<p>AZ = %d</p>"
-            "<p>PWM Duty = %d%%</p>"
-            "</body></html>",
-            ax, ay, az, duty
-        );
+            int16_t ax = g_ax;
+            int16_t ay = g_ay;
+            int16_t az = g_az;
+            int duty = g_duty;
 
-        if (len_body < 0) len_body = 0;
-        if (len_body > (int)sizeof(body)) len_body = sizeof(body);
+            char body[2048]; // Increased buffer size for JS code
+            char header[512];
 
-        char header[256];
-        int len_header = snprintf(
-            header, sizeof(header),
-            "HTTP/1.1 200 OK\r\n"
-            "Content-Type: text/html\r\n"
-            "Content-Length: %d\r\n"
-            "Connection: close\r\n"
-            "\r\n",
-            len_body
-        );
+            // 2. CHECK REQUEST TYPE
+            // If browser asks for "/data", send JUST the numbers
+            if (strstr(recv_buf, "GET /data")) {
+                // Send values as plain text: "ax,ay,az,duty"
+                snprintf(body, sizeof(body), "%d,%d,%d,%d", ax, ay, az, duty);
+                
+                snprintf(header, sizeof(header),
+                    "HTTP/1.1 200 OK\r\n"
+                    "Content-Type: text/plain\r\n" // Plain text data
+                    "Content-Length: %d\r\n"
+                    "Connection: close\r\n\r\n",
+                    (int)strlen(body)
+                );
+            } 
+            // Otherwise, send the MAIN PAGE (Static HTML + JS)
+            else {
+                snprintf(body, sizeof(body),
+                    "<html><head>"
+                    "<title>Accel Status</title>"
+                    "<style>body{font-family:sans-serif; text-align:center; padding-top:50px;}</style>"
+                    "<script>"
+                    // JavaScript to fetch data every 2000ms (2 seconds)
+                    "setInterval(function(){"
+                    "  var x = new XMLHttpRequest();"
+                    "  x.onreadystatechange = function(){"
+                    "    if(this.readyState==4 && this.status==200){"
+                    "      var v = this.responseText.split(',');"
+                    "      document.getElementById('ax').innerHTML = v[0];"
+                    "      document.getElementById('ay').innerHTML = v[1];"
+                    "      document.getElementById('az').innerHTML = v[2];"
+                    "      document.getElementById('dt').innerHTML = v[3];"
+                    "    }"
+                    "  };"
+                    "  x.open('GET','/data',true); x.send();"
+                    "}, 2000);"
+                    "</script>"
+                    "</head><body>"
+                    "<h1>Accel PWM Status</h1>"
+                    // Spans with IDs so JS can find and update them
+                    "<p>AX = <span id='ax'>%d</span></p>"
+                    "<p>AY = <span id='ay'>%d</span></p>"
+                    "<p>AZ = <span id='az'>%d</span></p>"
+                    "<p>PWM Duty = <span id='dt'>%d</span>%%</p>"
+                    "</body></html>",
+                    ax, ay, az, duty
+                );
 
-        if (len_header > 0) write(client_fd, header, len_header);
-        if (len_body > 0) write(client_fd, body, len_body);
+                snprintf(header, sizeof(header),
+                    "HTTP/1.1 200 OK\r\n"
+                    "Content-Type: text/html\r\n"
+                    "Content-Length: %d\r\n"
+                    "Connection: close\r\n\r\n",
+                    (int)strlen(body)
+                );
+            }
 
+            // Send response
+            write(client_fd, header, strlen(header));
+            write(client_fd, body, strlen(body));
+        }
+        
         close(client_fd);
     }
 
