@@ -124,7 +124,7 @@
    {
       datum baseAddress
       {
-         value = "48";
+         value = "112";
          type = "String";
       }
    }
@@ -140,7 +140,7 @@
    {
       datum baseAddress
       {
-         value = "32";
+         value = "96";
          type = "String";
       }
    }
@@ -156,6 +156,54 @@
    {
       datum baseAddress
       {
+         value = "80";
+         type = "String";
+      }
+   }
+   element pio_gyro_a
+   {
+      datum _sortIndex
+      {
+         value = "12";
+         type = "int";
+      }
+   }
+   element pio_gyro_a.s1
+   {
+      datum baseAddress
+      {
+         value = "48";
+         type = "String";
+      }
+   }
+   element pio_gyro_b
+   {
+      datum _sortIndex
+      {
+         value = "13";
+         type = "int";
+      }
+   }
+   element pio_gyro_b.s1
+   {
+      datum baseAddress
+      {
+         value = "32";
+         type = "String";
+      }
+   }
+   element pio_gyro_c
+   {
+      datum _sortIndex
+      {
+         value = "14";
+         type = "int";
+      }
+   }
+   element pio_gyro_c.s1
+   {
+      datum baseAddress
+      {
          value = "16";
          type = "String";
       }
@@ -166,6 +214,30 @@
       {
          value = "11";
          type = "int";
+      }
+   }
+   element pio_pwm.s1
+   {
+      datum baseAddress
+      {
+         value = "64";
+         type = "String";
+      }
+   }
+   element pio_temp
+   {
+      datum _sortIndex
+      {
+         value = "15";
+         type = "int";
+      }
+   }
+   element pio_temp.s1
+   {
+      datum baseAddress
+      {
+         value = "0";
+         type = "String";
       }
    }
    element sysid_qsys
@@ -255,8 +327,28 @@
    type="conduit"
    dir="end" />
  <interface
+   name="pio_gyro_a_external_connection"
+   internal="pio_gyro_a.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="pio_gyro_b_external_connection"
+   internal="pio_gyro_b.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="pio_gyro_c_external_connection"
+   internal="pio_gyro_c.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
    name="pio_pwm_external_connection"
    internal="pio_pwm.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="pio_temp_external_connection"
+   internal="pio_temp.external_connection"
    type="conduit"
    dir="end" />
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
@@ -937,6 +1029,48 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="16" />
  </module>
+ <module name="pio_gyro_a" kind="altera_avalon_pio" version="18.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="50000000" />
+  <parameter name="direction" value="Input" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="16" />
+ </module>
+ <module name="pio_gyro_b" kind="altera_avalon_pio" version="18.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="50000000" />
+  <parameter name="direction" value="Input" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="16" />
+ </module>
+ <module name="pio_gyro_c" kind="altera_avalon_pio" version="18.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="50000000" />
+  <parameter name="direction" value="Input" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="16" />
+ </module>
  <module name="pio_pwm" kind="altera_avalon_pio" version="18.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
@@ -950,6 +1084,20 @@
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="8" />
+ </module>
+ <module name="pio_temp" kind="altera_avalon_pio" version="18.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="50000000" />
+  <parameter name="direction" value="Input" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="16" />
  </module>
  <module
    name="sysid_qsys"
@@ -991,7 +1139,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="pio_accel_x.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0030" />
+  <parameter name="baseAddress" value="0x0070" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1000,7 +1148,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="pio_accel_y.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0020" />
+  <parameter name="baseAddress" value="0x0060" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1009,7 +1157,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="pio_accel_z.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0010" />
+  <parameter name="baseAddress" value="0x0050" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1017,6 +1165,42 @@
    version="18.1"
    start="hps_0.h2f_lw_axi_master"
    end="pio_pwm.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0040" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="hps_0.h2f_lw_axi_master"
+   end="pio_gyro_a.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0030" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="hps_0.h2f_lw_axi_master"
+   end="pio_gyro_b.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0020" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="hps_0.h2f_lw_axi_master"
+   end="pio_gyro_c.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0010" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="hps_0.h2f_lw_axi_master"
+   end="pio_temp.s1">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
@@ -1082,6 +1266,10 @@
  <connection kind="clock" version="18.1" start="clk_0.clk" end="pio_accel_y.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="pio_accel_z.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="pio_pwm.clk" />
+ <connection kind="clock" version="18.1" start="clk_0.clk" end="pio_gyro_a.clk" />
+ <connection kind="clock" version="18.1" start="clk_0.clk" end="pio_gyro_b.clk" />
+ <connection kind="clock" version="18.1" start="clk_0.clk" end="pio_gyro_c.clk" />
+ <connection kind="clock" version="18.1" start="clk_0.clk" end="pio_temp.clk" />
  <connection
    kind="clock"
    version="18.1"
@@ -1161,6 +1349,26 @@
    version="18.1"
    start="clk_0.clk_reset"
    end="pio_pwm.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_0.clk_reset"
+   end="pio_gyro_a.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_0.clk_reset"
+   end="pio_gyro_b.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_0.clk_reset"
+   end="pio_gyro_c.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_0.clk_reset"
+   end="pio_temp.reset" />
  <connection
    kind="reset"
    version="18.1"

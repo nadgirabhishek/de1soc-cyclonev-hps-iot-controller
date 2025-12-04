@@ -1,36 +1,3 @@
-// ============================================================================
-// Copyright (c) 2013 by Terasic Technologies Inc.
-// ============================================================================
-//
-// Permission:
-//
-//   Terasic grants permission to use and modify this code for use
-//   in synthesis for all Terasic Development Boards and Altera Development 
-//   Kits made by Terasic.  Other use of this code, including the selling 
-//   ,duplication, or modification of any portion is strictly prohibited.
-//
-// Disclaimer:
-//
-//   This VHDL/Verilog or C/C++ source code is intended as a design reference
-//   which illustrates how these types of functions can be implemented.
-//   It is the user's responsibility to verify their design for
-//   consistency and functionality through the use of formal
-//   verification methods.  Terasic provides no warranty regarding the use 
-//   or functionality of this code.
-//
-// ============================================================================
-//           
-//  Terasic Technologies Inc
-//  9F., No.176, Sec.2, Gongdao 5th Rd, East Dist, Hsinchu City, 30070. Taiwan
-//  
-//  
-//                     web: http://www.terasic.com/  
-//                     email: support@terasic.com
-//
-// ============================================================================
-//Date:  Mon Jun 17 20:35:29 2013
-// ============================================================================
-
 `define ENABLE_HPS
 
 module ghrd_top(
@@ -207,34 +174,52 @@ module ghrd_top(
   wire        hps_debug_reset;
   wire [27:0] stm_hw_events;
 
-  // Accelerometer wires (from MPU6050 to PIOs/HPS)
+  // Accelerometer / gyro / temperature wires (from MPU6050 to PIOs/HPS)
   wire [15:0] accel_x;
   wire [15:0] accel_y;
   wire [15:0] accel_z;
+  wire [15:0] temp;
+  wire [15:0] gyro_x;
+  wire [15:0] gyro_y;
+  wire [15:0] gyro_z;
 
   // PWM control from HPS
   wire [7:0]  pwm_duty;   // comes from pio_pwm
   wire        pwm_out;    // goes to LEDs
-  
-  // Data to show on 7-seg (selected axis)
+
+  // 7-seg display signals
   reg  [15:0] display_data;
+  reg  [6:0]  mode_char;
+  reg  [6:0]  axis_char;
+
+  // Short aliases to match your mux code
+  wire [15:0] ax = accel_x;
+  wire [15:0] ay = accel_y;
+  wire [15:0] az = accel_z;
+  wire [15:0] gx = gyro_x;
+  wire [15:0] gy = gyro_y;
+  wire [15:0] gz = gyro_z;
 
 // connection of internal logics
 //  assign LEDR = fpga_led_internal;
   assign stm_hw_events = {{3{1'b0}}, SW, fpga_led_internal, fpga_debounced_buttons};
 
-  // --------------------------------------------------------------------------
-  // MPU6050 controller instance (purely FPGA side)
-  // --------------------------------------------------------------------------
   mpu6050_controller u_mpu (
-      .clk      (CLOCK_50),        // 50 MHz FPGA clock
-      .reset_n  (KEY[0]),          // active-high reset_n from pushbutton
-      .accel_x  (accel_x),         // connect to PIOs (and HPS)
+      .clk      (CLOCK_50),      // 50 MHz FPGA clock
+      .reset_n  (KEY[0]),        // active-high reset_n from pushbutton
+
+      .accel_x  (accel_x),
       .accel_y  (accel_y),
       .accel_z  (accel_z),
-      .i2c_scl  (FPGA_I2C_SCLK),   // DE1-SoC FPGA I2C pins
+      .temp     (temp),
+      .gyro_x   (gyro_x),
+      .gyro_y   (gyro_y),
+      .gyro_z   (gyro_z),
+
+      .i2c_scl  (FPGA_I2C_SCLK), // DE1-SoC FPGA I2C pins
       .i2c_sda  (FPGA_I2C_SDAT)
   );
+
   pwm_generator u_pwm (
       .clk        (CLOCK_50),
       .reset_n    (KEY[0]),
@@ -243,26 +228,65 @@ module ghrd_top(
   );
 
   // All 10 LEDs in sync: on/off controlled by PWM
-//  assign LEDR[0] = pwm_out; 
-
-assign LEDR[9:0] = {10{pwm_out}};
-
+  assign LEDR[9:0] = {10{pwm_out}};
 
   // --------------------------------------------------------------------------
-  // Select which axis to show on 7-segment using SW[1:0]
+  // 7-seg MUX: select accel/gyro/temp + indicators using SW[2:0]
   // --------------------------------------------------------------------------
   always @(*) begin
-      case (SW[1:0])
-          2'b00: display_data = accel_x;   // show X
-          2'b01: display_data = accel_y;   // show Y
-          2'b10: display_data = accel_z;   // show Z
-			 2'b11: display_data = pwm_duty;
-          default: display_data = 16'hFFFF;
+      case (SW[2:0])
+          // --- ACCELEROMETER (Shows 'A' on HEX5) ---
+          3'b000: begin 
+              display_data = ax; 
+              mode_char    = 7'b000_1000; // 'A'
+              axis_char    = 7'b000_1001; // 'X' (pattern as you defined)
+          end 
+          3'b001: begin 
+              display_data = ay; 
+              mode_char    = 7'b000_1000; // 'A'
+              axis_char    = 7'b001_0001; // 'y'
+          end 
+          3'b010: begin 
+              display_data = az; 
+              mode_char    = 7'b000_1000; // 'A'
+              axis_char    = 7'b010_0100; // 'Z'
+          end 
+          
+          // --- GYROSCOPE (Shows 'G' on HEX5) ---
+          3'b011: begin 
+              display_data = gx; 
+              mode_char    = 7'b100_0010; // 'G'
+              axis_char    = 7'b000_1000; // 'A'
+          end 
+          3'b100: begin 
+              display_data = gy; 
+              mode_char    = 7'b100_0010; // 'G'
+              axis_char    = 7'b000_0011; // 'b'
+          end 
+          3'b101: begin 
+              display_data = gz; 
+              mode_char    = 7'b100_0010; // 'G'
+              axis_char    = 7'b100_0110; // 'C'
+          end 
+          
+          // --- TEMPERATURE (Shows 't' on HEX5) ---
+          3'b110: begin 
+              display_data = temp;  
+              mode_char    = 7'b000_0111; // 't'
+              axis_char    = 7'b111_1111; // Blank
+          end 
+          
+          // Default
+          default: begin 
+              display_data = 16'hFFFF; 
+              mode_char    = 7'b111_1111; 
+              axis_char    = 7'b111_1111; 
+          end 
       endcase
   end
 
   // --------------------------------------------------------------------------
-  // 7-segment display: show 16-bit hex on HEX0–HEX3, turn off HEX4–HEX5
+  // 7-segment display: show 16-bit hex on HEX0–HEX3, indicators on HEX4–HEX5
   // --------------------------------------------------------------------------
   seven_seg_decoder hex0_dec (
       .bcd_in  (display_data[3:0]),
@@ -284,20 +308,23 @@ assign LEDR[9:0] = {10{pwm_out}};
       .hex_out (HEX3)
   );
 
-  assign HEX4 = 7'b1111111;  // off (active-low)
-  assign HEX5 = 7'b1111111;  // off (active-low)
+  assign HEX4 = axis_char; 
+  assign HEX5 = mode_char; 
 
   // --------------------------------------------------------------------------
-  // HPS + system instance (unchanged, plus accel PIO connections)
+  // HPS + system instance (unchanged, plus accel/gyro/temp PIO connections)
   // --------------------------------------------------------------------------
   soc_system u0 (
-        .pio_accel_x_external_connection_export (accel_x), // pio_accel_x_external_connection.export
-        .pio_accel_y_external_connection_export (accel_y), // pio_accel_y_external_connection.export
-        .pio_accel_z_external_connection_export (accel_z), // pio_accel_z_external_connection.export
-		  
-		   
+        .pio_accel_x_external_connection_export (accel_x),
+        .pio_accel_y_external_connection_export (accel_y),
+        .pio_accel_z_external_connection_export (accel_z),
+        .pio_temp_external_connection_export    (temp),
+        .pio_gyro_a_external_connection_export  (gyro_x),
+        .pio_gyro_b_external_connection_export  (gyro_y),
+        .pio_gyro_c_external_connection_export  (gyro_z),
+		      
         .pio_pwm_external_connection_export      (pwm_duty),  // 8-bit duty from HPS
-	 	 
+	 	        
         .memory_mem_a                          ( HPS_DDR3_ADDR),                          //          memory.mem_a
         .memory_mem_ba                         ( HPS_DDR3_BA),                         //                .mem_ba
         .memory_mem_ck                         ( HPS_DDR3_CK_P),                         //                .mem_ck
@@ -329,7 +356,7 @@ assign LEDR[9:0] = {10{pwm_out}};
         .hps_0_hps_io_hps_io_emac1_inst_RXD1   ( HPS_ENET_RX_DATA[1] ),   //                               .hps_io_emac1_inst_RXD1
         .hps_0_hps_io_hps_io_emac1_inst_RXD2   ( HPS_ENET_RX_DATA[2] ),   //                               .hps_io_emac1_inst_RXD2
         .hps_0_hps_io_hps_io_emac1_inst_RXD3   ( HPS_ENET_RX_DATA[3] ),   //                               .hps_io_emac1_inst_RXD3
-		   
+		   	   
 		.hps_0_hps_io_hps_io_qspi_inst_IO0     ( HPS_FLASH_DATA[0]    ),     //                               .hps_io_qspi_inst_IO0
         .hps_0_hps_io_hps_io_qspi_inst_IO1     ( HPS_FLASH_DATA[1]    ),     //                               .hps_io_qspi_inst_IO1
         .hps_0_hps_io_hps_io_qspi_inst_IO2     ( HPS_FLASH_DATA[2]    ),     //                               .hps_io_qspi_inst_IO2
@@ -337,14 +364,14 @@ assign LEDR[9:0] = {10{pwm_out}};
         .hps_0_hps_io_hps_io_qspi_inst_SS0     ( HPS_FLASH_NCSO    ),     //                               .hps_io_qspi_inst_SS0
         .hps_0_hps_io_hps_io_qspi_inst_CLK     ( HPS_FLASH_DCLK    ),     //                               .hps_io_qspi_inst_CLK
         
-		  .hps_0_hps_io_hps_io_sdio_inst_CMD     ( HPS_SD_CMD    ),     //                               .hps_io_sdio_inst_CMD
+		.hps_0_hps_io_hps_io_sdio_inst_CMD     ( HPS_SD_CMD    ),     //                               .hps_io_sdio_inst_CMD
         .hps_0_hps_io_hps_io_sdio_inst_D0      ( HPS_SD_DATA[0]     ),      //                               .hps_io_sdio_inst_D0
         .hps_0_hps_io_hps_io_sdio_inst_D1      ( HPS_SD_DATA[1]     ),      //                               .hps_io_sdio_inst_D1
         .hps_0_hps_io_hps_io_sdio_inst_CLK     ( HPS_SD_CLK   ),     //                               .hps_io_sdio_inst_CLK
         .hps_0_hps_io_hps_io_sdio_inst_D2      ( HPS_SD_DATA[2]     ),      //                               .hps_io_sdio_inst_D2
         .hps_0_hps_io_hps_io_sdio_inst_D3      ( HPS_SD_DATA[3]     ),      //                               .hps_io_sdio_inst_D3
         		  
-		  .hps_0_hps_io_hps_io_usb1_inst_D0      ( HPS_USB_DATA[0]    ),      //                               .hps_io_usb1_inst_D0
+		.hps_0_hps_io_hps_io_usb1_inst_D0      ( HPS_USB_DATA[0]    ),      //                               .hps_io_usb1_inst_D0
         .hps_0_hps_io_hps_io_usb1_inst_D1      ( HPS_USB_DATA[1]    ),      //                               .hps_io_usb1_inst_D1
         .hps_0_hps_io_hps_io_usb1_inst_D2      ( HPS_USB_DATA[2]    ),      //                               .hps_io_usb1_inst_D2
         .hps_0_hps_io_hps_io_usb1_inst_D3      ( HPS_USB_DATA[3]    ),      //                               .hps_io_usb1_inst_D3
@@ -357,21 +384,21 @@ assign LEDR[9:0] = {10{pwm_out}};
         .hps_0_hps_io_hps_io_usb1_inst_DIR     ( HPS_USB_DIR    ),     //                               .hps_io_usb1_inst_DIR
         .hps_0_hps_io_hps_io_usb1_inst_NXT     ( HPS_USB_NXT    ),     //                               .hps_io_usb1_inst_NXT
         		  
-		  .hps_0_hps_io_hps_io_spim1_inst_CLK    ( HPS_SPIM_CLK  ),    //                               .hps_io_spim1_inst_CLK
+		.hps_0_hps_io_hps_io_spim1_inst_CLK    ( HPS_SPIM_CLK  ),    //                               .hps_io_spim1_inst_CLK
         .hps_0_hps_io_hps_io_spim1_inst_MOSI   ( HPS_SPIM_MOSI ),   //                               .hps_io_spim1_inst_MOSI
         .hps_0_hps_io_hps_io_spim1_inst_MISO   ( HPS_SPIM_MISO ),   //                               .hps_io_spim1_inst_MISO
         .hps_0_hps_io_hps_io_spim1_inst_SS0    ( HPS_SPIM_SS ),    //                               .hps_io_spim1_inst_SS0
       		
-		  .hps_0_hps_io_hps_io_uart0_inst_RX     ( HPS_UART_RX    ),     //                               .hps_io_uart0_inst_RX
+		.hps_0_hps_io_hps_io_uart0_inst_RX     ( HPS_UART_RX    ),     //                               .hps_io_uart0_inst_RX
         .hps_0_hps_io_hps_io_uart0_inst_TX     ( HPS_UART_TX    ),     //                               .hps_io_uart0_inst_TX
 		
-		  .hps_0_hps_io_hps_io_i2c0_inst_SDA     ( HPS_I2C1_SDAT    ),     //                               .hps_io_i2c0_inst_SDA
+		.hps_0_hps_io_hps_io_i2c0_inst_SDA     ( HPS_I2C1_SDAT    ),     //                               .hps_io_i2c0_inst_SDA
         .hps_0_hps_io_hps_io_i2c0_inst_SCL     ( HPS_I2C1_SCLK    ),     //                               .hps_io_i2c0_inst_SCL
 		
-		  .hps_0_hps_io_hps_io_i2c1_inst_SDA     ( HPS_I2C2_SDAT    ),     //                               .hps_io_i2c1_inst_SDA
+		.hps_0_hps_io_hps_io_i2c1_inst_SDA     ( HPS_I2C2_SDAT    ),     //                               .hps_io_i2c1_inst_SDA
         .hps_0_hps_io_hps_io_i2c1_inst_SCL     ( HPS_I2C2_SCLK    ),     //                               .hps_io_i2c1_inst_SCL
         
-		  .hps_0_hps_io_hps_io_gpio_inst_GPIO09  ( HPS_CONV_USB_N),  //                               .hps_io_gpio_inst_GPIO09
+		.hps_0_hps_io_hps_io_gpio_inst_GPIO09  ( HPS_CONV_USB_N),  //                               .hps_io_gpio_inst_GPIO09
         .hps_0_hps_io_hps_io_gpio_inst_GPIO35  ( HPS_ENET_INT_N),  //                               .hps_io_gpio_inst_GPIO35
         .hps_0_hps_io_hps_io_gpio_inst_GPIO40  ( HPS_LTC_GPIO),  //                               .hps_io_gpio_inst_GPIO40
         .hps_0_hps_io_hps_io_gpio_inst_GPIO48  ( HPS_I2C_CONTROL),  //                               .hps_io_gpio_inst_GPIO48
