@@ -1,5 +1,5 @@
 Analysis & Synthesis report for test
-Thu Nov 27 15:24:18 2025
+Wed Dec 03 18:54:47 2025
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -48,13 +48,13 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Thu Nov 27 15:24:18 2025       ;
+; Analysis & Synthesis Status     ; Successful - Wed Dec 03 18:54:47 2025       ;
 ; Quartus Prime Version           ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                   ; test                                        ;
 ; Top-level Entity Name           ; testtop                                     ;
 ; Family                          ; Cyclone V                                   ;
 ; Logic utilization (in ALMs)     ; N/A                                         ;
-; Total registers                 ; 165                                         ;
+; Total registers                 ; 295                                         ;
 ; Total pins                      ; 59                                          ;
 ; Total virtual pins              ; 0                                           ;
 ; Total block memory bits         ; 0                                           ;
@@ -168,7 +168,8 @@ refer to the applicable agreement for further details.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-10        ;   0.0%      ;
+;     Processor 2            ;   0.0%      ;
+;     Processors 3-10        ;   0.0%      ;
 +----------------------------+-------------+
 
 
@@ -187,25 +188,25 @@ refer to the applicable agreement for further details.
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimate of Logic utilization (ALMs needed) ; 120            ;
+; Estimate of Logic utilization (ALMs needed) ; 208            ;
 ;                                             ;                ;
-; Combinational ALUT usage for logic          ; 176            ;
-;     -- 7 input functions                    ; 2              ;
-;     -- 6 input functions                    ; 34             ;
-;     -- 5 input functions                    ; 46             ;
-;     -- 4 input functions                    ; 46             ;
-;     -- <=3 input functions                  ; 48             ;
+; Combinational ALUT usage for logic          ; 220            ;
+;     -- 7 input functions                    ; 18             ;
+;     -- 6 input functions                    ; 56             ;
+;     -- 5 input functions                    ; 32             ;
+;     -- 4 input functions                    ; 47             ;
+;     -- <=3 input functions                  ; 67             ;
 ;                                             ;                ;
-; Dedicated logic registers                   ; 165            ;
+; Dedicated logic registers                   ; 295            ;
 ;                                             ;                ;
 ; I/O pins                                    ; 59             ;
 ;                                             ;                ;
 ; Total DSP Blocks                            ; 0              ;
 ;                                             ;                ;
 ; Maximum fan-out node                        ; CLOCK_50~input ;
-; Maximum fan-out                             ; 165            ;
-; Total fan-out                               ; 1438           ;
-; Average fan-out                             ; 3.13           ;
+; Maximum fan-out                             ; 295            ;
+; Total fan-out                               ; 2134           ;
+; Average fan-out                             ; 3.37           ;
 +---------------------------------------------+----------------+
 
 
@@ -214,8 +215,8 @@ refer to the applicable agreement for further details.
 +----------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+--------------------------------------+--------------------+--------------+
 ; Compilation Hierarchy Node       ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                  ; Entity Name        ; Library Name ;
 +----------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+--------------------------------------+--------------------+--------------+
-; |testtop                         ; 176 (16)            ; 165 (0)                   ; 0                 ; 0          ; 59   ; 0            ; |testtop                             ; testtop            ; work         ;
-;    |mpu6050_controller:my_accel| ; 132 (132)           ; 165 (165)                 ; 0                 ; 0          ; 0    ; 0            ; |testtop|mpu6050_controller:my_accel ; mpu6050_controller ; work         ;
+; |testtop                         ; 220 (43)            ; 295 (0)                   ; 0                 ; 0          ; 59   ; 0            ; |testtop                             ; testtop            ; work         ;
+;    |mpu6050_controller:my_accel| ; 149 (149)           ; 295 (295)                 ; 0                 ; 0          ; 0    ; 0            ; |testtop|mpu6050_controller:my_accel ; mpu6050_controller ; work         ;
 ;    |seven_seg_decoder:u0|        ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |testtop|seven_seg_decoder:u0        ; seven_seg_decoder  ; work         ;
 ;    |seven_seg_decoder:u1|        ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |testtop|seven_seg_decoder:u1        ; seven_seg_decoder  ; work         ;
 ;    |seven_seg_decoder:u2|        ; 7 (7)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |testtop|seven_seg_decoder:u2        ; seven_seg_decoder  ; work         ;
@@ -283,12 +284,12 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 165   ;
+; Total registers                              ; 295   ;
 ; Number of registers using Synchronous Clear  ; 29    ;
 ; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 117   ;
+; Number of registers using Asynchronous Clear ; 183   ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 137   ;
+; Number of registers using Clock Enable       ; 267   ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -301,26 +302,26 @@ Encoding Type:  One-Hot
 ; mpu6050_controller:my_accel|i2c_scl      ; 4       ;
 ; mpu6050_controller:my_accel|config_write ; 8       ;
 ; mpu6050_controller:my_accel|sda_out      ; 7       ;
-; mpu6050_controller:my_accel|sda_en       ; 7       ;
+; mpu6050_controller:my_accel|sda_en       ; 6       ;
 ; Total number of inverted registers = 4   ;         ;
 +------------------------------------------+---------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                       ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                             ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------+
-; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |testtop|mpu6050_controller:my_accel|byte_cnt[0]       ;
-; 6:1                ; 20 bits   ; 80 LEs        ; 0 LEs                ; 80 LEs                 ; Yes        ; |testtop|mpu6050_controller:my_accel|refresh_timer[15] ;
-; 7:1                ; 3 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |testtop|mpu6050_controller:my_accel|bit_cnt[1]        ;
-; 6:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |testtop|mpu6050_controller:my_accel|phase[0]          ;
-; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; No         ; |testtop|Mux14                                         ;
-; 6:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |testtop|mpu6050_controller:my_accel|saved_state       ;
-; 12:1               ; 2 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; No         ; |testtop|mpu6050_controller:my_accel|state             ;
-; 12:1               ; 3 bits    ; 24 LEs        ; 9 LEs                ; 15 LEs                 ; No         ; |testtop|mpu6050_controller:my_accel|state             ;
-; 14:1               ; 2 bits    ; 18 LEs        ; 8 LEs                ; 10 LEs                 ; No         ; |testtop|mpu6050_controller:my_accel|state             ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                      ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                            ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------+
+; 5:1                ; 4 bits    ; 12 LEs        ; 4 LEs                ; 8 LEs                  ; Yes        ; |testtop|mpu6050_controller:my_accel|byte_cnt[0]      ;
+; 6:1                ; 20 bits   ; 80 LEs        ; 0 LEs                ; 80 LEs                 ; Yes        ; |testtop|mpu6050_controller:my_accel|refresh_timer[2] ;
+; 7:1                ; 4 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |testtop|mpu6050_controller:my_accel|bit_cnt[3]       ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |testtop|mpu6050_controller:my_accel|phase[1]         ;
+; 8:1                ; 16 bits   ; 80 LEs        ; 80 LEs               ; 0 LEs                  ; No         ; |testtop|Mux14                                        ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |testtop|mpu6050_controller:my_accel|saved_state      ;
+; 12:1               ; 2 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; No         ; |testtop|mpu6050_controller:my_accel|state            ;
+; 12:1               ; 3 bits    ; 24 LEs        ; 9 LEs                ; 15 LEs                 ; No         ; |testtop|mpu6050_controller:my_accel|state            ;
+; 14:1               ; 2 bits    ; 18 LEs        ; 8 LEs                ; 10 LEs                 ; No         ; |testtop|mpu6050_controller:my_accel|state            ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------+
 
 
 +--------------------------------------------------------------------------+
@@ -338,30 +339,29 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; arriav_ff             ; 165                         ;
+; arriav_ff             ; 295                         ;
 ;     CLR               ; 19                          ;
 ;     CLR SCLR          ; 9                           ;
-;     ENA               ; 48                          ;
-;     ENA CLR           ; 69                          ;
+;     ENA               ; 112                         ;
+;     ENA CLR           ; 135                         ;
 ;     ENA CLR SCLR      ; 20                          ;
 ; arriav_io_obuf        ; 1                           ;
-; arriav_lcell_comb     ; 182                         ;
+; arriav_lcell_comb     ; 230                         ;
 ;     arith             ; 29                          ;
 ;         1 data inputs ; 29                          ;
-;     extend            ; 2                           ;
-;         7 data inputs ; 2                           ;
-;     normal            ; 151                         ;
-;         0 data inputs ; 1                           ;
-;         1 data inputs ; 5                           ;
-;         2 data inputs ; 10                          ;
-;         3 data inputs ; 9                           ;
-;         4 data inputs ; 46                          ;
-;         5 data inputs ; 46                          ;
-;         6 data inputs ; 34                          ;
+;     extend            ; 18                          ;
+;         7 data inputs ; 18                          ;
+;     normal            ; 183                         ;
+;         1 data inputs ; 10                          ;
+;         2 data inputs ; 19                          ;
+;         3 data inputs ; 19                          ;
+;         4 data inputs ; 47                          ;
+;         5 data inputs ; 32                          ;
+;         6 data inputs ; 56                          ;
 ; boundary_port         ; 59                          ;
 ;                       ;                             ;
 ; Max LUT depth         ; 5.00                        ;
-; Average LUT depth     ; 2.33                        ;
+; Average LUT depth     ; 2.37                        ;
 +-----------------------+-----------------------------+
 
 
@@ -380,51 +380,35 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Thu Nov 27 15:24:05 2025
+    Info: Processing started: Wed Dec 03 18:54:37 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off test -c test
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 10 of the 10 processors detected
 Info (12021): Found 2 design units, including 2 entities, in source file testtop.v
     Info (12023): Found entity 1: testtop File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 1
-    Info (12023): Found entity 2: seven_seg_decoder File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 65
+    Info (12023): Found entity 2: seven_seg_decoder File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 112
 Info (12021): Found 1 design units, including 1 entities, in source file test.v
     Info (12023): Found entity 1: mpu6050_controller File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 1
 Info (12127): Elaborating entity "testtop" for the top level hierarchy
-Info (12128): Elaborating entity "mpu6050_controller" for hierarchy "mpu6050_controller:my_accel" File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 35
-Warning (10230): Verilog HDL assignment warning at test.v(64): truncated value with size 32 to match size of target (9) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 64
-Warning (10230): Verilog HDL assignment warning at test.v(111): truncated value with size 32 to match size of target (20) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 111
-Warning (10230): Verilog HDL assignment warning at test.v(149): truncated value with size 32 to match size of target (3) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 149
-Warning (10230): Verilog HDL assignment warning at test.v(166): truncated value with size 32 to match size of target (3) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 166
-Warning (10230): Verilog HDL assignment warning at test.v(182): truncated value with size 32 to match size of target (3) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 182
-Warning (10230): Verilog HDL assignment warning at test.v(231): truncated value with size 32 to match size of target (20) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 231
-Warning (10230): Verilog HDL assignment warning at test.v(265): truncated value with size 32 to match size of target (3) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 265
-Warning (10230): Verilog HDL assignment warning at test.v(284): truncated value with size 32 to match size of target (3) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 284
-Warning (10230): Verilog HDL assignment warning at test.v(297): truncated value with size 32 to match size of target (3) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 297
-Info (12128): Elaborating entity "seven_seg_decoder" for hierarchy "seven_seg_decoder:u0" File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 49
-Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "HEX4[0]" is stuck at VCC File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 9
-    Warning (13410): Pin "HEX4[1]" is stuck at VCC File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 9
-    Warning (13410): Pin "HEX4[2]" is stuck at VCC File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 9
-    Warning (13410): Pin "HEX4[3]" is stuck at VCC File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 9
-    Warning (13410): Pin "HEX4[4]" is stuck at VCC File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 9
-    Warning (13410): Pin "HEX4[5]" is stuck at VCC File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 9
-    Warning (13410): Pin "HEX4[6]" is stuck at VCC File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 9
-    Warning (13410): Pin "HEX5[0]" is stuck at VCC File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 10
-    Warning (13410): Pin "HEX5[1]" is stuck at VCC File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 10
-    Warning (13410): Pin "HEX5[2]" is stuck at VCC File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 10
-    Warning (13410): Pin "HEX5[3]" is stuck at VCC File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 10
-    Warning (13410): Pin "HEX5[4]" is stuck at VCC File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 10
-    Warning (13410): Pin "HEX5[5]" is stuck at VCC File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 10
-    Warning (13410): Pin "HEX5[6]" is stuck at VCC File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 10
+Info (12128): Elaborating entity "mpu6050_controller" for hierarchy "mpu6050_controller:my_accel" File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 39
+Warning (10230): Verilog HDL assignment warning at test.v(63): truncated value with size 32 to match size of target (9) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 63
+Warning (10230): Verilog HDL assignment warning at test.v(112): truncated value with size 32 to match size of target (20) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 112
+Warning (10230): Verilog HDL assignment warning at test.v(148): truncated value with size 32 to match size of target (4) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 148
+Warning (10230): Verilog HDL assignment warning at test.v(165): truncated value with size 32 to match size of target (4) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 165
+Warning (10230): Verilog HDL assignment warning at test.v(181): truncated value with size 32 to match size of target (4) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 181
+Warning (10230): Verilog HDL assignment warning at test.v(240): truncated value with size 32 to match size of target (20) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 240
+Warning (10230): Verilog HDL assignment warning at test.v(273): truncated value with size 32 to match size of target (4) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 273
+Warning (10230): Verilog HDL assignment warning at test.v(292): truncated value with size 32 to match size of target (4) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 292
+Warning (10230): Verilog HDL assignment warning at test.v(306): truncated value with size 32 to match size of target (4) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 306
+Info (12128): Elaborating entity "seven_seg_decoder" for hierarchy "seven_seg_decoder:u0" File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 99
 Info (286030): Timing-Driven Synthesis is running
 Info (17049): 9 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 11 input pin(s) that do not drive logic
+Warning (21074): Design contains 10 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "KEY[1]" File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 3
     Warning (15610): No output dependent on input pin "KEY[2]" File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 3
     Warning (15610): No output dependent on input pin "KEY[3]" File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 3
-    Warning (15610): No output dependent on input pin "SW[2]" File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 4
     Warning (15610): No output dependent on input pin "SW[3]" File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 4
     Warning (15610): No output dependent on input pin "SW[4]" File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 4
     Warning (15610): No output dependent on input pin "SW[5]" File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 4
@@ -432,15 +416,15 @@ Warning (21074): Design contains 11 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "SW[7]" File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 4
     Warning (15610): No output dependent on input pin "SW[8]" File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 4
     Warning (15610): No output dependent on input pin "SW[9]" File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 4
-Info (21057): Implemented 334 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 506 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 15 input pins
     Info (21059): Implemented 43 output pins
     Info (21060): Implemented 1 bidirectional pins
-    Info (21061): Implemented 275 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 37 warnings
-    Info: Peak virtual memory: 4885 megabytes
-    Info: Processing ended: Thu Nov 27 15:24:18 2025
-    Info: Elapsed time: 00:00:13
-    Info: Total CPU time (on all processors): 00:00:27
+    Info (21061): Implemented 447 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 21 warnings
+    Info: Peak virtual memory: 4894 megabytes
+    Info: Processing ended: Wed Dec 03 18:54:47 2025
+    Info: Elapsed time: 00:00:10
+    Info: Total CPU time (on all processors): 00:00:18
 
 

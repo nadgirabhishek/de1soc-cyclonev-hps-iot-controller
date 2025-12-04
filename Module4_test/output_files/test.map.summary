@@ -1,10 +1,10 @@
-Analysis & Synthesis Status : Successful - Thu Nov 27 15:24:18 2025
+Analysis & Synthesis Status : Successful - Wed Dec 03 18:54:47 2025
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : test
 Top-level Entity Name : testtop
 Family : Cyclone V
 Logic utilization (in ALMs) : N/A
-Total registers : 165
+Total registers : 295
 Total pins : 59
 Total virtual pins : 0
 Total block memory bits : 0

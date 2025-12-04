@@ -1,4 +1,4 @@
-module mpu6050_controller ( // Renamed module for accuracy
+module mpu6050_controller ( 
     input        clk,
     input        reset_n,
 
@@ -6,6 +6,12 @@ module mpu6050_controller ( // Renamed module for accuracy
     output reg [15:0] accel_x,
     output reg [15:0] accel_y,
     output reg [15:0] accel_z,
+    // NEW: Temperature Output
+    output reg [15:0] temp,
+    // NEW: Gyro Outputs
+    output reg [15:0] gyro_x,
+    output reg [15:0] gyro_y,
+    output reg [15:0] gyro_z,
 
     // I2C Physical Lines
     output reg   i2c_scl,
@@ -14,19 +20,11 @@ module mpu6050_controller ( // Renamed module for accuracy
 
     parameter CLK_DIV = 500; 
 
-    // --- SENSOR PARAMETERS (UPDATED FOR ICM-20948) ---
-    // NOTE: The I2C address might be 0x68 (AD0=Low) or 0x69 (AD0=High).
-    // If you still see issues, try changing this to 7'h69.
-    localparam SLAVE_ADDR      = 7'h68;    
-    
-    // In ICM-20948 (Bank 0), Power Mgmt 1 is at 0x06 (was 0x6B in MPU6050)
-    localparam REG_PWR_MGMT_1  = 8'h06;    
-    
-    // Value 0x01 clears sleep and auto-selects the best clock source
-    localparam REG_PWR_DATA    = 8'h01;    
-    
-    // In ICM-20948 (Bank 0), Accel X High Byte is at 0x2D (was 0x3B in MPU6050)
-    localparam REG_ADDR_START  = 8'h2D;    
+    // MPU-6050 Parameters
+    localparam SLAVE_ADDR      = 7'h68;
+    localparam REG_PWR_MGMT_1  = 8'h6B; // Power Management 1
+    localparam REG_PWR_DATA    = 8'h00; // Clear sleep bit
+    localparam REG_ADDR_START  = 8'h3B; // Start at ACCEL_XOUT_H
 
     reg [8:0]  clk_count;
     reg        i2c_tick;
@@ -34,21 +32,22 @@ module mpu6050_controller ( // Renamed module for accuracy
 
     reg [4:0]  state;
     reg [4:0]  saved_state;
-    reg [2:0]  bit_cnt;
-    reg [2:0]  byte_cnt;
+    reg [3:0]  bit_cnt;   
+    reg [3:0]  byte_cnt;  // CHANGED: 4 bits to count up to 13
     reg [7:0]  data_buffer;
     reg        sda_out;
     reg        sda_en;
     reg        config_done; 
 
     // Register map for readback
-    reg [7:0] rx_data [0:5];
+    // 14 Bytes Total: 6 Accel + 2 Temp + 6 Gyro
+    reg [7:0] rx_data [0:13]; 
 
     // Periodic poll timer
     reg [19:0] refresh_timer; 
     localparam REFRESH_LIMIT = 20'd50000;
 
-    // FIX: Strict Open-Drain Logic (Safety)
+    // Open-Drain Logic
     assign i2c_sda = (sda_en && sda_out == 1'b0) ? 1'b0 : 1'bz;
 
     // 4-phase I2C tick generator
@@ -96,6 +95,8 @@ module mpu6050_controller ( // Renamed module for accuracy
             config_done     <= 0;
             config_write    <= 1;
             accel_x         <= 0; accel_y <= 0; accel_z <= 0;
+            temp            <= 0; // Reset Temp
+            gyro_x          <= 0; gyro_y  <= 0; gyro_z  <= 0; 
             bit_cnt         <= 0; byte_cnt <= 0;
             data_buffer     <= 8'd0;
         end
@@ -132,9 +133,7 @@ module mpu6050_controller ( // Renamed module for accuracy
             WR_DEV_ADDR: begin
                 case (phase)
                     2'd0: begin
-                        // CRITICAL LOGIC FIX:
-                        // First frame is ALWAYS a Write (0), even if we want to read later.
-                        // We need to write the register address first.
+                        // First frame is ALWAYS a Write (0)
                         if (bit_cnt == 0) sda_out <= 0; 
                         else sda_out <= SLAVE_ADDR[bit_cnt-1];
                     end
@@ -161,7 +160,7 @@ module mpu6050_controller ( // Renamed module for accuracy
                             sda_en <= 0;
                             state <= ACK_CHECK;
                             if (config_write) saved_state <= WR_REG_DATA; 
-                            else saved_state <= RESTART; // If reading, we Restart now
+                            else saved_state <= RESTART; 
                             phase <= 0;
                         end else bit_cnt <= bit_cnt - 1;
                     end
@@ -170,7 +169,7 @@ module mpu6050_controller ( // Renamed module for accuracy
 
             WR_REG_DATA: begin
                 case (phase)
-                    2'd0: sda_out <= REG_PWR_DATA[bit_cnt]; // Writes 0x01 to 0x06
+                    2'd0: sda_out <= REG_PWR_DATA[bit_cnt]; 
                     2'd1: i2c_scl <= 1;
                     2'd3: begin
                         i2c_scl <= 0;
@@ -194,7 +193,6 @@ module mpu6050_controller ( // Renamed module for accuracy
                         phase <= 0;
                         state <= saved_state; 
                         
-                        // Reset counters based on destination
                         if (saved_state == READ_DATA) begin
                             bit_cnt <= 7;
                             byte_cnt <= 0;
@@ -217,9 +215,20 @@ module mpu6050_controller ( // Renamed module for accuracy
                             config_done <= 1;
                             state <= WAIT_CONFIG; 
                         end else begin
+                            // --- MAP DATA TO OUTPUTS ---
+                            // Bytes 0-5: Accelerometer
                             accel_x <= {rx_data[0], rx_data[1]};
                             accel_y <= {rx_data[2], rx_data[3]};
                             accel_z <= {rx_data[4], rx_data[5]};
+                            
+                            // Bytes 6-7: Temperature
+                            temp    <= {rx_data[6], rx_data[7]};
+
+                            // Bytes 8-13: Gyroscope
+                            gyro_x  <= {rx_data[8], rx_data[9]};
+                            gyro_y  <= {rx_data[10], rx_data[11]};
+                            gyro_z  <= {rx_data[12], rx_data[13]};
+
                             state   <= IDLE; 
                         end
                         phase <= 0;
@@ -236,7 +245,7 @@ module mpu6050_controller ( // Renamed module for accuracy
                 case (phase)
                     2'd0: begin sda_out <= 1; i2c_scl <= 0; end
                     2'd1: i2c_scl <= 1;
-                    2'd2: sda_out <= 0; // Repeated Start
+                    2'd2: sda_out <= 0; 
                     2'd3: begin 
                         i2c_scl <= 0; 
                         bit_cnt <= 7; 
@@ -249,8 +258,7 @@ module mpu6050_controller ( // Renamed module for accuracy
             RD_DEV_ADDR: begin
                 case (phase)
                     2'd0: begin 
-                        // NOW we send the Read bit (1)
-                        if (bit_cnt == 0) sda_out <= 1; 
+                        if (bit_cnt == 0) sda_out <= 1; // Read Bit
                         else sda_out <= SLAVE_ADDR[bit_cnt-1]; 
                     end
                     2'd1: i2c_scl <= 1;
@@ -277,8 +285,8 @@ module mpu6050_controller ( // Renamed module for accuracy
                         if (bit_cnt == 0) begin 
                             rx_data[byte_cnt] <= data_buffer; 
                             sda_en <= 1; 
-                            // ACK for first 5 bytes, NACK for last byte (5)
-                            sda_out <= (byte_cnt == 5) ? 1'b1 : 1'b0; 
+                            // CHANGED: ACK for first 13 bytes, NACK for last byte (13)
+                            sda_out <= (byte_cnt == 13) ? 1'b1 : 1'b0; 
                             state <= ACK_SEND; 
                             phase <= 0; 
                         end else bit_cnt <= bit_cnt - 1;
@@ -292,7 +300,8 @@ module mpu6050_controller ( // Renamed module for accuracy
                     2'd1: i2c_scl <= 1;
                     2'd3: begin 
                         i2c_scl <= 0;
-                        if (byte_cnt == 5) state <= STOP; 
+                        // CHANGED: Check for 14th byte (index 13)
+                        if (byte_cnt == 13) state <= STOP; 
                         else begin 
                             byte_cnt <= byte_cnt + 1; 
                             bit_cnt <= 7; 
