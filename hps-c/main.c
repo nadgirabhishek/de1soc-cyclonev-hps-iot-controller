@@ -11,27 +11,36 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
+// Include your hardware headers here
 #include "hwlib.h"
 #include "socal/socal.h"
 #include "socal/hps.h"
 #include "socal/alt_gpio.h"
 #include "hps_0.h"
 
-#define HW_REGS_BASE (ALT_STM_OFST)
-#define HW_REGS_SPAN (0x04000000)
-#define HW_REGS_MASK (HW_REGS_SPAN - 1)
+// --- Hardware Constants ---
+#define HW_REGS_BASE        (ALT_LWFPGASLVS_OFST) 
+#define HW_REGS_SPAN        (0x00200000) 
+#define HW_REGS_MASK        (HW_REGS_SPAN - 1)
 
+// --- Global Sensor Data ---
 static volatile int16_t g_ax = 0;
 static volatile int16_t g_ay = 0;
 static volatile int16_t g_az = 0;
-static volatile int     g_duty = 0;
+static volatile int16_t g_gx = 0;
+static volatile int16_t g_gy = 0;
+static volatile int16_t g_gz = 0; 
+static volatile int16_t g_temp = 0;
 
+// ============================================================================
+// HTTP SERVER THREAD
+// ============================================================================
 void *http_server_thread(void *arg)
 {
     int server_fd, client_fd;
     struct sockaddr_in addr;
     socklen_t addrlen = sizeof(addr);
-    char recv_buf[1024]; // Buffer to read the browser request
+    char recv_buf[1024]; 
     (void)arg;
 
     server_fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -48,89 +57,205 @@ void *http_server_thread(void *arg)
     if (bind(server_fd, (struct sockaddr *)&addr, sizeof(addr)) < 0) return NULL;
     if (listen(server_fd, 5) < 0) return NULL;
 
-    printf("HTTP server listening on port 8080\n");
+    printf("Reactor Run Server listening on port 8080\n");
 
     while (1) {
         client_fd = accept(server_fd, (struct sockaddr *)&addr, &addrlen);
         if (client_fd < 0) continue;
 
-        // 1. READ THE REQUEST to see what the browser wants
         int read_len = read(client_fd, recv_buf, sizeof(recv_buf) - 1);
         if (read_len > 0) {
-            recv_buf[read_len] = '\0'; // Null terminate
+            recv_buf[read_len] = '\0'; 
 
-            int16_t ax = g_ax;
-            int16_t ay = g_ay;
-            int16_t az = g_az;
-            int duty = g_duty;
+            // Snapshot global vars
+            int16_t ax = g_ax, ay = g_ay, az = g_az;
+            int16_t gx = g_gx, gy = g_gy, gz = g_gz;
+            int16_t temp_raw = g_temp;
 
-            char body[2048]; // Increased buffer size for JS code
+            // --- TEMPERATURE CALIBRATION ---
+            // Calibrated based on observation: Raw -2000 approx equals 24C.
+            // We assume standard 1/128 scaling (0.0078 C/LSB).
+            // Offset calculation: Target_Raw (3072) - Current_Raw (-2000) = +5072
+            float temp_c = (float)(temp_raw + 5072) / 128.0f; 
+            float temp_f = (temp_c * 9.0f / 5.0f) + 32.0f;
+
+            char body[16384]; 
             char header[512];
 
-            // 2. CHECK REQUEST TYPE
-            // If browser asks for "/data", send JUST the numbers
             if (strstr(recv_buf, "GET /data")) {
-                // Send values as plain text: "ax,ay,az,duty"
-                snprintf(body, sizeof(body), "%d,%d,%d,%d", ax, ay, az, duty);
+                // CSV: AX,AY,AZ,GX,GY,GZ,TEMP_C,TEMP_F,TEMP_RAW
+                snprintf(body, sizeof(body), "%d,%d,%d,%d,%d,%d,%.2f,%.2f,%d", 
+                         ax, ay, az, gx, gy, gz, temp_c, temp_f, temp_raw);
                 
                 snprintf(header, sizeof(header),
-                    "HTTP/1.1 200 OK\r\n"
-                    "Content-Type: text/plain\r\n" // Plain text data
-                    "Content-Length: %d\r\n"
-                    "Connection: close\r\n\r\n",
-                    (int)strlen(body)
-                );
+                    "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: %d\r\nConnection: close\r\n\r\n",
+                    (int)strlen(body));
             } 
-            // Otherwise, send the MAIN PAGE (Static HTML + JS)
             else {
+                // Serve the Game Page
                 snprintf(body, sizeof(body),
-                    "<html><head>"
-                    "<title>Accel Status</title>"
-                    "<style>body{font-family:sans-serif; text-align:center; padding-top:50px;}</style>"
+                    "<html><head><title>Reactor Run (Gyro)</title>"
+                    "<style>"
+                    "body{font-family:'Courier New',monospace;text-align:center;background:#111;color:#0f0;overflow:hidden;}"
+                    "#gameCanvas{background:#000;border:4px solid #333;margin-top:20px;box-shadow: 0 0 20px rgba(0,255,0,0.2);}"
+                    "#hud{display:flex;justify-content:center;flex-wrap:wrap;width:900px;margin:10px auto;font-size:14px;color:#aaa;background:#222;padding:10px;border-radius:5px;}"
+                    ".sensor-group{margin:0 20px;text-align:left;}"
+                    ".bar-container{width:150px;height:20px;background:#333;border:1px solid #555;display:inline-block;vertical-align:middle;}"
+                    "#temp-bar{height:100%%;background:#ff0000;width:50%%;}"
+                    ".val{color:#fff;font-weight:bold;margin-left:5px;font-family:monospace;}"
+                    "h3{margin:0 0 5px 0;color:#0f0;font-size:16px;border-bottom:1px solid #444;}"
+                    "</style>"
                     "<script>"
-                    // JavaScript to fetch data every 2000ms (2 seconds)
-                    "setInterval(function(){"
+                    "var car = {x: 50, y: 50, w: 20, h: 30, angle: 0, speed: 0};"
+                    "var temp_c = 0; var temp_f = 0; var temp_raw = 0;"
+                    "var ax=0, ay=0, az=0;"
+                    "var gx=0, gy=0, gz=0;" 
+                    "var maze = [" 
+                    "  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"
+                    "  [1,2,0,0,0,0,1,0,0,0,0,0,0,0,1],"
+                    "  [1,1,1,1,1,0,1,0,1,1,1,1,1,0,1],"
+                    "  [1,0,0,0,0,0,0,0,0,0,0,0,1,0,1],"
+                    "  [1,0,1,1,1,1,1,1,1,1,1,0,1,0,1],"
+                    "  [1,0,1,0,0,0,0,0,0,0,0,0,1,0,1],"
+                    "  [1,0,1,0,1,1,1,1,1,1,1,1,1,0,1],"
+                    "  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],"
+                    "  [1,1,1,1,1,1,1,1,1,1,1,1,1,3,1],"
+                    "  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]"
+                    "];" 
+                    "var TILE_SIZE = 40;"
+                    "var gameOver = false;"
+                    
+                    "function init() {"
+                    "  canvas = document.getElementById('gameCanvas');"
+                    "  ctx = canvas.getContext('2d');"
+                    "  setInterval(fetchData, 50);" 
+                    "  requestAnimationFrame(draw);"
+                    "}"
+
+                    "function fetchData() {"
                     "  var x = new XMLHttpRequest();"
                     "  x.onreadystatechange = function(){"
                     "    if(this.readyState==4 && this.status==200){"
                     "      var v = this.responseText.split(',');"
-                    "      document.getElementById('ax').innerHTML = v[0];"
-                    "      document.getElementById('ay').innerHTML = v[1];"
-                    "      document.getElementById('az').innerHTML = v[2];"
-                    "      document.getElementById('dt').innerHTML = v[3];"
+                    "      ax = parseInt(v[0]); ay = parseInt(v[1]); az = parseInt(v[2]);"
+                    "      gx = parseInt(v[3]); gy = parseInt(v[4]); gz = parseInt(v[5]);"
+                    "      temp_c = parseFloat(v[6]);"
+                    "      temp_f = parseFloat(v[7]);"
+                    "      temp_raw = parseInt(v[8]);"
+                    
+                    // Update Dashboard
+                    "      document.getElementById('val-ax').innerText = ax;"
+                    "      document.getElementById('val-ay').innerText = ay;"
+                    "      document.getElementById('val-az').innerText = az;"
+                    "      document.getElementById('val-gx').innerText = gx;"
+                    "      document.getElementById('val-gy').innerText = gy;"
+                    "      document.getElementById('val-gz').innerText = gz;"
+                    "      document.getElementById('val-temp').innerText = temp_c.toFixed(1) + ' C (Raw: ' + temp_raw + ')';"
                     "    }"
                     "  };"
                     "  x.open('GET','/data',true); x.send();"
-                    "}, 2000);"
+                    "}"
+
+                    "function draw() {"
+                    "  if(gameOver) { requestAnimationFrame(draw); return; }"
+                    "  ctx.clearRect(0, 0, canvas.width, canvas.height);"
+
+                    // --- PHYSICS (GYRO ONLY) ---
+                    "  var steer = gz;"
+                    "  var gas = gx;"
+                    "  if (Math.abs(steer) < 100) steer = 0;"
+                    "  if (Math.abs(gas) < 100) gas = 0;"
+                    "  car.angle += steer / 5000.0;" 
+                    "  car.speed += gas / 2000.0;" 
+                    "  car.speed *= 0.96;"
+                    "  var nextX = car.x + Math.cos(car.angle) * car.speed;"
+                    "  var nextY = car.y + Math.sin(car.angle) * car.speed;"
+
+                    // --- COLLISION ---
+                    "  var col = Math.floor(nextX / TILE_SIZE);"
+                    "  var row = Math.floor(nextY / TILE_SIZE);"
+                    "  if (maze[row][col] == 1) {"
+                    "     car.speed *= -0.5;" 
+                    "  } else if (maze[row][col] == 3) {"
+                    "     document.getElementById('status').innerText = 'REACTOR SECURE! YOU WIN!';"
+                    "     gameOver = true;"
+                    "  } else {"
+                    "     car.x = nextX; car.y = nextY;"
+                    "  }"
+
+                    // --- RENDER ---
+                    "  for(var r=0; r<10; r++) {"
+                    "    for(var c=0; c<15; c++) {"
+                    "      if(maze[r][c] == 1) {"
+                    "        ctx.fillStyle = '#444';"
+                    "        ctx.fillRect(c*TILE_SIZE, r*TILE_SIZE, TILE_SIZE, TILE_SIZE);"
+                    "        ctx.strokeStyle = '#555'; ctx.strokeRect(c*TILE_SIZE, r*TILE_SIZE, TILE_SIZE, TILE_SIZE);"
+                    "      } else if (maze[r][c] == 3) {"
+                    "        ctx.fillStyle = '#00ff00';" 
+                    "        ctx.fillRect(c*TILE_SIZE, r*TILE_SIZE, TILE_SIZE, TILE_SIZE);"
+                    "      }"
+                    "    }"
+                    "  }"
+
+                    "  ctx.save();"
+                    "  ctx.translate(car.x, car.y);"
+                    "  ctx.rotate(car.angle);"
+                    
+                    // Temp bar (0-100)
+                    "  var heat = (temp_c + 20) * 2;" 
+                    "  if (heat > 100) heat = 100; if(heat < 0) heat = 0;"
+                    "  var r = Math.floor((heat/100)*255);"
+                    "  var b = 255 - r;"
+                    
+                    "  ctx.fillStyle = 'rgb('+r+',0,'+b+')';"
+                    "  ctx.beginPath();"
+                    "  ctx.moveTo(10, 0);"
+                    "  ctx.lineTo(-10, 7);"
+                    "  ctx.lineTo(-10, -7);"
+                    "  ctx.closePath();"
+                    "  ctx.fill();"
+                    "  ctx.restore();"
+
+                    "  document.getElementById('temp-bar').style.width = heat + '%';"
+                    "  requestAnimationFrame(draw);"
+                    "}"
                     "</script>"
-                    "</head><body>"
-                    "<h1>Accel PWM Status</h1>"
-                    // Spans with IDs so JS can find and update them
-                    "<p>AX = <span id='ax'>%d</span></p>"
-                    "<p>AY = <span id='ay'>%d</span></p>"
-                    "<p>AZ = <span id='az'>%d</span></p>"
-                    "<p>PWM Duty = <span id='dt'>%d</span>%%</p>"
-                    "</body></html>",
-                    ax, ay, az, duty
+                    "</head><body onload='init()'>"
+                    "<h1>IoT Gateway</h1>"
+                    "<div id='status'>Drive to the Green Zone!</div>"
+                    
+                    "<div id='hud'>"
+                    "  <div class='sensor-group'><h3>ACCEL</h3>"
+                    "    <div>X:<span id='val-ax' class='val'>0</span></div>"
+                    "    <div>Y:<span id='val-ay' class='val'>0</span></div>"
+                    "    <div>Z:<span id='val-az' class='val'>0</span></div>"
+                    "  </div>"
+                    "  <div class='sensor-group'><h3>GYRO</h3>"
+                    "    <div>X:<span id='val-gx' class='val'>0</span></div>"
+                    "    <div>Y:<span id='val-gy' class='val'>0</span></div>"
+                    "    <div>Z:<span id='val-gz' class='val'>0</span></div>"
+                    "  </div>"
+                    "  <div class='sensor-group'><h3>ENV</h3>"
+                    "    <div>TEMP:<span id='val-temp' class='val'>0</span></div>"
+                    "    <div>HEAT: <div class='bar-container'><div id='temp-bar'></div></div></div>"
+                    "  </div>"
+                    "</div>"
+                    
+                    "<canvas id='gameCanvas' width='600' height='400'></canvas>"
+                    "<div class='stats'>Controls: SPIN (GZ) to Steer | TILT (GX) to Thrust</div>"
+                    "</body></html>"
                 );
 
                 snprintf(header, sizeof(header),
-                    "HTTP/1.1 200 OK\r\n"
-                    "Content-Type: text/html\r\n"
-                    "Content-Length: %d\r\n"
-                    "Connection: close\r\n\r\n",
-                    (int)strlen(body)
-                );
+                    "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: %d\r\nConnection: close\r\n\r\n",
+                    (int)strlen(body));
             }
 
-            // Send response
             write(client_fd, header, strlen(header));
             write(client_fd, body, strlen(body));
         }
-        
         close(client_fd);
     }
-
     close(server_fd);
     return NULL;
 }
@@ -140,96 +265,46 @@ int main(void)
     int fd;
     void *virtual_base;
 
-    void *h2p_lw_pwm_addr;
-    void *h2p_lw_accel_x_addr;
-    void *h2p_lw_accel_y_addr;
-    void *h2p_lw_accel_z_addr;
+    void *accel_x_ptr, *accel_y_ptr, *accel_z_ptr;
+    void *gyro_x_ptr, *gyro_y_ptr, *gyro_z_ptr;
+    void *temp_ptr;
 
     if ((fd = open("/dev/mem", (O_RDWR | O_SYNC))) == -1) return 1;
-
-    virtual_base = mmap(NULL, HW_REGS_SPAN,
-                        (PROT_READ | PROT_WRITE),
-                        MAP_SHARED,
-                        fd, HW_REGS_BASE);
-
+    virtual_base = mmap(NULL, HW_REGS_SPAN, (PROT_READ | PROT_WRITE), MAP_SHARED, fd, HW_REGS_BASE);
     if (virtual_base == MAP_FAILED) return 1;
 
-    h2p_lw_pwm_addr = virtual_base +
-        ((unsigned long)(ALT_LWFPGASLVS_OFST + PIO_PWM_BASE) &
-         (unsigned long)(HW_REGS_MASK));
+    // MAP ACCELEROMETER (Reads enabled for display)
+    accel_x_ptr = virtual_base + ((unsigned long)(ALT_LWFPGASLVS_OFST + PIO_ACCEL_X_BASE) & (unsigned long)(HW_REGS_MASK));
+    accel_y_ptr = virtual_base + ((unsigned long)(ALT_LWFPGASLVS_OFST + PIO_ACCEL_Y_BASE) & (unsigned long)(HW_REGS_MASK));
+    accel_z_ptr = virtual_base + ((unsigned long)(ALT_LWFPGASLVS_OFST + PIO_ACCEL_Z_BASE) & (unsigned long)(HW_REGS_MASK));
 
-    h2p_lw_accel_x_addr = virtual_base +
-        ((unsigned long)(ALT_LWFPGASLVS_OFST + PIO_ACCEL_X_BASE) &
-         (unsigned long)(HW_REGS_MASK));
+    // MAP GYROSCOPE
+    gyro_x_ptr = virtual_base + ((unsigned long)(ALT_LWFPGASLVS_OFST + PIO_GYRO_A_BASE) & (unsigned long)(HW_REGS_MASK));
+    gyro_y_ptr = virtual_base + ((unsigned long)(ALT_LWFPGASLVS_OFST + PIO_GYRO_B_BASE) & (unsigned long)(HW_REGS_MASK));
+    gyro_z_ptr = virtual_base + ((unsigned long)(ALT_LWFPGASLVS_OFST + PIO_GYRO_C_BASE) & (unsigned long)(HW_REGS_MASK));
 
-    h2p_lw_accel_y_addr = virtual_base +
-        ((unsigned long)(ALT_LWFPGASLVS_OFST + PIO_ACCEL_Y_BASE) &
-         (unsigned long)(HW_REGS_MASK));
-
-    h2p_lw_accel_z_addr = virtual_base +
-        ((unsigned long)(ALT_LWFPGASLVS_OFST + PIO_ACCEL_Z_BASE) &
-         (unsigned long)(HW_REGS_MASK));
+    // MAP TEMPERATURE
+    temp_ptr = virtual_base + ((unsigned long)(ALT_LWFPGASLVS_OFST + PIO_TEMP_BASE) & (unsigned long)(HW_REGS_MASK));
 
     pthread_t http_thread;
     if (pthread_create(&http_thread, NULL, http_server_thread, NULL) == 0)
         pthread_detach(http_thread);
 
-    printf("Starting accel->PWM control loop...\n");
-
-    float prev_mag = 0.0f;
-    float smooth_mag = 0.0f;
-    int current_duty = 0;
-
-    const float ALPHA = 0.1f;
-    const float SCALE = 2000.0f;
-    const int MAX_DUTY = 100;
-    const int MIN_DUTY = 0;
-    const int HYSTERESIS = 2;
-    const int MAX_STEP = 2;
-
-    unsigned int loop_count = 0;
+    printf("Reactor Run (Gyro Version) Started.\n");
 
     while (1) {
-        int16_t ax = (int16_t)(*(volatile uint32_t *)h2p_lw_accel_x_addr & 0xFFFF);
-        int16_t ay = (int16_t)(*(volatile uint32_t *)h2p_lw_accel_y_addr & 0xFFFF);
-        int16_t az = (int16_t)(*(volatile uint32_t *)h2p_lw_accel_z_addr & 0xFFFF);
+        // Read All Sensors
+        g_ax = (int16_t)(*(volatile uint32_t *)accel_x_ptr & 0xFFFF);
+        g_ay = (int16_t)(*(volatile uint32_t *)accel_y_ptr & 0xFFFF);
+        g_az = (int16_t)(*(volatile uint32_t *)accel_z_ptr & 0xFFFF);
 
-        g_ax = ax;
-        g_ay = ay;
-        g_az = az;
+        g_gx = (int16_t)(*(volatile uint32_t *)gyro_x_ptr & 0xFFFF);
+        g_gy = (int16_t)(*(volatile uint32_t *)gyro_y_ptr & 0xFFFF);
+        g_gz = (int16_t)(*(volatile uint32_t *)gyro_z_ptr & 0xFFFF);
 
-        float fx = (float)ax;
-        float fy = (float)ay;
-        float fz = (float)az;
+        g_temp = (int16_t)(*(volatile uint32_t *)temp_ptr & 0xFFFF);
 
-        float mag = sqrtf(fx*fx + fy*fy + fz*fz);
-        float diff = fabsf(mag - prev_mag);
-        prev_mag = mag;
-
-        smooth_mag = ALPHA * diff + (1.0f - ALPHA) * smooth_mag;
-
-        float norm = smooth_mag / SCALE;
-        if (norm > 1.0f) norm = 1.0f;
-        if (norm < 0.0f) norm = 0.0f;
-
-        int target_duty = (int)(norm * 100.0f);
-        if (target_duty > MAX_DUTY) target_duty = MAX_DUTY;
-        if (target_duty < MIN_DUTY) target_duty = MIN_DUTY;
-
-        int delta = target_duty - current_duty;
-        if (abs(delta) > HYSTERESIS) {
-            if (delta > MAX_STEP) delta = MAX_STEP;
-            else if (delta < -MAX_STEP) delta = -MAX_STEP;
-            current_duty += delta;
-        }
-
-        *(volatile uint32_t *)h2p_lw_pwm_addr = (uint32_t)current_duty;
-        g_duty = current_duty;
-
-        if ((loop_count++ % 10) == 0)
-            printf("AX=%6d AY=%6d AZ=%6d DUTY=%3d%%\n", ax, ay, az, current_duty);
-
-        usleep(100 * 1000);
+        usleep(50 * 1000);
     }
 
     munmap(virtual_base, HW_REGS_SPAN);
