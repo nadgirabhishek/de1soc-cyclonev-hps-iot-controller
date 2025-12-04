@@ -84,7 +84,11 @@ module soc_system (
 		input  wire [15:0] pio_accel_x_external_connection_export, // pio_accel_x_external_connection.export
 		input  wire [15:0] pio_accel_y_external_connection_export, // pio_accel_y_external_connection.export
 		input  wire [15:0] pio_accel_z_external_connection_export, // pio_accel_z_external_connection.export
+		input  wire [15:0] pio_gyro_a_external_connection_export,  //  pio_gyro_a_external_connection.export
+		input  wire [15:0] pio_gyro_b_external_connection_export,  //  pio_gyro_b_external_connection.export
+		input  wire [15:0] pio_gyro_c_external_connection_export,  //  pio_gyro_c_external_connection.export
 		output wire [7:0]  pio_pwm_external_connection_export,     //     pio_pwm_external_connection.export
+		input  wire [15:0] pio_temp_external_connection_export,    //    pio_temp_external_connection.export
 		input  wire        reset_reset_n                           //                           reset.reset_n
 	);
 
@@ -198,6 +202,14 @@ module soc_system (
 	wire   [1:0] mm_interconnect_0_pio_pwm_s1_address;                      // mm_interconnect_0:pio_pwm_s1_address -> pio_pwm:address
 	wire         mm_interconnect_0_pio_pwm_s1_write;                        // mm_interconnect_0:pio_pwm_s1_write -> pio_pwm:write_n
 	wire  [31:0] mm_interconnect_0_pio_pwm_s1_writedata;                    // mm_interconnect_0:pio_pwm_s1_writedata -> pio_pwm:writedata
+	wire  [31:0] mm_interconnect_0_pio_gyro_a_s1_readdata;                  // pio_gyro_a:readdata -> mm_interconnect_0:pio_gyro_a_s1_readdata
+	wire   [1:0] mm_interconnect_0_pio_gyro_a_s1_address;                   // mm_interconnect_0:pio_gyro_a_s1_address -> pio_gyro_a:address
+	wire  [31:0] mm_interconnect_0_pio_gyro_b_s1_readdata;                  // pio_gyro_b:readdata -> mm_interconnect_0:pio_gyro_b_s1_readdata
+	wire   [1:0] mm_interconnect_0_pio_gyro_b_s1_address;                   // mm_interconnect_0:pio_gyro_b_s1_address -> pio_gyro_b:address
+	wire  [31:0] mm_interconnect_0_pio_gyro_c_s1_readdata;                  // pio_gyro_c:readdata -> mm_interconnect_0:pio_gyro_c_s1_readdata
+	wire   [1:0] mm_interconnect_0_pio_gyro_c_s1_address;                   // mm_interconnect_0:pio_gyro_c_s1_address -> pio_gyro_c:address
+	wire  [31:0] mm_interconnect_0_pio_temp_s1_readdata;                    // pio_temp:readdata -> mm_interconnect_0:pio_temp_s1_readdata
+	wire   [1:0] mm_interconnect_0_pio_temp_s1_address;                     // mm_interconnect_0:pio_temp_s1_address -> pio_temp:address
 	wire  [31:0] hps_only_master_master_readdata;                           // mm_interconnect_1:hps_only_master_master_readdata -> hps_only_master:master_readdata
 	wire         hps_only_master_master_waitrequest;                        // mm_interconnect_1:hps_only_master_master_waitrequest -> hps_only_master:master_waitrequest
 	wire  [31:0] hps_only_master_master_address;                            // hps_only_master:master_address -> mm_interconnect_1:hps_only_master_master_address
@@ -248,7 +260,7 @@ module soc_system (
 	wire  [31:0] hps_0_f2h_irq1_irq;                                        // irq_mapper_001:sender_irq -> hps_0:f2h_irq_p1
 	wire  [31:0] intr_capturer_0_interrupt_receiver_irq;                    // irq_mapper_002:sender_irq -> intr_capturer_0:interrupt_in
 	wire         irq_mapper_receiver0_irq;                                  // jtag_uart:av_irq -> [irq_mapper:receiver0_irq, irq_mapper_002:receiver0_irq]
-	wire         rst_controller_reset_out_reset;                            // rst_controller:reset_out -> [intr_capturer_0:rst_n, irq_mapper_002:reset, jtag_uart:rst_n, mm_interconnect_0:fpga_only_master_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_0:onchip_memory2_0_reset1_reset_bridge_in_reset_reset, mm_interconnect_1:hps_only_master_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_1:hps_only_master_master_translator_reset_reset_bridge_in_reset_reset, onchip_memory2_0:reset, pio_accel_x:reset_n, pio_accel_y:reset_n, pio_accel_z:reset_n, pio_pwm:reset_n, rst_translator:in_reset, sysid_qsys:reset_n]
+	wire         rst_controller_reset_out_reset;                            // rst_controller:reset_out -> [intr_capturer_0:rst_n, irq_mapper_002:reset, jtag_uart:rst_n, mm_interconnect_0:fpga_only_master_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_0:onchip_memory2_0_reset1_reset_bridge_in_reset_reset, mm_interconnect_1:hps_only_master_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_1:hps_only_master_master_translator_reset_reset_bridge_in_reset_reset, onchip_memory2_0:reset, pio_accel_x:reset_n, pio_accel_y:reset_n, pio_accel_z:reset_n, pio_gyro_a:reset_n, pio_gyro_b:reset_n, pio_gyro_c:reset_n, pio_pwm:reset_n, pio_temp:reset_n, rst_translator:in_reset, sysid_qsys:reset_n]
 	wire         rst_controller_reset_out_reset_req;                        // rst_controller:reset_req -> [onchip_memory2_0:reset_req, rst_translator:reset_req_in]
 	wire         rst_controller_001_reset_out_reset;                        // rst_controller_001:reset_out -> [mm_interconnect_0:hps_0_h2f_axi_master_agent_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_1:hps_0_f2h_axi_slave_agent_reset_sink_reset_bridge_in_reset_reset]
 
@@ -547,6 +559,30 @@ module soc_system (
 		.in_port  (pio_accel_z_external_connection_export)     // external_connection.export
 	);
 
+	soc_system_pio_accel_x pio_gyro_a (
+		.clk      (clk_clk),                                  //                 clk.clk
+		.reset_n  (~rst_controller_reset_out_reset),          //               reset.reset_n
+		.address  (mm_interconnect_0_pio_gyro_a_s1_address),  //                  s1.address
+		.readdata (mm_interconnect_0_pio_gyro_a_s1_readdata), //                    .readdata
+		.in_port  (pio_gyro_a_external_connection_export)     // external_connection.export
+	);
+
+	soc_system_pio_accel_x pio_gyro_b (
+		.clk      (clk_clk),                                  //                 clk.clk
+		.reset_n  (~rst_controller_reset_out_reset),          //               reset.reset_n
+		.address  (mm_interconnect_0_pio_gyro_b_s1_address),  //                  s1.address
+		.readdata (mm_interconnect_0_pio_gyro_b_s1_readdata), //                    .readdata
+		.in_port  (pio_gyro_b_external_connection_export)     // external_connection.export
+	);
+
+	soc_system_pio_accel_x pio_gyro_c (
+		.clk      (clk_clk),                                  //                 clk.clk
+		.reset_n  (~rst_controller_reset_out_reset),          //               reset.reset_n
+		.address  (mm_interconnect_0_pio_gyro_c_s1_address),  //                  s1.address
+		.readdata (mm_interconnect_0_pio_gyro_c_s1_readdata), //                    .readdata
+		.in_port  (pio_gyro_c_external_connection_export)     // external_connection.export
+	);
+
 	soc_system_pio_pwm pio_pwm (
 		.clk        (clk_clk),                                 //                 clk.clk
 		.reset_n    (~rst_controller_reset_out_reset),         //               reset.reset_n
@@ -556,6 +592,14 @@ module soc_system (
 		.chipselect (mm_interconnect_0_pio_pwm_s1_chipselect), //                    .chipselect
 		.readdata   (mm_interconnect_0_pio_pwm_s1_readdata),   //                    .readdata
 		.out_port   (pio_pwm_external_connection_export)       // external_connection.export
+	);
+
+	soc_system_pio_accel_x pio_temp (
+		.clk      (clk_clk),                                //                 clk.clk
+		.reset_n  (~rst_controller_reset_out_reset),        //               reset.reset_n
+		.address  (mm_interconnect_0_pio_temp_s1_address),  //                  s1.address
+		.readdata (mm_interconnect_0_pio_temp_s1_readdata), //                    .readdata
+		.in_port  (pio_temp_external_connection_export)     // external_connection.export
 	);
 
 	soc_system_sysid_qsys sysid_qsys (
@@ -673,11 +717,19 @@ module soc_system (
 		.pio_accel_y_s1_readdata                                          (mm_interconnect_0_pio_accel_y_s1_readdata),                 //                                                           .readdata
 		.pio_accel_z_s1_address                                           (mm_interconnect_0_pio_accel_z_s1_address),                  //                                             pio_accel_z_s1.address
 		.pio_accel_z_s1_readdata                                          (mm_interconnect_0_pio_accel_z_s1_readdata),                 //                                                           .readdata
+		.pio_gyro_a_s1_address                                            (mm_interconnect_0_pio_gyro_a_s1_address),                   //                                              pio_gyro_a_s1.address
+		.pio_gyro_a_s1_readdata                                           (mm_interconnect_0_pio_gyro_a_s1_readdata),                  //                                                           .readdata
+		.pio_gyro_b_s1_address                                            (mm_interconnect_0_pio_gyro_b_s1_address),                   //                                              pio_gyro_b_s1.address
+		.pio_gyro_b_s1_readdata                                           (mm_interconnect_0_pio_gyro_b_s1_readdata),                  //                                                           .readdata
+		.pio_gyro_c_s1_address                                            (mm_interconnect_0_pio_gyro_c_s1_address),                   //                                              pio_gyro_c_s1.address
+		.pio_gyro_c_s1_readdata                                           (mm_interconnect_0_pio_gyro_c_s1_readdata),                  //                                                           .readdata
 		.pio_pwm_s1_address                                               (mm_interconnect_0_pio_pwm_s1_address),                      //                                                 pio_pwm_s1.address
 		.pio_pwm_s1_write                                                 (mm_interconnect_0_pio_pwm_s1_write),                        //                                                           .write
 		.pio_pwm_s1_readdata                                              (mm_interconnect_0_pio_pwm_s1_readdata),                     //                                                           .readdata
 		.pio_pwm_s1_writedata                                             (mm_interconnect_0_pio_pwm_s1_writedata),                    //                                                           .writedata
 		.pio_pwm_s1_chipselect                                            (mm_interconnect_0_pio_pwm_s1_chipselect),                   //                                                           .chipselect
+		.pio_temp_s1_address                                              (mm_interconnect_0_pio_temp_s1_address),                     //                                                pio_temp_s1.address
+		.pio_temp_s1_readdata                                             (mm_interconnect_0_pio_temp_s1_readdata),                    //                                                           .readdata
 		.sysid_qsys_control_slave_address                                 (mm_interconnect_0_sysid_qsys_control_slave_address),        //                                   sysid_qsys_control_slave.address
 		.sysid_qsys_control_slave_readdata                                (mm_interconnect_0_sysid_qsys_control_slave_readdata)        //                                                           .readdata
 	);

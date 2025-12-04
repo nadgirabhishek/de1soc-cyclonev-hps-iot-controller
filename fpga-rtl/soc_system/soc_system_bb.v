@@ -81,7 +81,11 @@ module soc_system (
 	pio_accel_y_external_connection_export,
 	pio_accel_z_external_connection_export,
 	pio_pwm_external_connection_export,
-	reset_reset_n);	
+	reset_reset_n,
+	pio_temp_external_connection_export,
+	pio_gyro_c_external_connection_export,
+	pio_gyro_b_external_connection_export,
+	pio_gyro_a_external_connection_export);	
 
 	input		clk_clk;
 	input		hps_0_f2h_cold_reset_req_reset_n;
@@ -165,4 +169,8 @@ module soc_system (
 	input	[15:0]	pio_accel_z_external_connection_export;
 	output	[7:0]	pio_pwm_external_connection_export;
 	input		reset_reset_n;
+	input	[15:0]	pio_temp_external_connection_export;
+	input	[15:0]	pio_gyro_c_external_connection_export;
+	input	[15:0]	pio_gyro_b_external_connection_export;
+	input	[15:0]	pio_gyro_a_external_connection_export;
 endmodule

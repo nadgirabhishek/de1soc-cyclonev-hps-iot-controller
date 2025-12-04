@@ -3,8 +3,8 @@
  <debug showDebugMenu="0" />
  <systemtable filter="All Interfaces">
   <columns>
-   <connections preferredWidth="47" />
-   <irq preferredWidth="34" />
+   <connections preferredWidth="223" />
+   <irq preferredWidth="63" />
    <export preferredWidth="274" />
   </columns>
  </systemtable>
@@ -16,7 +16,8 @@
   </columns>
  </clocktable>
  <window width="1936" height="1056" x="0" y="0" />
- <library expandedCategories="Library,Project" />
+ <library
+   expandedCategories="Library,Library/Interface Protocols/PCI Express,Project,Library/Processors and Peripherals,Library/Processors and Peripherals/Peripherals,Library/Interface Protocols,Library/Interface Protocols/PCI Express/QSYS Example Designs" />
  <hdlexample language="VERILOG" />
  <generation block_symbol_file="0" />
 </preferences>
