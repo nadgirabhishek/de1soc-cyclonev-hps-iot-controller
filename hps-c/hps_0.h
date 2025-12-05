@@ -54,15 +54,111 @@
 #define ONCHIP_MEMORY2_0_MEMORY_INFO_MEM_INIT_FILENAME soc_system_onchip_memory2_0
 
 /*
+ * Macros for device 'pio_temp', class 'altera_avalon_pio'
+ * The macros are prefixed with 'PIO_TEMP_'.
+ * The prefix is the slave descriptor.
+ */
+#define PIO_TEMP_COMPONENT_TYPE altera_avalon_pio
+#define PIO_TEMP_COMPONENT_NAME pio_temp
+#define PIO_TEMP_BASE 0x0
+#define PIO_TEMP_SPAN 16
+#define PIO_TEMP_END 0xf
+#define PIO_TEMP_BIT_CLEARING_EDGE_REGISTER 0
+#define PIO_TEMP_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define PIO_TEMP_CAPTURE 0
+#define PIO_TEMP_DATA_WIDTH 16
+#define PIO_TEMP_DO_TEST_BENCH_WIRING 0
+#define PIO_TEMP_DRIVEN_SIM_VALUE 0
+#define PIO_TEMP_EDGE_TYPE NONE
+#define PIO_TEMP_FREQ 50000000
+#define PIO_TEMP_HAS_IN 1
+#define PIO_TEMP_HAS_OUT 0
+#define PIO_TEMP_HAS_TRI 0
+#define PIO_TEMP_IRQ_TYPE NONE
+#define PIO_TEMP_RESET_VALUE 0
+
+/*
+ * Macros for device 'pio_gyro_c', class 'altera_avalon_pio'
+ * The macros are prefixed with 'PIO_GYRO_C_'.
+ * The prefix is the slave descriptor.
+ */
+#define PIO_GYRO_C_COMPONENT_TYPE altera_avalon_pio
+#define PIO_GYRO_C_COMPONENT_NAME pio_gyro_c
+#define PIO_GYRO_C_BASE 0x10
+#define PIO_GYRO_C_SPAN 16
+#define PIO_GYRO_C_END 0x1f
+#define PIO_GYRO_C_BIT_CLEARING_EDGE_REGISTER 0
+#define PIO_GYRO_C_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define PIO_GYRO_C_CAPTURE 0
+#define PIO_GYRO_C_DATA_WIDTH 16
+#define PIO_GYRO_C_DO_TEST_BENCH_WIRING 0
+#define PIO_GYRO_C_DRIVEN_SIM_VALUE 0
+#define PIO_GYRO_C_EDGE_TYPE NONE
+#define PIO_GYRO_C_FREQ 50000000
+#define PIO_GYRO_C_HAS_IN 1
+#define PIO_GYRO_C_HAS_OUT 0
+#define PIO_GYRO_C_HAS_TRI 0
+#define PIO_GYRO_C_IRQ_TYPE NONE
+#define PIO_GYRO_C_RESET_VALUE 0
+
+/*
+ * Macros for device 'pio_gyro_b', class 'altera_avalon_pio'
+ * The macros are prefixed with 'PIO_GYRO_B_'.
+ * The prefix is the slave descriptor.
+ */
+#define PIO_GYRO_B_COMPONENT_TYPE altera_avalon_pio
+#define PIO_GYRO_B_COMPONENT_NAME pio_gyro_b
+#define PIO_GYRO_B_BASE 0x20
+#define PIO_GYRO_B_SPAN 16
+#define PIO_GYRO_B_END 0x2f
+#define PIO_GYRO_B_BIT_CLEARING_EDGE_REGISTER 0
+#define PIO_GYRO_B_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define PIO_GYRO_B_CAPTURE 0
+#define PIO_GYRO_B_DATA_WIDTH 16
+#define PIO_GYRO_B_DO_TEST_BENCH_WIRING 0
+#define PIO_GYRO_B_DRIVEN_SIM_VALUE 0
+#define PIO_GYRO_B_EDGE_TYPE NONE
+#define PIO_GYRO_B_FREQ 50000000
+#define PIO_GYRO_B_HAS_IN 1
+#define PIO_GYRO_B_HAS_OUT 0
+#define PIO_GYRO_B_HAS_TRI 0
+#define PIO_GYRO_B_IRQ_TYPE NONE
+#define PIO_GYRO_B_RESET_VALUE 0
+
+/*
+ * Macros for device 'pio_gyro_a', class 'altera_avalon_pio'
+ * The macros are prefixed with 'PIO_GYRO_A_'.
+ * The prefix is the slave descriptor.
+ */
+#define PIO_GYRO_A_COMPONENT_TYPE altera_avalon_pio
+#define PIO_GYRO_A_COMPONENT_NAME pio_gyro_a
+#define PIO_GYRO_A_BASE 0x30
+#define PIO_GYRO_A_SPAN 16
+#define PIO_GYRO_A_END 0x3f
+#define PIO_GYRO_A_BIT_CLEARING_EDGE_REGISTER 0
+#define PIO_GYRO_A_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define PIO_GYRO_A_CAPTURE 0
+#define PIO_GYRO_A_DATA_WIDTH 16
+#define PIO_GYRO_A_DO_TEST_BENCH_WIRING 0
+#define PIO_GYRO_A_DRIVEN_SIM_VALUE 0
+#define PIO_GYRO_A_EDGE_TYPE NONE
+#define PIO_GYRO_A_FREQ 50000000
+#define PIO_GYRO_A_HAS_IN 1
+#define PIO_GYRO_A_HAS_OUT 0
+#define PIO_GYRO_A_HAS_TRI 0
+#define PIO_GYRO_A_IRQ_TYPE NONE
+#define PIO_GYRO_A_RESET_VALUE 0
+
+/*
  * Macros for device 'pio_pwm', class 'altera_avalon_pio'
  * The macros are prefixed with 'PIO_PWM_'.
  * The prefix is the slave descriptor.
  */
 #define PIO_PWM_COMPONENT_TYPE altera_avalon_pio
 #define PIO_PWM_COMPONENT_NAME pio_pwm
-#define PIO_PWM_BASE 0x0
+#define PIO_PWM_BASE 0x40
 #define PIO_PWM_SPAN 16
-#define PIO_PWM_END 0xf
+#define PIO_PWM_END 0x4f
 #define PIO_PWM_BIT_CLEARING_EDGE_REGISTER 0
 #define PIO_PWM_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define PIO_PWM_CAPTURE 0
@@ -84,9 +180,9 @@
  */
 #define PIO_ACCEL_Z_COMPONENT_TYPE altera_avalon_pio
 #define PIO_ACCEL_Z_COMPONENT_NAME pio_accel_z
-#define PIO_ACCEL_Z_BASE 0x10
+#define PIO_ACCEL_Z_BASE 0x50
 #define PIO_ACCEL_Z_SPAN 16
-#define PIO_ACCEL_Z_END 0x1f
+#define PIO_ACCEL_Z_END 0x5f
 #define PIO_ACCEL_Z_BIT_CLEARING_EDGE_REGISTER 0
 #define PIO_ACCEL_Z_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define PIO_ACCEL_Z_CAPTURE 0
@@ -108,9 +204,9 @@
  */
 #define PIO_ACCEL_Y_COMPONENT_TYPE altera_avalon_pio
 #define PIO_ACCEL_Y_COMPONENT_NAME pio_accel_y
-#define PIO_ACCEL_Y_BASE 0x20
+#define PIO_ACCEL_Y_BASE 0x60
 #define PIO_ACCEL_Y_SPAN 16
-#define PIO_ACCEL_Y_END 0x2f
+#define PIO_ACCEL_Y_END 0x6f
 #define PIO_ACCEL_Y_BIT_CLEARING_EDGE_REGISTER 0
 #define PIO_ACCEL_Y_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define PIO_ACCEL_Y_CAPTURE 0
@@ -132,9 +228,9 @@
  */
 #define PIO_ACCEL_X_COMPONENT_TYPE altera_avalon_pio
 #define PIO_ACCEL_X_COMPONENT_NAME pio_accel_x
-#define PIO_ACCEL_X_BASE 0x30
+#define PIO_ACCEL_X_BASE 0x70
 #define PIO_ACCEL_X_SPAN 16
-#define PIO_ACCEL_X_END 0x3f
+#define PIO_ACCEL_X_END 0x7f
 #define PIO_ACCEL_X_BIT_CLEARING_EDGE_REGISTER 0
 #define PIO_ACCEL_X_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define PIO_ACCEL_X_CAPTURE 0
@@ -160,7 +256,7 @@
 #define SYSID_QSYS_SPAN 8
 #define SYSID_QSYS_END 0x10007
 #define SYSID_QSYS_ID 2899645186
-#define SYSID_QSYS_TIMESTAMP 1764473909
+#define SYSID_QSYS_TIMESTAMP 1764815293
 
 /*
  * Macros for device 'jtag_uart', class 'altera_avalon_jtag_uart'

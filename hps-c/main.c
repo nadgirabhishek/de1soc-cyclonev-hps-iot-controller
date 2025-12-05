@@ -73,9 +73,6 @@ void *http_server_thread(void *arg)
             int16_t temp_raw = g_temp;
 
             // --- TEMPERATURE CALIBRATION ---
-            // Calibrated based on observation: Raw -2000 approx equals 24C.
-            // We assume standard 1/128 scaling (0.0078 C/LSB).
-            // Offset calculation: Target_Raw (3072) - Current_Raw (-2000) = +5072
             float temp_c = (float)(temp_raw + 5072) / 128.0f; 
             float temp_f = (temp_c * 9.0f / 5.0f) + 32.0f;
 
@@ -83,7 +80,7 @@ void *http_server_thread(void *arg)
             char header[512];
 
             if (strstr(recv_buf, "GET /data")) {
-                // CSV: AX,AY,AZ,GX,GY,GZ,TEMP_C,TEMP_F,TEMP_RAW
+                // CSV Data API: AX,AY,AZ,GX,GY,GZ,TEMP_C,TEMP_F,RAW
                 snprintf(body, sizeof(body), "%d,%d,%d,%d,%d,%d,%.2f,%.2f,%d", 
                          ax, ay, az, gx, gy, gz, temp_c, temp_f, temp_raw);
                 
@@ -92,22 +89,22 @@ void *http_server_thread(void *arg)
                     (int)strlen(body));
             } 
             else {
-                // Serve the Game Page
+                // Serve the Game Page HTML/JS
                 snprintf(body, sizeof(body),
-                    "<html><head><title>Reactor Run (Gyro)</title>"
+                    "<html><head><title>Reactor Run (Sphere)</title>"
                     "<style>"
                     "body{font-family:'Courier New',monospace;text-align:center;background:#111;color:#0f0;overflow:hidden;}"
                     "#gameCanvas{background:#000;border:4px solid #333;margin-top:20px;box-shadow: 0 0 20px rgba(0,255,0,0.2);}"
                     "#hud{display:flex;justify-content:center;flex-wrap:wrap;width:900px;margin:10px auto;font-size:14px;color:#aaa;background:#222;padding:10px;border-radius:5px;}"
                     ".sensor-group{margin:0 20px;text-align:left;}"
                     ".bar-container{width:150px;height:20px;background:#333;border:1px solid #555;display:inline-block;vertical-align:middle;}"
-                    "#temp-bar{height:100%%;background:#ff0000;width:50%%;}"
+                    "#temp-bar{height:100%%;background:#ff0000;width:50%%;transition: width 0.2s, background-color 0.2s;}"
                     ".val{color:#fff;font-weight:bold;margin-left:5px;font-family:monospace;}"
                     "h3{margin:0 0 5px 0;color:#0f0;font-size:16px;border-bottom:1px solid #444;}"
                     "</style>"
                     "<script>"
                     "var car = {x: 50, y: 50, w: 20, h: 30, angle: 0, speed: 0};"
-                    "var temp_c = 0; var temp_f = 0; var temp_raw = 0;"
+                    "var temp_c = 0; var temp_raw = 0;"
                     "var ax=0, ay=0, az=0;"
                     "var gx=0, gy=0, gz=0;" 
                     "var maze = [" 
@@ -137,13 +134,14 @@ void *http_server_thread(void *arg)
                     "  x.onreadystatechange = function(){"
                     "    if(this.readyState==4 && this.status==200){"
                     "      var v = this.responseText.split(',');"
+                    
+                    // --- Parse ALL Sensors again ---
                     "      ax = parseInt(v[0]); ay = parseInt(v[1]); az = parseInt(v[2]);"
                     "      gx = parseInt(v[3]); gy = parseInt(v[4]); gz = parseInt(v[5]);"
                     "      temp_c = parseFloat(v[6]);"
-                    "      temp_f = parseFloat(v[7]);"
                     "      temp_raw = parseInt(v[8]);"
-                    
-                    // Update Dashboard
+                    "      "
+                    // --- Update Full Dashboard ---
                     "      document.getElementById('val-ax').innerText = ax;"
                     "      document.getElementById('val-ay').innerText = ay;"
                     "      document.getElementById('val-az').innerText = az;"
@@ -160,7 +158,7 @@ void *http_server_thread(void *arg)
                     "  if(gameOver) { requestAnimationFrame(draw); return; }"
                     "  ctx.clearRect(0, 0, canvas.width, canvas.height);"
 
-                    // --- PHYSICS (GYRO ONLY) ---
+                    // --- PHYSICS ---
                     "  var steer = gz;"
                     "  var gas = gx;"
                     "  if (Math.abs(steer) < 100) steer = 0;"
@@ -183,13 +181,13 @@ void *http_server_thread(void *arg)
                     "     car.x = nextX; car.y = nextY;"
                     "  }"
 
-                    // --- RENDER ---
+                    // --- RENDER MAZE ---
                     "  for(var r=0; r<10; r++) {"
                     "    for(var c=0; c<15; c++) {"
                     "      if(maze[r][c] == 1) {"
                     "        ctx.fillStyle = '#444';"
                     "        ctx.fillRect(c*TILE_SIZE, r*TILE_SIZE, TILE_SIZE, TILE_SIZE);"
-                    "        ctx.strokeStyle = '#555'; ctx.strokeRect(c*TILE_SIZE, r*TILE_SIZE, TILE_SIZE, TILE_SIZE);"
+                    "        ctx.strokeStyle = '#222'; ctx.strokeRect(c*TILE_SIZE, r*TILE_SIZE, TILE_SIZE, TILE_SIZE);"
                     "      } else if (maze[r][c] == 3) {"
                     "        ctx.fillStyle = '#00ff00';" 
                     "        ctx.fillRect(c*TILE_SIZE, r*TILE_SIZE, TILE_SIZE, TILE_SIZE);"
@@ -201,35 +199,52 @@ void *http_server_thread(void *arg)
                     "  ctx.translate(car.x, car.y);"
                     "  ctx.rotate(car.angle);"
                     
-                    // Temp bar (0-100)
-                    "  var heat = (temp_c + 20) * 2;" 
+                    // --- DRAW 3D SPHERE ---
+                    "  var grad = ctx.createRadialGradient(4, -4, 1, 0, 0, 12);"
+                    "  grad.addColorStop(0, '#ffffff');"      
+                    "  grad.addColorStop(0.3, '#00ccff');"  
+                    "  grad.addColorStop(1, '#004466');"    
+                    
+                    "  ctx.fillStyle = grad;"
+                    "  ctx.beginPath();"
+                    "  ctx.arc(0, 0, 12, 0, Math.PI * 2);" 
+                    "  ctx.fill();"
+
+                    "  ctx.strokeStyle = 'rgba(255,255,255,0.5)';"
+                    "  ctx.lineWidth = 2;"
+                    "  ctx.beginPath();"
+                    "  ctx.moveTo(0, 0);"
+                    "  ctx.lineTo(11, 0);" 
+                    "  ctx.stroke();"
+                    
+                    "  ctx.restore();"
+
+                    // --- Temp bar scaling (0C to 60C) ---
+                    "  var heat = (temp_c / 60.0) * 100.0;"
                     "  if (heat > 100) heat = 100; if(heat < 0) heat = 0;"
+                    
                     "  var r = Math.floor((heat/100)*255);"
                     "  var b = 255 - r;"
                     
-                    "  ctx.fillStyle = 'rgb('+r+',0,'+b+')';"
-                    "  ctx.beginPath();"
-                    "  ctx.moveTo(10, 0);"
-                    "  ctx.lineTo(-10, 7);"
-                    "  ctx.lineTo(-10, -7);"
-                    "  ctx.closePath();"
-                    "  ctx.fill();"
-                    "  ctx.restore();"
+                    "  var barElem = document.getElementById('temp-bar');"
+                    "  barElem.style.width = heat + '%';"
+                    "  barElem.style.backgroundColor = 'rgb('+r+',0,'+b+')';"
 
-                    "  document.getElementById('temp-bar').style.width = heat + '%';"
                     "  requestAnimationFrame(draw);"
                     "}"
                     "</script>"
                     "</head><body onload='init()'>"
                     "<h1>IoT Gateway</h1>"
-                    "<div id='status'>Drive to the Green Zone!</div>"
+                    "<div id='status'>Drive the Sphere to the Green Zone!</div>"
                     
                     "<div id='hud'>"
+                    // --- RESTORED ACCEL SECTION ---
                     "  <div class='sensor-group'><h3>ACCEL</h3>"
                     "    <div>X:<span id='val-ax' class='val'>0</span></div>"
                     "    <div>Y:<span id='val-ay' class='val'>0</span></div>"
                     "    <div>Z:<span id='val-az' class='val'>0</span></div>"
                     "  </div>"
+                    // --- RESTORED GYRO SECTION ---
                     "  <div class='sensor-group'><h3>GYRO</h3>"
                     "    <div>X:<span id='val-gx' class='val'>0</span></div>"
                     "    <div>Y:<span id='val-gy' class='val'>0</span></div>"
@@ -237,12 +252,11 @@ void *http_server_thread(void *arg)
                     "  </div>"
                     "  <div class='sensor-group'><h3>ENV</h3>"
                     "    <div>TEMP:<span id='val-temp' class='val'>0</span></div>"
-                    "    <div>HEAT: <div class='bar-container'><div id='temp-bar'></div></div></div>"
+                    "    <div>HEAT (0-60C): <div class='bar-container'><div id='temp-bar'></div></div></div>"
                     "  </div>"
                     "</div>"
                     
                     "<canvas id='gameCanvas' width='600' height='400'></canvas>"
-                    "<div class='stats'>Controls: SPIN (GZ) to Steer | TILT (GX) to Thrust</div>"
                     "</body></html>"
                 );
 
@@ -273,24 +287,23 @@ int main(void)
     virtual_base = mmap(NULL, HW_REGS_SPAN, (PROT_READ | PROT_WRITE), MAP_SHARED, fd, HW_REGS_BASE);
     if (virtual_base == MAP_FAILED) return 1;
 
-    // MAP ACCELEROMETER (Reads enabled for display)
+    // MAP SENSORS
     accel_x_ptr = virtual_base + ((unsigned long)(ALT_LWFPGASLVS_OFST + PIO_ACCEL_X_BASE) & (unsigned long)(HW_REGS_MASK));
     accel_y_ptr = virtual_base + ((unsigned long)(ALT_LWFPGASLVS_OFST + PIO_ACCEL_Y_BASE) & (unsigned long)(HW_REGS_MASK));
     accel_z_ptr = virtual_base + ((unsigned long)(ALT_LWFPGASLVS_OFST + PIO_ACCEL_Z_BASE) & (unsigned long)(HW_REGS_MASK));
 
-    // MAP GYROSCOPE
     gyro_x_ptr = virtual_base + ((unsigned long)(ALT_LWFPGASLVS_OFST + PIO_GYRO_A_BASE) & (unsigned long)(HW_REGS_MASK));
     gyro_y_ptr = virtual_base + ((unsigned long)(ALT_LWFPGASLVS_OFST + PIO_GYRO_B_BASE) & (unsigned long)(HW_REGS_MASK));
     gyro_z_ptr = virtual_base + ((unsigned long)(ALT_LWFPGASLVS_OFST + PIO_GYRO_C_BASE) & (unsigned long)(HW_REGS_MASK));
 
-    // MAP TEMPERATURE
     temp_ptr = virtual_base + ((unsigned long)(ALT_LWFPGASLVS_OFST + PIO_TEMP_BASE) & (unsigned long)(HW_REGS_MASK));
 
     pthread_t http_thread;
     if (pthread_create(&http_thread, NULL, http_server_thread, NULL) == 0)
         pthread_detach(http_thread);
 
-    printf("Reactor Run (Gyro Version) Started.\n");
+    printf("Reactor Run (Sphere Version - Full HUD) Started.\n");
+    printf("REMEMBER TO HARD REFRESH YOUR BROWSER (Ctrl+F5)\n");
 
     while (1) {
         // Read All Sensors
