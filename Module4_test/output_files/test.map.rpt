@@ -1,5 +1,5 @@
 Analysis & Synthesis report for test
-Wed Dec 03 18:54:47 2025
+Sun Nov 30 12:44:45 2025
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -48,7 +48,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Wed Dec 03 18:54:47 2025       ;
+; Analysis & Synthesis Status     ; Successful - Sun Nov 30 12:44:45 2025       ;
 ; Quartus Prime Version           ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                   ; test                                        ;
 ; Top-level Entity Name           ; testtop                                     ;
@@ -160,27 +160,27 @@ refer to the applicable agreement for further details.
 +----------------------------+-------------+
 ; Processors                 ; Number      ;
 +----------------------------+-------------+
-; Number detected on machine ; 12          ;
-; Maximum allowed            ; 10          ;
+; Number detected on machine ; 32          ;
+; Maximum allowed            ; 16          ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
-; Maximum used               ; 10          ;
+; Maximum used               ; 16          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
 ;     Processor 2            ;   0.0%      ;
-;     Processors 3-10        ;   0.0%      ;
+;     Processors 3-16        ;   0.0%      ;
 +----------------------------+-------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                               ;
-+----------------------------------+-----------------+------------------------+----------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path                 ; Library ;
-+----------------------------------+-----------------+------------------------+----------------------------------------------+---------+
-; testtop.v                        ; yes             ; User Verilog HDL File  ; C:/AlteraPrj/Project3/Module4_test/testtop.v ;         ;
-; test.v                           ; yes             ; User Verilog HDL File  ; C:/AlteraPrj/Project3/Module4_test/test.v    ;         ;
-+----------------------------------+-----------------+------------------------+----------------------------------------------+---------+
++-----------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                        ;
++----------------------------------+-----------------+------------------------+-------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path                          ; Library ;
++----------------------------------+-----------------+------------------------+-------------------------------------------------------+---------+
+; testtop.v                        ; yes             ; User Verilog HDL File  ; C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v ;         ;
+; test.v                           ; yes             ; User Verilog HDL File  ; C:/AlteraPrj/my_first_hps-fpga/Module4_test/test.v    ;         ;
++----------------------------------+-----------------+------------------------+-------------------------------------------------------+---------+
 
 
 +--------------------------------------------------------------+
@@ -190,12 +190,12 @@ refer to the applicable agreement for further details.
 +---------------------------------------------+----------------+
 ; Estimate of Logic utilization (ALMs needed) ; 208            ;
 ;                                             ;                ;
-; Combinational ALUT usage for logic          ; 220            ;
-;     -- 7 input functions                    ; 18             ;
-;     -- 6 input functions                    ; 56             ;
-;     -- 5 input functions                    ; 32             ;
-;     -- 4 input functions                    ; 47             ;
-;     -- <=3 input functions                  ; 67             ;
+; Combinational ALUT usage for logic          ; 176            ;
+;     -- 7 input functions                    ; 1              ;
+;     -- 6 input functions                    ; 36             ;
+;     -- 5 input functions                    ; 48             ;
+;     -- 4 input functions                    ; 43             ;
+;     -- <=3 input functions                  ; 48             ;
 ;                                             ;                ;
 ; Dedicated logic registers                   ; 295            ;
 ;                                             ;                ;
@@ -204,9 +204,9 @@ refer to the applicable agreement for further details.
 ; Total DSP Blocks                            ; 0              ;
 ;                                             ;                ;
 ; Maximum fan-out node                        ; CLOCK_50~input ;
-; Maximum fan-out                             ; 295            ;
-; Total fan-out                               ; 2134           ;
-; Average fan-out                             ; 3.37           ;
+; Maximum fan-out                             ; 165            ;
+; Total fan-out                               ; 1442           ;
+; Average fan-out                             ; 3.13           ;
 +---------------------------------------------+----------------+
 
 
@@ -301,8 +301,8 @@ Encoding Type:  One-Hot
 +------------------------------------------+---------+
 ; mpu6050_controller:my_accel|i2c_scl      ; 4       ;
 ; mpu6050_controller:my_accel|config_write ; 8       ;
-; mpu6050_controller:my_accel|sda_out      ; 7       ;
-; mpu6050_controller:my_accel|sda_en       ; 6       ;
+; mpu6050_controller:my_accel|sda_out      ; 6       ;
+; mpu6050_controller:my_accel|sda_en       ; 7       ;
 ; Total number of inverted registers = 4   ;         ;
 +------------------------------------------+---------+
 
@@ -349,15 +349,16 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; arriav_lcell_comb     ; 230                         ;
 ;     arith             ; 29                          ;
 ;         1 data inputs ; 29                          ;
-;     extend            ; 18                          ;
-;         7 data inputs ; 18                          ;
-;     normal            ; 183                         ;
-;         1 data inputs ; 10                          ;
-;         2 data inputs ; 19                          ;
-;         3 data inputs ; 19                          ;
-;         4 data inputs ; 47                          ;
-;         5 data inputs ; 32                          ;
-;         6 data inputs ; 56                          ;
+;     extend            ; 1                           ;
+;         7 data inputs ; 1                           ;
+;     normal            ; 152                         ;
+;         0 data inputs ; 1                           ;
+;         1 data inputs ; 5                           ;
+;         2 data inputs ; 9                           ;
+;         3 data inputs ; 10                          ;
+;         4 data inputs ; 43                          ;
+;         5 data inputs ; 48                          ;
+;         6 data inputs ; 36                          ;
 ; boundary_port         ; 59                          ;
 ;                       ;                             ;
 ; Max LUT depth         ; 5.00                        ;
@@ -380,51 +381,67 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Wed Dec 03 18:54:37 2025
+    Info: Processing started: Sun Nov 30 12:44:35 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off test -c test
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
-Info (20030): Parallel compilation is enabled and will use 10 of the 10 processors detected
+Info (20030): Parallel compilation is enabled and will use 16 of the 24 processors detected
 Info (12021): Found 2 design units, including 2 entities, in source file testtop.v
-    Info (12023): Found entity 1: testtop File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 1
-    Info (12023): Found entity 2: seven_seg_decoder File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 112
+    Info (12023): Found entity 1: testtop File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 1
+    Info (12023): Found entity 2: seven_seg_decoder File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 65
 Info (12021): Found 1 design units, including 1 entities, in source file test.v
-    Info (12023): Found entity 1: mpu6050_controller File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 1
+    Info (12023): Found entity 1: mpu6050_controller File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/test.v Line: 1
 Info (12127): Elaborating entity "testtop" for the top level hierarchy
-Info (12128): Elaborating entity "mpu6050_controller" for hierarchy "mpu6050_controller:my_accel" File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 39
-Warning (10230): Verilog HDL assignment warning at test.v(63): truncated value with size 32 to match size of target (9) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 63
-Warning (10230): Verilog HDL assignment warning at test.v(112): truncated value with size 32 to match size of target (20) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 112
-Warning (10230): Verilog HDL assignment warning at test.v(148): truncated value with size 32 to match size of target (4) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 148
-Warning (10230): Verilog HDL assignment warning at test.v(165): truncated value with size 32 to match size of target (4) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 165
-Warning (10230): Verilog HDL assignment warning at test.v(181): truncated value with size 32 to match size of target (4) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 181
-Warning (10230): Verilog HDL assignment warning at test.v(240): truncated value with size 32 to match size of target (20) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 240
-Warning (10230): Verilog HDL assignment warning at test.v(273): truncated value with size 32 to match size of target (4) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 273
-Warning (10230): Verilog HDL assignment warning at test.v(292): truncated value with size 32 to match size of target (4) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 292
-Warning (10230): Verilog HDL assignment warning at test.v(306): truncated value with size 32 to match size of target (4) File: C:/AlteraPrj/Project3/Module4_test/test.v Line: 306
-Info (12128): Elaborating entity "seven_seg_decoder" for hierarchy "seven_seg_decoder:u0" File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 99
+Info (12128): Elaborating entity "mpu6050_controller" for hierarchy "mpu6050_controller:my_accel" File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 35
+Warning (10230): Verilog HDL assignment warning at test.v(73): truncated value with size 32 to match size of target (9) File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/test.v Line: 73
+Warning (10230): Verilog HDL assignment warning at test.v(120): truncated value with size 32 to match size of target (20) File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/test.v Line: 120
+Warning (10230): Verilog HDL assignment warning at test.v(158): truncated value with size 32 to match size of target (3) File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/test.v Line: 158
+Warning (10230): Verilog HDL assignment warning at test.v(175): truncated value with size 32 to match size of target (3) File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/test.v Line: 175
+Warning (10230): Verilog HDL assignment warning at test.v(191): truncated value with size 32 to match size of target (3) File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/test.v Line: 191
+Warning (10230): Verilog HDL assignment warning at test.v(240): truncated value with size 32 to match size of target (20) File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/test.v Line: 240
+Warning (10230): Verilog HDL assignment warning at test.v(274): truncated value with size 32 to match size of target (3) File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/test.v Line: 274
+Warning (10230): Verilog HDL assignment warning at test.v(293): truncated value with size 32 to match size of target (3) File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/test.v Line: 293
+Warning (10230): Verilog HDL assignment warning at test.v(306): truncated value with size 32 to match size of target (3) File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/test.v Line: 306
+Info (12128): Elaborating entity "seven_seg_decoder" for hierarchy "seven_seg_decoder:u0" File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 49
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "HEX4[0]" is stuck at VCC File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 9
+    Warning (13410): Pin "HEX4[1]" is stuck at VCC File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 9
+    Warning (13410): Pin "HEX4[2]" is stuck at VCC File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 9
+    Warning (13410): Pin "HEX4[3]" is stuck at VCC File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 9
+    Warning (13410): Pin "HEX4[4]" is stuck at VCC File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 9
+    Warning (13410): Pin "HEX4[5]" is stuck at VCC File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 9
+    Warning (13410): Pin "HEX4[6]" is stuck at VCC File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 9
+    Warning (13410): Pin "HEX5[0]" is stuck at VCC File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 10
+    Warning (13410): Pin "HEX5[1]" is stuck at VCC File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 10
+    Warning (13410): Pin "HEX5[2]" is stuck at VCC File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 10
+    Warning (13410): Pin "HEX5[3]" is stuck at VCC File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 10
+    Warning (13410): Pin "HEX5[4]" is stuck at VCC File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 10
+    Warning (13410): Pin "HEX5[5]" is stuck at VCC File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 10
+    Warning (13410): Pin "HEX5[6]" is stuck at VCC File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 10
 Info (286030): Timing-Driven Synthesis is running
 Info (17049): 9 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 10 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "KEY[1]" File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 3
-    Warning (15610): No output dependent on input pin "KEY[2]" File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 3
-    Warning (15610): No output dependent on input pin "KEY[3]" File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 3
-    Warning (15610): No output dependent on input pin "SW[3]" File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 4
-    Warning (15610): No output dependent on input pin "SW[4]" File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 4
-    Warning (15610): No output dependent on input pin "SW[5]" File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 4
-    Warning (15610): No output dependent on input pin "SW[6]" File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 4
-    Warning (15610): No output dependent on input pin "SW[7]" File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 4
-    Warning (15610): No output dependent on input pin "SW[8]" File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 4
-    Warning (15610): No output dependent on input pin "SW[9]" File: C:/AlteraPrj/Project3/Module4_test/testtop.v Line: 4
-Info (21057): Implemented 506 device resources after synthesis - the final resource count might be different
+Warning (21074): Design contains 11 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "KEY[1]" File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 3
+    Warning (15610): No output dependent on input pin "KEY[2]" File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 3
+    Warning (15610): No output dependent on input pin "KEY[3]" File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 3
+    Warning (15610): No output dependent on input pin "SW[2]" File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 4
+    Warning (15610): No output dependent on input pin "SW[3]" File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 4
+    Warning (15610): No output dependent on input pin "SW[4]" File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 4
+    Warning (15610): No output dependent on input pin "SW[5]" File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 4
+    Warning (15610): No output dependent on input pin "SW[6]" File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 4
+    Warning (15610): No output dependent on input pin "SW[7]" File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 4
+    Warning (15610): No output dependent on input pin "SW[8]" File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 4
+    Warning (15610): No output dependent on input pin "SW[9]" File: C:/AlteraPrj/my_first_hps-fpga/Module4_test/testtop.v Line: 4
+Info (21057): Implemented 334 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 15 input pins
     Info (21059): Implemented 43 output pins
     Info (21060): Implemented 1 bidirectional pins
-    Info (21061): Implemented 447 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 21 warnings
-    Info: Peak virtual memory: 4894 megabytes
-    Info: Processing ended: Wed Dec 03 18:54:47 2025
+    Info (21061): Implemented 275 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 37 warnings
+    Info: Peak virtual memory: 4958 megabytes
+    Info: Processing ended: Sun Nov 30 12:44:45 2025
     Info: Elapsed time: 00:00:10
-    Info: Total CPU time (on all processors): 00:00:18
+    Info: Total CPU time (on all processors): 00:00:19
 
 
